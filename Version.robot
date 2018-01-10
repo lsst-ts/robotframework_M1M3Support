@@ -14,6 +14,7 @@ Verify SAL Version
     [Documentation]    Connect to the SAL host.
     [Tags]    smoke
     Comment    Connect to host.
+	Log Many    host=${Host}    timeout=${timeout}    prompt=${Prompt}    username=${UserName}    keyfile=${KeyFile}
     Open Connection    host=${Host}    alias=VER    timeout=${timeout}    prompt=${Prompt}
     Comment    Login.
     Log    ${ContInt}
