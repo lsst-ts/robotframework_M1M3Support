@@ -1,0 +1,5 @@
+ospl-error.log
+ospl-info.log
+*.pyc
+*.swp
+__pycache__/
