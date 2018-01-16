@@ -391,12 +391,6 @@ From Enabled-ParkedEnginering Issue EnterEngineering Command
     Comment    Verify system rejects the command.
     Verify No Summary State Event
 
-From Enabled-ParkedEnginering Issue Raise Command
-    [Tags]    functional
-    Issue Raise Command
-    Comment    Verify system rejects the command.
-    Verify No Summary State Event
-
 From Enabled-ParkedEnginering Issue Lower Command
     [Tags]    functional
     Issue Lower Command
@@ -495,9 +489,9 @@ From Enabled-ActiveEngineering Issue Start Command
     Comment    Verify system rejects the command.
     Verify No Summary State Event
 
-From Enabled-ActiveEngineering Issue ExitEngineering Command
+From Enabled-ActiveEngineering Issue EnterEngineering Command
     [Tags]    functional
-    Issue ExitEngineering Command
+    Issue EnterEngineering Command
     Comment    Verify system rejects the command.
     Verify No Summary State Event
 
