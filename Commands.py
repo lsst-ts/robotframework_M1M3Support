@@ -11,6 +11,7 @@ class Commands:
 		self._SALM1M3.setDebugLevel(0)
 		self._SALM1M3.salTelemetrySub("m1m3_logevent_SummaryState")
 		self._SALM1M3.salTelemetrySub("m1m3_logevent_DetailedState")
+		self._SALM1M3.salTelemetrySub("m1m3_logevent_SettingsApplied")
 		self._SALM1M3.salCommand("m1m3_command_Start")
 		self._SALM1M3.salCommand("m1m3_command_Standby")
 		self._SALM1M3.salCommand("m1m3_command_Enable")
@@ -97,6 +98,11 @@ class Commands:
 		data = m1m3_logevent_DetailedStateC()	
 		retVal = self._SALM1M3.getEvent_DetailedState(data)
 		return retVal==0, data.DetailedState
+
+	def getEventSettingsApplied(self):
+		data = m1m3_logevent_SettingsAppliedC()
+		retVal = m1m3_logevent_SettingsApplied(data)
+		return retVal==0, data.Settings
 
 	def waitForNextSummaryState(self, wait=300):
 		timeout = time.time() + float(wait)
