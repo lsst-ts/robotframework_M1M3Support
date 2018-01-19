@@ -3,7 +3,7 @@ Documentation    Test invalid M1M3 State transitions.
 Force Tags    
 Suite Setup
 Library    String
-Library    Commands
+Library    SALM1M3
 Resource    common.robot
 Resource    Global_Vars.robot
 

@@ -5,7 +5,7 @@ Suite Setup    Log Many    host=${Host}    CSC=${subSystem}    timeout=${timeout
 #...    AND    Create Session    Commander    AND    Create Session    Controller
 #Suite Teardown    Close All Connections
 Library    String
-Library    Commands
+Library    SALM1M3
 Resource    common.robot
 Resource    Global_Vars.robot
 

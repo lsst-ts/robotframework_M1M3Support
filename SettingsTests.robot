@@ -4,7 +4,8 @@ Force Tags
 Suite Setup    Log Many    host=${Host}    CSC=${subSystem}    timeout=${timeout}
 #Suite Teardown    Close All Connections
 Library    String
-Library    Commands
+Library    SALM1M3
+Resource    common.robot
 Resource    Global_Vars.robot
 
 *** Variables ***
@@ -25,9 +26,9 @@ Start Command
 
 Get Settings Applied Event
     [Tags]    functional
-	Comment    Verify the SettingsApplied event.
-	${valid}    ${data}=    Get Event Settings Applied
-	Log    ${valid}
+    Comment    Verify the SettingsApplied event.
+    ${valid}    ${data}=    Get Event Settings Applied
+    Log    ${valid}
     Log    ${data}
     Should Be True    ${valid}
     Should Be Equal    ${data}    "Default"
