@@ -4,6 +4,7 @@ Force Tags
 Suite Setup
 Library    String
 Library    Commands
+Resource    common.robot
 Resource    Global_Vars.robot
 
 *** Test Cases ***
@@ -650,9 +651,3 @@ Verify No Summary State Event
     Comment    Commands are rejected silently, therefore Summary State Event is not published.
     ${valid}    ${data}=    Get Event Summary State
     Should Not Be True    ${valid}
-
-Verify Summary State Event Enabled
-    Comment    Every sub-State transition triggers a Summary State Event for the Enabled State.
-    ${valid}    ${data}=    Get Event Summary State
-    Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    3

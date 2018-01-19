@@ -6,6 +6,7 @@ Suite Setup    Log Many    host=${Host}    CSC=${subSystem}    timeout=${timeout
 #Suite Teardown    Close All Connections
 Library    String
 Library    Commands
+Resource    common.robot
 Resource    Global_Vars.robot
 
 *** Variables ***
@@ -340,10 +341,3 @@ Verify System Standby Detailed State
     Log    ${data}
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    1
-
-*** Keywords ***
-Verify Summary State Event Enabled
-    Comment    Every sub-State transition triggers a Summary State Event for the Enabled State.
-    ${valid}    ${data}=    Get Event Summary State
-    Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    3
