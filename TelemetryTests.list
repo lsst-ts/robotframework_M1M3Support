@@ -1,0 +1,6 @@
+###  Test Suite list ###
+#  Change the title of the test results
+--output TelemetryTests
+
+# List of test suites
+InclinometerData.robot
