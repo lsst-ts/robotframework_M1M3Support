@@ -1,0 +1,12 @@
+###  Test Suite list ###
+#  Change the title of the test results
+--name M1M3Tests
+--output M1M3_Tests
+
+# List of test suites
+# State Command tests.
+StateCommands.robot
+InvalidStateCommands.robot
+
+# Telemetry tests.
+InclinometerData.robot
