@@ -2,17 +2,17 @@ import sys
 import time
 from SALPY_m1m3 import *
 
-class Commands:
+class M1M3_SAL:
 	ROBOT_LIBRARY_SCOPE = 'GLOBAL'
 
 	def __init__(self):
-		sys.__stdout__.write("Initializing SAL...")
+		#sys.__stdout__.write("Initializing SAL...")
 		self._SALM1M3 = SAL_m1m3()
 		self._SALM1M3.setDebugLevel(0)
-		self._SALM1M3.salTelemetrySub("m1m3_logevent_SummaryState")
-		self._SALM1M3.salTelemetrySub("m1m3_logevent_DetailedState")
-		self._SALM1M3.salTelemetrySub("m1m3_logevent_SettingsApplied")
-		sys.__stdout__.write("33%...")
+		self._SALM1M3.salEvent("m1m3_logevent_SummaryState")
+		self._SALM1M3.salEvent("m1m3_logevent_DetailedState")
+		self._SALM1M3.salEvent("m1m3_logevent_SettingsApplied")
+		#sys.__stdout__.write("33%...")
 		self._SALM1M3.salCommand("m1m3_command_Start")
 		self._SALM1M3.salCommand("m1m3_command_Standby")
 		self._SALM1M3.salCommand("m1m3_command_Enable")
@@ -22,9 +22,9 @@ class Commands:
 		self._SALM1M3.salCommand("m1m3_command_LowerM1M3")
 		self._SALM1M3.salCommand("m1m3_command_EnterEngineering")
 		self._SALM1M3.salCommand("m1m3_command_ExitEngineering")
-		sys.__stdout__.write("67%...")
+		#sys.__stdout__.write("67%...")
 		self._SALM1M3.salTelemetrySub("m1m3_InclinometerData")
-		sys.__stdout__.write("100%\n")
+		#sys.__stdout__.write("100%\n")
 
 	def _afterCommand(self):
 		time.sleep(1)
