@@ -253,11 +253,11 @@ Get Inclinometer Telemetry - Standby
     Comment    Verify system does NOT publish Inclinometer Telemetry.
     ${valid}    ${timestamp}    ${data}=    Get Sample Inclinometer Data
     Should Not Be True    ${valid}
-    Should Be True    ${timestamp} = ${0.0}
+    Should Be True    ${timestamp} == ${0.0}
     Comment    Get another reading to be sure no data is published.
     ${valid}    ${timestamp}    ${data}=    Get Sample Inclinometer Data
     Should Not Be True    ${valid}
-    Should Be True    ${timestamp} = ${0.0}
+    Should Be True    ${timestamp} == ${0.0}
 
 *** Keywords ***
 Verify Inclinometer Telemetry
