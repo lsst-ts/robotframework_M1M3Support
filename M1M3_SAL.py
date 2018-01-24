@@ -24,6 +24,7 @@ class M1M3_SAL:
 		self._SALM1M3.salCommand("m1m3_command_ExitEngineering")
 		#sys.__stdout__.write("67%...")
 		self._SALM1M3.salTelemetrySub("m1m3_InclinometerData")
+		self._SALM1M3.salTelemetrySub("m1m3_IMSData")
 		#sys.__stdout__.write("100%\n")
 
 	def _afterCommand(self):
@@ -42,6 +43,12 @@ class M1M3_SAL:
 		data = m1m3_InclinometerDataC()
 		retVal = self._SALM1M3.getNextSample_InclinometerData(data)
 		return retVal == 0, data.Timestamp, data.InclinometerAngle
+
+	def getSampleIMSData(self):
+		data = m1m3_IMSDataC()
+		retVal = self._SALM1M3.getSample_IMSData(data)
+		return retVal == 0, data
+		#return retVal == 0, data.Timestamp, data.RawSensorData
 
 	def issueStartCommand(self):
 		data = m1m3_command_StartC()

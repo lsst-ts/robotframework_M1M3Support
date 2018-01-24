@@ -10,3 +10,4 @@ InvalidStateCommands.robot
 
 # Telemetry tests.
 InclinometerData.robot
+IMS_Telemetry_Tests.robot
