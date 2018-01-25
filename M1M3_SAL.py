@@ -6,13 +6,14 @@ class M1M3_SAL:
 	ROBOT_LIBRARY_SCOPE = 'GLOBAL'
 
 	def __init__(self):
-		#sys.__stdout__.write("Initializing SAL...")
 		self._SALM1M3 = SAL_m1m3()
 		self._SALM1M3.setDebugLevel(0)
+		## SAL Events
 		self._SALM1M3.salEvent("m1m3_logevent_SummaryState")
 		self._SALM1M3.salEvent("m1m3_logevent_DetailedState")
 		self._SALM1M3.salEvent("m1m3_logevent_SettingsApplied")
-		#sys.__stdout__.write("33%...")
+		self._SALM1M3.salEvent("m1m3_logevent_HardpointMonitorInfo")
+		## SAL Commands
 		self._SALM1M3.salCommand("m1m3_command_Start")
 		self._SALM1M3.salCommand("m1m3_command_Standby")
 		self._SALM1M3.salCommand("m1m3_command_Enable")
@@ -22,10 +23,11 @@ class M1M3_SAL:
 		self._SALM1M3.salCommand("m1m3_command_LowerM1M3")
 		self._SALM1M3.salCommand("m1m3_command_EnterEngineering")
 		self._SALM1M3.salCommand("m1m3_command_ExitEngineering")
-		#sys.__stdout__.write("67%...")
+		## SAL Telemetry
 		self._SALM1M3.salTelemetrySub("m1m3_InclinometerData")
 		self._SALM1M3.salTelemetrySub("m1m3_IMSData")
-		#sys.__stdout__.write("100%\n")
+		self._SALM1M3.salTelemetrySub("m1m3_HardpointMonitorStatus")
+		self._SALM1M3.salTelemetrySub("m1m3_HardpointData")
 
 	def _afterCommand(self):
 		time.sleep(1)
@@ -33,6 +35,8 @@ class M1M3_SAL:
 	def getCurrentTime(self):
 		data = self._SALM1M3.getCurrentTime()
 		return data
+
+	######## M1M3 Telemetry ########
 
 	def getSampleInclinometerData(self):
 		data = m1m3_InclinometerDataC()
@@ -48,7 +52,18 @@ class M1M3_SAL:
 		data = m1m3_IMSDataC()
 		retVal = self._SALM1M3.getSample_IMSData(data)
 		return retVal == 0, data
-		#return retVal == 0, data.Timestamp, data.RawSensorData
+
+	def getSampleHardpointData(self):
+		data = m1m3_HardpointDataC()
+		retVal = self._SALM1M3.getSample_HardpointData(data)
+		return retVal == 0, data
+
+	def getSampleHardpointMonitorStatus(self):
+		data = m1m3_HardpointMonitorStatusC()
+		retVal = self._SALM1M3.getSample_HardpointMonitorStatus(data)
+		return retVal == 0, data
+
+	######## M1M3 Commands ########
 
 	def issueStartCommand(self):
 		data = m1m3_command_StartC()
@@ -114,6 +129,8 @@ class M1M3_SAL:
 		self._SALM1M3.waitForCompletion_Standby(cmdId, 10)
 		self._afterCommand()
 
+	######## M1M3 Events ########
+
 	def getEventSummaryState(self):
 		data = m1m3_logevent_SummaryStateC()
 		retVal = self._SALM1M3.getEvent_SummaryState(data)
@@ -126,8 +143,15 @@ class M1M3_SAL:
 
 	def getEventSettingsApplied(self):
 		data = m1m3_logevent_SettingsAppliedC()
-		retVal = m1m3_logevent_SettingsApplied(data)
+		retVal = self._SALM1M3.getEvent_SettingsApplied(data)
 		return retVal==0, data.Settings
+
+	def getEventHardpointMonitorInfo(self):
+		data = m1m3_logevent_HardpointMonitorInfoC()
+		retVal = self._SALM1M3.getEvent_HardpointMonitorInfo(data)
+		return retVal==0, data
+
+	######## Utility Functions ########
 
 	def waitForNextSummaryState(self, wait=300):
 		timeout = time.time() + float(wait)
