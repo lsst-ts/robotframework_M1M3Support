@@ -4,6 +4,8 @@
 --output M1M3_Tests
 
 # List of test suites
+Version.robot
+
 # State Command tests.
 StateCommands.robot
 InvalidStateCommands.robot
