@@ -20,15 +20,11 @@ Get to Disabled State
     Comment    Issue Start Command.
     Issue Start Command
     Comment    Verify system enters Disabled Detailed State.
-    ${valid}    ${data}=    Get Event Detailed State
-    Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${2}
+    Verify Detailed State Event    ${2}
 
 Verify Summary State Disabled Event
     Comment    Verify system enters Disabled Summary State.
-    ${valid}    ${data}=    Get Event Summary State
-    Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${2}
+    Verify Summary State Event    ${2}
 
 Get IMS Telemetry - Initial
     [Tags]    functional
@@ -83,10 +79,8 @@ Get to Enabled-Parked State
     Comment    Issue Enable Command.
     Issue Enable Command
     Comment    Verify system enters Parked Detailed State.
-    ${valid}    ${data}=    Get Event Detailed State
-    Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${5}
-    Verify Summary State Event Enabled
+    Verify Detailed State Event    ${5}
+    Verify Summary State Event    ${3}
 
 Verify Displacement Sensors - Parked
     [Tags]    functional
@@ -135,10 +129,8 @@ Get to Enabled-Raising State
     Comment    Issue Raise M1M3 Command
     Issue Raise Command
     Comment    Verify system enters Raising State.
-    ${valid}    ${data}=    Get Event Detailed State
-    Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${6}
-    Verify Summary State Event Enabled
+    Verify Detailed State Event    ${6}
+    Verify Summary State Event    ${3}
 
 Verify Displacement Sensors - Raising
     [Tags]    functional
@@ -190,7 +182,7 @@ Wait Until Raise Completes
     Log    ${data}
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    ${7}
-    Verify Summary State Event Enabled
+    Verify Summary State Event    ${3}
 
 Verify Displacement Sensors - Active
     [Tags]    functional
@@ -239,10 +231,8 @@ Get to Enabled-Lowering State
     Comment    Issue Lower M1M3 Command
     Issue Lower Command
     Comment    Verify system enters Raising State.
-    ${valid}    ${data}=    Get Event Detailed State
-    Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${8}
-    Verify Summary State Event Enabled
+    Verify Detailed State Event    ${8}
+    Verify Summary State Event    ${3}
 
 Verify Displacement Sensors - Lowering
     [Tags]    functional
@@ -294,17 +284,15 @@ Wait Until Lower Completes
     Log    ${data}
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    ${5}
-    Verify Summary State Event Enabled
+    Verify Summary State Event    ${3}
 
 Get to ParkedEngineering State
     [Tags]    functional
     Comment    Issue EnterEngineering Command.
     Issue EnterEngineering Command
     Comment    Verify system enters ParkedEngineering Detailed State.
-    ${valid}    ${data}=    Get Event Detailed State
-    Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${10}
-    Verify Summary State Event Enabled
+    Verify Detailed State Event    ${10}
+    Verify Summary State Event    ${3}
 
 Verify Displacement Sensors - ParkedEngineering
     [Tags]    functional
@@ -353,10 +341,8 @@ Get to Enabled-RaisingEngineering State
     Comment    Issue Raise M1M3 Command
     Issue Raise Command
     Comment    Verify system enters RaisingEngineering State.
-    ${valid}    ${data}=    Get Event Detailed State
-    Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${11}
-    Verify Summary State Event Enabled
+    Verify Detailed State Event    ${11}
+    Verify Summary State Event    ${3}
 
 Verify Displacement Sensors - RaisingEngineering
     [Tags]    functional
@@ -408,7 +394,7 @@ Wait Until Engineering Raise Completes
     Log    ${data}
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    ${12}
-    Verify Summary State Event Enabled
+    Verify Summary State Event    ${3}
 
 Verify Displacement Sensors - ActiveEngineering
     [Tags]    functional
@@ -457,10 +443,8 @@ Get to Enabled-LoweringEngineering State
     Comment    Issue Lower M1M3 Command
     Issue Lower Command
     Comment    Verify system enters Raising State.
-    ${valid}    ${data}=    Get Event Detailed State
-    Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${13}
-    Verify Summary State Event Enabled
+    Verify Detailed State Event    ${13}
+    Verify Summary State Event    ${3}
 
 Verify Displacement Sensors - LoweringEngineering
     [Tags]    functional
@@ -512,25 +496,23 @@ Wait Until Engineering Lower Completes
     Log    ${data}
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    ${10}
-    Verify Summary State Event Enabled
+    Verify Summary State Event    ${3}
 
 Get to Disabled State - Cleanup
     [Tags]    functional
     Comment    Issue Disable Command.
     Issue Disable Command
     Comment    Verify system enters Disabled State.
-    ${valid}    ${data}=    Get Event Summary State
-    Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${2}
+    Verify Summary State Event    ${2}
+    Verify Detailed State Event    ${2}
 
 Get to Standby State - Cleanup
     [Tags]    functional
     Comment    Issue Standby Command.
     Issue Standby Command
     Comment    Verify system enters Standby State.
-    ${valid}    ${data}=    Get Event Summary State
-    Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${1}
+    Verify Summary State Event    ${1}
+    Verify Detailed State Event    ${1}
 
 Verify Displacement Telemetry - Standby
     Comment    Have to get the last sample in the buffer before continuing.

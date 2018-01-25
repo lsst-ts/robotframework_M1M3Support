@@ -3,11 +3,19 @@ Documentation    This resource file defines common keywords used by all the SAL 
 Library    M1M3_SAL
 
 *** Keywords ***
-Verify Summary State Event Enabled
-    Comment    Every sub-State transition triggers a Summary State Event for the Enabled State.
+Verify Summary State Event
+    [Arguments]    ${expectedState}
+    Comment    Every sub-State transition triggers a Summary State Event.
     ${valid}    ${data}=    Get Event Summary State
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    3
+    Should Be Equal As Integers    ${data}    ${expectedState}
+
+Verify Detailed State Event 
+    [Arguments]    ${expectedState}
+    Comment    Every State transition triggers a Detailed State Event.
+    ${valid}    ${data}=    Get Event Detailed State
+    Should Be True    ${valid}
+    Should Be Equal As Integers    ${data}    ${expectedState}
 
 Verify Timestamp 
     [Arguments]    ${timestamp}=${0}
