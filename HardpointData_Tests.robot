@@ -26,25 +26,45 @@ Verify Summary State Disabled Event
     Comment    Verify system enters Disabled Summary State.
     Verify Summary State Event    ${2}
 
-Get Hardpoint Monitor Info Event
+Get Hardpoint Monitor Info Event - Disabled
     [Tags]    functional
     ${valid}    ${data}=    Get Hardpoint Monitor Info Event 
     Should Be True    ${valid}
 
-Get Hardpoint Monitor Status Telemetry
+Get Hardpoint Monitor Status Telemetry - Disabled
     [Tags]    functional
     ${valid}    ${hpmidata}=    Get Hardpoint Monitor Info Telemetry
     Set Suite Variable    ${hpmidata}
     Should Be True    ${valid}
 
-Get Hardpoint Data Telemetry
+Get Hardpoint Data Telemetry - Disabled
+    [Tags]    functional
+    ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
+    Set Suite Variable    ${hpdata}
+    Should Be True    ${valid}
+
+Get to Enabled-Parked State
+    [Tags]    functional
+    Comment    Issue Enable Command.
+    Issue Enable Command
+    Comment    Verify system enters Parked Detailed State.
+    Verify Detailed State Event    ${5}
+    Verify Summary State Event    ${3}
+
+Get Hardpoint Monitor Status Telemetry - Parked
+    [Tags]    functional
+    ${valid}    ${hpmidata}=    Get Hardpoint Monitor Info Telemetry
+    Set Suite Variable    ${hpmidata}
+    Should Be True    ${valid}
+
+Get Hardpoint Data Telemetry - Parked
     [Tags]    functional
     ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
 Get to Disabled State - Cleanup
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Issue Disable Command.
     Issue Disable Command
     Comment    Verify system enters Disabled State.
