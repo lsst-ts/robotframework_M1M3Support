@@ -515,6 +515,7 @@ Get to Standby State - Cleanup
     Verify Detailed State Event    ${1}
 
 Verify Displacement Telemetry - Standby
+    [Tags]    functional
     Comment    Have to get the last sample in the buffer before continuing.
     ${valid}    ${data}=    Get IMS Telemetry
     Comment    Verify system does NOT publish IMS Telemetry.
