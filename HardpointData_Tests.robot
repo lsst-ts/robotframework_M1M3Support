@@ -23,6 +23,7 @@ Get to Disabled State
     Verify Detailed State Event    ${2}
 
 Verify Summary State Disabled Event
+    [Tags]    functional
     Comment    Verify system enters Disabled Summary State.
     Verify Summary State Event    ${2}
 
