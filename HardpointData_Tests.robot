@@ -245,53 +245,53 @@ Verify Hardpoint Data Telemetry - CWLimitOperated
 
 Verify Hardpoint Data Telemetry - Displacement
     [Tags]    functional
-    Verify Irrational Array    ${hpdata}    Displacement    ${0.00001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
+    Verify Irrational Array    ${hpdata}    Displacement    ${0.0001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
 
-Verify Hardpoint Data Telemetry DisplacementLVDT
+Verify Hardpoint Data Telemetry - DisplacementLVDT
     [Tags]    functional
-    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.1}    ${0.2}    ${1.2}    ${2.2}    ${3.2}    ${4.2}    ${5.2}
+    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.0001}    ${0.2}    ${1.2}    ${2.2}    ${3.2}    ${4.2}    ${5.2}
 
-Verify Hardpoint Data Telemetry Encoder
+Verify Hardpoint Data Telemetry - Encoder
     [Tags]    functional
     Verify Rational Array    ${hpdata}    Encoder    ${1001}    ${1002}    ${1003}    ${1004}    ${1005}    ${1006}
 
-Verify Hardpoint Data Telemetry Force
+Verify Hardpoint Data Telemetry - Force
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    Force    ${1.5}    ${2.5}    ${3.5}    ${4.5}    ${5.5}    ${6.5}
+    Verify Irrational Array    ${hpdata}    Force    ${0.0001}    ${1.5}    ${2.5}    ${3.5}    ${4.5}    ${5.5}    ${6.5}
 
-Verify Hardpoint Data Telemetry ILCFault
+Verify Hardpoint Data Telemetry - ILCFault
     [Tags]    functional
     Verify Rational Array    ${hpdata}    ILCFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry StepsCommanded
+Verify Hardpoint Data Telemetry - StepsCommanded
     [Tags]    functional
     Verify Rational Array    ${hpdata}    StepsCommanded    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry StepsQueued
+Verify Hardpoint Data Telemetry - StepsQueued
     [Tags]    functional
     Verify Rational Array    ${hpdata}    StepsQueued    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry XPosition
+Verify Hardpoint Data Telemetry - XPosition
     [Tags]    functional
     Verify Irrational Value    XPosition    ${hpdata.XPosition}    ${0.0001}    ${0}
 
-Verify Hardpoint Data Telemetry XRotation
+Verify Hardpoint Data Telemetry - XRotation
     [Tags]    functional
     Verify Irrational Value    XRotation    ${hpdata.XRotation}    ${0.0001}    ${0}
 
-Verify Hardpoint Data Telemetry YPosition
+Verify Hardpoint Data Telemetry - YPosition
     [Tags]    functional
     Verify Irrational Value    YPosition    ${hpdata.YPosition}    ${0.0001}    ${0}
 
-Verify Hardpoint Data Telemetry YRotation
+Verify Hardpoint Data Telemetry - YRotation
     [Tags]    functional
     Verify Irrational Value    YRotation    ${hpdata.YRotation}    ${0.0001}    ${0}
 
-Verify Hardpoint Data Telemetry ZPosition
+Verify Hardpoint Data Telemetry - ZPosition
     [Tags]    functional
     Verify Irrational Value    ZPosition    ${hpdata.ZPosition}    ${0.0001}    ${0.0003}
 
-Verify Hardpoint Data Telemetry ZRotation
+Verify Hardpoint Data Telemetry - ZRotation
     [Tags]    functional
     Verify Irrational Value    ZRotation    ${hpdata.ZRotation}    ${0.0001}    ${0}
 
@@ -304,6 +304,14 @@ Get to Enabled-Parked State
     Comment    Verify system enters Parked Detailed State.
     Verify Detailed State Event    ${5}
     Verify Summary State Event    ${3}
+    Sleep    300ms    Wait for next outer loop cycle
+
+Verify Hardpoint Monitor Info Event - Parked
+    [Tags]    functional
+    Comment    Verify system does NOT publish Hardpoint Monitor Info Event.
+    ${valid}    ${data}=    Get Hardpoint Monitor Info Event
+    Should Not Be True    ${valid}
+    Should Be True    ${data.Timestamp} == ${0.0}
 
 Get Hardpoint Monitor Status Telemetry - Parked
     [Tags]    functional
@@ -311,34 +319,136 @@ Get Hardpoint Monitor Status Telemetry - Parked
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
+############ BEGIN Verify Hardpoint Data Telemetry - PARKED ############
+
+Set Hardpoint Forces And Statuses
+    [Tags]    functional
+    Set Hardpoint Force And Status    ${1}   ${0}    ${88476}    ${350.924}
+    Set Hardpoint Force And Status    ${2}   ${0}    ${4812}    ${559.537}
+    Set Hardpoint Force And Status    ${3}   ${0}    ${-34908}    ${-53.534}
+    Set Hardpoint Force And Status    ${4}   ${0}    ${-5373}    ${318.700}
+    Set Hardpoint Force And Status    ${5}   ${0}    ${16161}    ${-586.714}
+    Set Hardpoint Force And Status    ${6}   ${0}    ${-53064}    ${950.831}
+
+Set Hardpoint Displacement LVDTs
+    [Tags]    functional
+    Set Hardpoint Displacement LVDT    ${1}   ${-67.7013}    ${-32.0664}
+    Set Hardpoint Displacement LVDT    ${2}   ${80.8065}    ${30.7562}
+    Set Hardpoint Displacement LVDT    ${3}   ${-779.3144}    ${381.2256}
+    Set Hardpoint Displacement LVDT    ${4}   ${691.2441}    ${-603.9484}
+    Set Hardpoint Displacement LVDT    ${5}   ${261.4818}    ${-859.8013}
+    Set Hardpoint Displacement LVDT    ${6}   ${-553.3500}    ${-390.1598}
+    
 Get Hardpoint Data Telemetry - Parked
     [Tags]    functional
+    Sleep    300ms    Wait for next outer loop cycle
     ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
-Get to Enabled-Raising State
+Verify Hardpoint Data Telemetry - BreakawayLVDT - Parked
     [Tags]    functional
+    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.1}    ${-0.1}    ${-1.1}    ${-2.1}    ${-3.1}    ${-4.1}    ${-5.1}
+
+Verify Hardpoint Data Telemetry - BreakawayPressure - Parked
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.1}    ${0.1}    ${1.1}    ${2.1}    ${3.1}    ${4.1}    ${5.1}
+
+Verify Hardpoint Data Telemetry - BroadcastCounter - Parked
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    BroadcastCounter    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Data Telemetry - CCWLimitOperated - Parked
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    CCWLimitOperated    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Data Telemetry - CWLimitOperated - Parked
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    CWLimitOperated    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Data Telemetry - Displacement - Parked
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    Displacement    ${0.0001}    ${0.0216}    ${0.0011}    ${-0.0085}    ${-0.0013}    ${0.0039}    ${-0.0130}
+
+Verify Hardpoint Data Telemetry - DisplacementLVDT - Parked
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.0001}    ${0.2}    ${1.2}    ${2.2}    ${3.2}    ${4.2}    ${5.2}
+
+Verify Hardpoint Data Telemetry - Encoder - Parked
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    Encoder    ${88476}    ${4812}    ${-34908}    ${-5373}    ${16161}    ${-53064}
+
+Verify Hardpoint Data Telemetry - Force - Parked
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    Force    ${0.0001}    ${350.9240}    ${559.5369}    ${-53.5340}    ${318.7000}    ${-586.7139}    ${950.8309}
+
+Verify Hardpoint Data Telemetry - ILCFault - Parked
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    ILCFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Data Telemetry - StepsCommanded - Parked
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsCommanded    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Data Telemetry - StepsQueued - Parked
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsQueued    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Data Telemetry - XPosition - Parked
+    [Tags]    functional
+    Verify Irrational Value    XPosition    ${hpdata.XPosition}    ${0.0001}    ${0.0164}
+
+Verify Hardpoint Data Telemetry - XRotation - Parked
+    [Tags]    functional
+    Verify Irrational Value    XRotation    ${hpdata.XRotation}    ${0.0001}    ${0.0023}
+
+Verify Hardpoint Data Telemetry - YPosition - Parked
+    [Tags]    functional
+    Verify Irrational Value    YPosition    ${hpdata.YPosition}    ${0.0001}    ${-0.0031}
+
+Verify Hardpoint Data Telemetry - YRotation - Parked
+    [Tags]    functional
+    Verify Irrational Value    YRotation    ${hpdata.YRotation}    ${0.0001}    ${0.0001}
+
+Verify Hardpoint Data Telemetry - ZPosition - Parked
+    [Tags]    functional
+    Verify Irrational Value    ZPosition    ${hpdata.ZPosition}    ${0.0001}    ${0.0010}
+
+Verify Hardpoint Data Telemetry - ZRotation - Parked
+    [Tags]    functional
+    Verify Irrational Value    ZRotation    ${hpdata.ZRotation}    ${0.0001}    ${-0.0021}
+
+############ END Verify Hardpoint Data Telemetry - PARKED ############
+
+Get to Enabled-Raising State
+    [Tags]    functional    skipped
     Comment    Issue Raise M1M3 Command
     Issue Raise Command
     Comment    Verify system enters Raising State.
     Verify Detailed State Event    ${6}
     Verify Summary State Event    ${3}
 
+Verify Hardpoint Monitor Info Event - Raising
+    [Tags]    functional    skipped
+    Comment    Verify system does NOT publish Hardpoint Monitor Info Event.
+    ${valid}    ${data}=    Get Hardpoint Monitor Info Event
+    Should Not Be True    ${valid}
+    Should Be True    ${data.Timestamp} == ${0.0}
+
 Get Hardpoint Monitor Status Telemetry - Raising
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpmsdata}=    Get Hardpoint Monitor Status Telemetry
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
 Get Hardpoint Data Telemetry - Raising
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
 Wait Until Raise Completes
-    [Tags]    functional
+    [Tags]    functional    skipped
     Comment    Verify system enters Active State.
     ${valid}    ${data}=    Wait For Next Detailed State    ${300}
     Log    ${valid}
@@ -347,40 +457,54 @@ Wait Until Raise Completes
     Should Be Equal As Integers    ${data}    ${7}
     Verify Summary State Event    ${3}
 
+Verify Hardpoint Monitor Info Event - Active
+    [Tags]    functional    skipped
+    Comment    Verify system does NOT publish Hardpoint Monitor Info Event.
+    ${valid}    ${data}=    Get Hardpoint Monitor Info Event
+    Should Not Be True    ${valid}
+    Should Be True    ${data.Timestamp} == ${0.0}
+
 Get Hardpoint Monitor Status Telemetry - Active
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpmsdata}=    Get Hardpoint Monitor Status Telemetry
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
 Get Hardpoint Data Telemetry - Active
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
 Get to Enabled-Lowering State
-    [Tags]    functional
+    [Tags]    functional    skipped
     Comment    Issue Lower M1M3 Command
     Issue Lower Command
     Comment    Verify system enters Raising State.
     Verify Detailed State Event    ${8}
     Verify Summary State Event    ${3}
 
+Verify Hardpoint Monitor Info Event - Lowering
+    [Tags]    functional    skipped
+    Comment    Verify system does NOT publish Hardpoint Monitor Info Event.
+    ${valid}    ${data}=    Get Hardpoint Monitor Info Event
+    Should Not Be True    ${valid}
+    Should Be True    ${data.Timestamp} == ${0.0}
+
 Get Hardpoint Monitor Status Telemetry - Lowering
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpmsdata}=    Get Hardpoint Monitor Status Telemetry
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
 Get Hardpoint Data Telemetry - Lowering
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
 Wait Until Lower Completes
-    [Tags]    functional
+    [Tags]    functional    skipped
     Comment    Verify system enters Parked State.
     ${valid}    ${data}=    Wait For Next Detailed State    ${300}
     Log    ${valid}
@@ -390,47 +514,61 @@ Wait Until Lower Completes
     Verify Summary State Event    ${3}
 
 Get to ParkedEngineering State
-    [Tags]    functional
+    [Tags]    functional    skipped
     Comment    Issue EnterEngineering Command.
     Issue EnterEngineering Command
     Comment    Verify system enters ParkedEngineering Detailed State.
     Verify Detailed State Event    ${10}
     Verify Summary State Event    ${3}
 
+Verify Hardpoint Monitor Info Event - ParkedEngineering
+    [Tags]    functional    skipped
+    Comment    Verify system does NOT publish Hardpoint Monitor Info Event.
+    ${valid}    ${data}=    Get Hardpoint Monitor Info Event
+    Should Not Be True    ${valid}
+    Should Be True    ${data.Timestamp} == ${0.0}
+
 Get Hardpoint Monitor Status Telemetry - ParkedEngineering
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpmsdata}=    Get Hardpoint Monitor Status Telemetry
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
 Get Hardpoint Data Telemetry - ParkedEngineering
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
 Get to Enabled-RaisingEngineering State
-    [Tags]    functional
+    [Tags]    functional    skipped
     Comment    Issue Raise M1M3 Command
     Issue Raise Command
     Comment    Verify system enters RaisingEngineering State.
     Verify Detailed State Event    ${11}
     Verify Summary State Event    ${3}
 
+Verify Hardpoint Monitor Info Event - RaisingEngineering
+    [Tags]    functional    skipped
+    Comment    Verify system does NOT publish Hardpoint Monitor Info Event.
+    ${valid}    ${data}=    Get Hardpoint Monitor Info Event
+    Should Not Be True    ${valid}
+    Should Be True    ${data.Timestamp} == ${0.0}
+
 Get Hardpoint Monitor Status Telemetry - RaisingEngineering
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpmsdata}=    Get Hardpoint Monitor Status Telemetry
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
 Get Hardpoint Data Telemetry - RaisingEngineering
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
 Wait Until Engineering Raise Completes
-    [Tags]    functional
+    [Tags]    functional    skipped
     Comment    Verify system enters ActiveEngineering State.
     ${valid}    ${data}=    Wait For Next Detailed State    ${300}
     Log    ${valid}
@@ -439,40 +577,54 @@ Wait Until Engineering Raise Completes
     Should Be Equal As Integers    ${data}    ${12}
     Verify Summary State Event    ${3}
 
+Verify Hardpoint Monitor Info Event - ActiveEngineering
+    [Tags]    functional    skipped
+    Comment    Verify system does NOT publish Hardpoint Monitor Info Event.
+    ${valid}    ${data}=    Get Hardpoint Monitor Info Event
+    Should Not Be True    ${valid}
+    Should Be True    ${data.Timestamp} == ${0.0}
+
 Get Hardpoint Monitor Status Telemetry - ActiveEngineering
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpmsdata}=    Get Hardpoint Monitor Status Telemetry
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
 Get Hardpoint Data Telemetry - ActiveEngineering
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
 Get to Enabled-LoweringEngineering State
-    [Tags]    functional
+    [Tags]    functional    skipped
     Comment    Issue Lower M1M3 Command
     Issue Lower Command
     Comment    Verify system enters Raising State.
     Verify Detailed State Event    ${13}
     Verify Summary State Event    ${3}
 
+Verify Hardpoint Monitor Info Event - LoweringEngineering
+    [Tags]    functional    skipped
+    Comment    Verify system does NOT publish Hardpoint Monitor Info Event.
+    ${valid}    ${data}=    Get Hardpoint Monitor Info Event
+    Should Not Be True    ${valid}
+    Should Be True    ${data.Timestamp} == ${0.0}
+
 Get Hardpoint Monitor Status Telemetry - LoweringEngineering
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpmsdata}=    Get Hardpoint Monitor Status Telemetry
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
 Get Hardpoint Data Telemetry - LoweringEngineering
-    [Tags]    functional
+    [Tags]    functional    skipped
     ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
 Wait Until Engineering Lower Completes
-    [Tags]    functional
+    [Tags]    functional    skipped
     Comment    Verify system enters ParkedEngineering State.
     ${valid}    ${data}=    Wait For Next Detailed State    ${300}
     Log    ${valid}
@@ -489,6 +641,13 @@ Get to Disabled State - Cleanup
     Verify Summary State Event    ${2}
     Verify Detailed State Event    ${2}
 
+Verify Hardpoint Monitor Info Event - Disabled from Enabled
+    [Tags]    functional
+    Comment    Verify system does NOT publish Hardpoint Monitor Info Event.
+    ${valid}    ${data}=    Get Hardpoint Monitor Info Event
+    Should Not Be True    ${valid}
+    Should Be True    ${data.Timestamp} == ${0.0}
+
 Get to Standby State - Cleanup
     [Tags]    functional
     Comment    Issue Standby Command.
@@ -496,6 +655,13 @@ Get to Standby State - Cleanup
     Comment    Verify system enters Standby State.
     Verify Summary State Event    ${1}
     Verify Detailed State Event    ${1}
+
+Verify Hardpoint Monitor Info Event - Standby
+    [Tags]    functional
+    Comment    Verify system does NOT publish Hardpoint Monitor Info Event.
+    ${valid}    ${data}=    Get Hardpoint Monitor Info Event
+    Should Not Be True    ${valid}
+    Should Be True    ${data.Timestamp} == ${0.0}
 
 Verify Hardpoint Monitor Status Telemetry - Standby
     [Tags]    functional
@@ -514,7 +680,6 @@ Verify Hardpoint Data Telemetry - Standby
     Comment    Verify Hardpoint Data Telemetry is not published.
     ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
     Should Not Be True    ${valid}
-
 
 *** Keywords ***
 Get Hardpoint Monitor Info Event
