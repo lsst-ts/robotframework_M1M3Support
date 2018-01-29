@@ -24,27 +24,37 @@ Verify Timestamp
     Comment    Verify timestamp.
     Should Be True    ${timestamp} > ${epoch}
 
-Verify Rational Topic Attribute
+Verify Rational Value
+    [Documentation]    This keyword requires the name of the attribute, its value, and then the expected value, in that order.
+    [Arguments]    ${attribute}    ${value}    ${ExpectedValue}
+    Log Many    Attribute: ${attribute}    Value: ${value}    Tolerance: ${tolerance}    Expected Value: ${ExpectedValues}
+    Should Be Equal    ${value}    ${ExpectedValue}
+
+Verify Rational Array
     [Documentation]    This keyword requires the data object, the name of the attribute and then each expected value, in order, as arguments.
     [Arguments]    ${data}    ${attribute}    @{ExpectedValues}
     Log Many    Attribute: ${attribute}    Expected Values: @{ExpectedValues}
-    ${len}=    Get Length    ${ExpectedValues}
-    ${index}=    Set Variable If    ${len} > ${1}    [${0}]    ${EMPTY}
+    ${index}=    Set Variable    ${0}
     : FOR    ${ExpectedValue}    IN     @{ExpectedValues}
     \    Log    ${attribute}${index} Actual Value = ${data.${attribute}${index}}
-    \    Run Keyword And Continue On Failure    Should Be Equal As Integers    ${data.${attribute}${index}}    ${ExpectedValue}
-    \    ${index}=    Evaluate    [${index}[${0}] + ${1}]
+    \    Run Keyword And Continue On Failure     Verify Rational Value   ${attribute}    ${data.${attribute}[${index}]}    ${ExpectedValue}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
-Verify Irrational Topic Attribute
+Verify Irrational Value
+    [Documentation]    This keyword requires the name of the attribute, its value, the tolerance and then the expected value, in that order.
+    [Arguments]    ${attribute}    ${value}    ${tolerance}    ${ExpectedValue}
+    Log Many    Attribute: ${attribute}    Value: ${value}    Tolerance: ${tolerance}    Expected Value: ${ExpectedValues}
+    ${high}=    Evaluate    ${ExpectedValue} + ${tolerance}
+    ${low}=    Evaluate    ${ExpectedValue} - ${tolerance}
+    Should Be True    ${value} <= ${high}
+    Should Be True    ${value} >= ${low}
+
+Verify Irrational Array
     [Documentation]    This keyword requires the data object, the name of the attribute, the tolerance and then each expected value, in order, as arguments.
     [Arguments]    ${data}    ${attribute}    ${tolerance}    @{ExpectedValues}
     Log Many    Attribute: ${attribute}    Tolerance: ${tolerance}    Expected Values: @{ExpectedValues}
-    ${len}=    Get Length    ${ExpectedValues}
-    ${index}=    Set Variable If    ${len} > ${1}    [${0}]    ${EMPTY}
+    ${index}=    Set Variable    ${0}
     : FOR    ${ExpectedValue}    IN     @{ExpectedValues}
-    \    Log    ${attribute}${index} Actual Value = ${data.${attribute}${index}}
-    \    ${high}=    Evaluate    ${data.${attribute}${index}} + ${tolerance}
-    \    ${low}=    Evaluate    ${data.${attribute}${index}} - ${tolerance}
-    \    Run Keyword And Continue On Failure    Should Be True    ${data.${attribute}${index}} <= ${high}
-    \    Run Keyword And Continue On Failure    Should Be True    ${data.${attribute}${index}} >= ${low}
-    \    ${index}=    Evaluate    [${index}[${0}] + ${1}]
+    \    Log    ${attribute}[${index}] Actual Value = ${data.${attribute}[${index}]}
+    \    Run Keyword And Continue On Failure    Verify Irrational Value    ${attribute}    ${data.${attribute}[${index}]}    ${tolerance}    ${ExpectedValue}
+    \    ${index}=    Evaluate    ${index} + ${1}
