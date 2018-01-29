@@ -37,107 +37,107 @@ Get Hardpoint Monitor Info Event - Disabled
 
 Verify Hardpoint Monitor Info Event - ApplicationCRCMismatch
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    ApplicationCRCMismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    ApplicationCRCMismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - ApplicationMissing
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    ApplicationMissing    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    ApplicationMissing    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - ApplicationTypeMismatch
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    ApplicationTypeMismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    ApplicationTypeMismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - ILCApplicationType
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    ILCApplicationType    ${3}    ${3}    ${3}    ${3}    ${3}    ${3}
+    Verify Rational Array    ${hpmidata}    ILCApplicationType    ${3}    ${3}    ${3}    ${3}    ${3}    ${3}
 
 Verify Hardpoint Monitor Info Event - ILCSelectedOptions
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    ILCSelectedOptions    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    ILCSelectedOptions    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - ILCUniqueId
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    ILCUniqueId    ${11}    ${12}    ${13}    ${14}    ${15}    ${16}
+    Verify Rational Array    ${hpmidata}    ILCUniqueId    ${11}    ${12}    ${13}    ${14}    ${15}    ${16}
 
 Verify Hardpoint Monitor Info Event - MajorRevision
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    MajorRevision    ${8}    ${8}    ${8}    ${8}    ${8}    ${8}
+    Verify Rational Array    ${hpmidata}    MajorRevision    ${8}    ${8}    ${8}    ${8}    ${8}    ${8}
 
 Verify Hardpoint Monitor Info Event - MinorRevision
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    MinorRevision    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    MinorRevision    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - MezzanineApplicationCRCMismatch
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    MezzanineApplicationCRCMismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    MezzanineApplicationCRCMismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - MezzanineApplicationMissing
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    MezzanineApplicationMissing    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    MezzanineApplicationMissing    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - MezzanineBootloaderActive
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    MezzanineBootloaderActive    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    MezzanineBootloaderActive    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - MezzanineDCPRS422ChipFault
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    MezzanineDCPRS422ChipFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    MezzanineDCPRS422ChipFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - MezzanineFirmwareType
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    MezzanineFirmwareType    ${52}    ${52}    ${52}    ${52}    ${52}    ${52}
+    Verify Rational Array    ${hpmidata}    MezzanineFirmwareType    ${52}    ${52}    ${52}    ${52}    ${52}    ${52}
 
 Verify Hardpoint Monitor Info Event - MezzanineMajorRevision
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    MezzanineMajorRevision    ${8}    ${8}    ${8}    ${8}    ${8}    ${8}
+    Verify Rational Array    ${hpmidata}    MezzanineMajorRevision    ${8}    ${8}    ${8}    ${8}    ${8}    ${8}
 
 Verify Hardpoint Monitor Info Event - MezzanineMinorRevision
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    MezzanineMinorRevision    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    MezzanineMinorRevision    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - MezzanineUniqueId
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    MezzanineUniqueId    ${11}    ${12}    ${13}    ${14}    ${15}    ${16}
+    Verify Rational Array    ${hpmidata}    MezzanineUniqueId    ${11}    ${12}    ${13}    ${14}    ${15}    ${16}
 
 Verify Hardpoint Monitor Info Event - MezzanineUniqueIdCRCError
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    MezzanineUniqueIdCRCError    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    MezzanineUniqueIdCRCError    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - ModbusAddress
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    ModbusAddress    ${84}    ${85}    ${86}    ${87}    ${88}    ${89}
+    Verify Rational Array    ${hpmidata}    ModbusAddress    ${84}    ${85}    ${86}    ${87}    ${88}    ${89}
 
 Verify Hardpoint Monitor Info Event - ModbusSubnet
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    ModbusSubnet    ${5}    ${5}    ${5}    ${5}    ${5}    ${5}
+    Verify Rational Array    ${hpmidata}    ModbusSubnet    ${5}    ${5}    ${5}    ${5}    ${5}    ${5}
 
 Verify Hardpoint Monitor Info Event - NetworkNodeOptions
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    NetworkNodeOptions    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    NetworkNodeOptions    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - NetworkNodeType
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    NetworkNodeType    ${3}    ${3}    ${3}    ${3}    ${3}    ${3}
+    Verify Rational Array    ${hpmidata}    NetworkNodeType    ${3}    ${3}    ${3}    ${3}    ${3}    ${3}
 
 Verify Hardpoint Monitor Info Event - OneWire1Mismatch
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    OneWire1Mismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    OneWire1Mismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - OneWire2Mismatch
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    OneWire2Mismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    OneWire2Mismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - OneWireMissing
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    OneWireMissing    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    OneWireMissing    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - ReferenceID
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    ReferenceId    ${11}    ${12}    ${13}    ${14}    ${15}    ${16}
+    Verify Rational Array    ${hpmidata}    ReferenceId    ${11}    ${12}    ${13}    ${14}    ${15}    ${16}
 
 Verify Hardpoint Monitor Info Event - UniqueIdCRCError
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmidata}    UniqueIdCRCError    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmidata}    UniqueIdCRCError    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 ############ END Verify Hardpoint Monitor Info Event Attributes ############
 
@@ -151,67 +151,67 @@ Get Hardpoint Monitor Status Telemetry - Disabled
 
 Verify Hardpoint Monitor Status Telemetry - AUXPowerFault
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    AUXPowerFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    AUXPowerFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - BrownoutDetected
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    BrownoutDetected    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    BrownoutDetected    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - EventTrapReset
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    EventTrapReset    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    EventTrapReset    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - FaultOverridden
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    FaultOverridden    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    FaultOverridden    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - MajorFault
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    MajorFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    MajorFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - MezzanineEventTrapReset
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    MezzanineEventTrapReset    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    MezzanineEventTrapReset    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - MezzanineS1A1InterfaceFault
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    MezzanineS1A1InterfaceFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    MezzanineS1A1InterfaceFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - MezzanineS1A1LVDTFault
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    MezzanineS1A1LVDTFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    MezzanineS1A1LVDTFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - MezzanineS1A2InterfaceFault
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    MezzanineS1A2InterfaceFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    MezzanineS1A2InterfaceFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - MezzanineS1A2LVDTFault
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    MezzanineS1A2LVDTFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    MezzanineS1A2LVDTFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - MinorFault
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    MinorFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    MinorFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - Mode
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    Mode    ${50}    ${50}    ${50}    ${50}    ${50}    ${50}
+    Verify Rational Array    ${hpmsdata}    Mode    ${50}    ${50}    ${50}    ${50}    ${50}    ${50}
 
 Verify Hardpoint Monitor Status Telemetry - MotorPowerFault
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    MotorPowerFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    MotorPowerFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - SMCPowerFault
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    SMCPowerFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    SMCPowerFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - SSRPowerFault
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    SSRPowerFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    SSRPowerFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Status Telemetry - WatchdogReset
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpmsdata}    WatchdogReset    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpmsdata}    WatchdogReset    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 ############ END Verify Hardpoint Monitor Status Telemetry Attributes ############
 
@@ -225,75 +225,75 @@ Get Hardpoint Data Telemetry - Disabled
 
 Verify Hardpoint Data Telemetry - BreakawayLVDT
     [Tags]    functional
-    Verify Irrational Topic Attribute    ${hpdata}    BreakawayLVDT    ${0.1}    ${-0.1}    ${-1.1}    ${-2.1}    ${-3.1}    ${-4.1}    ${-5.1}
+    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.1}    ${-0.1}    ${-1.1}    ${-2.1}    ${-3.1}    ${-4.1}    ${-5.1}
 
 Verify Hardpoint Data Telemetry - BreakawayPressure
     [Tags]    functional
-    Verify Irrational Topic Attribute    ${hpdata}    BreakawayPressure    ${0.1}    ${0.1}    ${1.1}    ${2.1}    ${3.1}    ${4.1}    ${5.1}
+    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.1}    ${0.1}    ${1.1}    ${2.1}    ${3.1}    ${4.1}    ${5.1}
 
 Verify Hardpoint Data Telemetry - BroadcastCounter
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpdata}    BroadcastCounter    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpdata}    BroadcastCounter    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Data Telemetry - CCWLimitOperated
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpdata}    CCWLimitOperated    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpdata}    CCWLimitOperated    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Data Telemetry - CWLimitOperated
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpdata}    CWLimitOperated    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpdata}    CWLimitOperated    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Data Telemetry - Displacement
     [Tags]    functional
-    Verify Irrational Topic Attribute    ${hpdata}    Displacement    ${0.00001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
+    Verify Irrational Array    ${hpdata}    Displacement    ${0.00001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
 
 Verify Hardpoint Data Telemetry DisplacementLVDT
     [Tags]    functional
-    Verify Irrational Topic Attribute    ${hpdata}    DisplacementLVDT    ${0.1}    ${0.2}    ${1.2}    ${2.2}    ${3.2}    ${4.2}    ${5.2}
+    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.1}    ${0.2}    ${1.2}    ${2.2}    ${3.2}    ${4.2}    ${5.2}
 
 Verify Hardpoint Data Telemetry Encoder
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpdata}    Encoder    ${1001}    ${1002}    ${1003}    ${1004}    ${1005}    ${1006}
+    Verify Rational Array    ${hpdata}    Encoder    ${1001}    ${1002}    ${1003}    ${1004}    ${1005}    ${1006}
 
 Verify Hardpoint Data Telemetry Force
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpdata}    Force    ${1.5}    ${2.5}    ${3.5}    ${4.5}    ${5.5}    ${6.5}
+    Verify Rational Array    ${hpdata}    Force    ${1.5}    ${2.5}    ${3.5}    ${4.5}    ${5.5}    ${6.5}
 
 Verify Hardpoint Data Telemetry ILCFault
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpdata}    ILCFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpdata}    ILCFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Data Telemetry StepsCommanded
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpdata}    StepsCommanded    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpdata}    StepsCommanded    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Data Telemetry StepsQueued
     [Tags]    functional
-    Verify Rational Topic Attribute    ${hpdata}    StepsQueued    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Rational Array    ${hpdata}    StepsQueued    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Data Telemetry XPosition
     [Tags]    functional
-    Verify Irrational Topic Attribute    ${hpdata}    XPosition    ${0.0001}    ${0}
+    Verify Irrational Value    XPosition    ${hpdata.XPosition}    ${0.0001}    ${0}
 
 Verify Hardpoint Data Telemetry XRotation
     [Tags]    functional
-    Verify Irrational Topic Attribute    ${hpdata}    XRotation    ${0.0001}    ${0}
+    Verify Irrational Value    XRotation    ${hpdata.XRotation}    ${0.0001}    ${0}
 
 Verify Hardpoint Data Telemetry YPosition
     [Tags]    functional
-    Verify Irrational Topic Attribute    ${hpdata}    YPosition    ${0.0001}    ${0}
+    Verify Irrational Value    YPosition    ${hpdata.YPosition}    ${0.0001}    ${0}
 
 Verify Hardpoint Data Telemetry YRotation
     [Tags]    functional
-    Verify Irrational Topic Attribute    ${hpdata}    YRotation    ${0.0001}    ${0}
+    Verify Irrational Value    YRotation    ${hpdata.YRotation}    ${0.0001}    ${0}
 
 Verify Hardpoint Data Telemetry ZPosition
     [Tags]    functional
-    Verify Irrational Topic Attribute    ${hpdata}    ZPosition    ${0.0001}    ${0.0003}
+    Verify Irrational Value    ZPosition    ${hpdata.ZPosition}    ${0.0001}    ${0.0003}
 
 Verify Hardpoint Data Telemetry ZRotation
     [Tags]    functional
-    Verify Irrational Topic Attribute    ${hpdata}    ZRotation    ${0.0001}    ${0}
+    Verify Irrational Value    ZRotation    ${hpdata.ZRotation}    ${0.0001}    ${0}
 
 ############ END Verify Hardpoint Data Telemetry Attributes ############
 
