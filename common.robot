@@ -27,7 +27,9 @@ Verify Timestamp
 Verify Rational Value
     [Documentation]    This keyword requires the name of the attribute, its value, and then the expected value, in that order.
     [Arguments]    ${attribute}    ${value}    ${ExpectedValue}
-    Log Many    Attribute: ${attribute}    Value: ${value}    Tolerance: ${tolerance}    Expected Value: ${ExpectedValues}
+    ${value}=    Convert To Number    ${value}
+    ${ExpectedValue}=    Convert To Number    ${ExpectedValue}
+    Log Many    Attribute: ${attribute}    Value: ${value}    Expected Value: ${ExpectedValue}
     Should Be Equal    ${value}    ${ExpectedValue}
 
 Verify Rational Array
@@ -36,14 +38,16 @@ Verify Rational Array
     Log Many    Attribute: ${attribute}    Expected Values: @{ExpectedValues}
     ${index}=    Set Variable    ${0}
     : FOR    ${ExpectedValue}    IN     @{ExpectedValues}
-    \    Log    ${attribute}${index} Actual Value = ${data.${attribute}${index}}
+    \    Log    ${attribute}[${index}] Actual Value = ${data.${attribute}[${index}]}
     \    Run Keyword And Continue On Failure     Verify Rational Value   ${attribute}    ${data.${attribute}[${index}]}    ${ExpectedValue}
     \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Irrational Value
     [Documentation]    This keyword requires the name of the attribute, its value, the tolerance and then the expected value, in that order.
     [Arguments]    ${attribute}    ${value}    ${tolerance}    ${ExpectedValue}
-    Log Many    Attribute: ${attribute}    Value: ${value}    Tolerance: ${tolerance}    Expected Value: ${ExpectedValues}
+    ${value}=    Convert To Number    ${value}
+    ${ExpectedValue}=    Convert To Number    ${ExpectedValue}
+    Log Many    Attribute: ${attribute}    Value: ${value}    Tolerance: ${tolerance}    Expected Value: ${ExpectedValue}
     ${high}=    Evaluate    ${ExpectedValue} + ${tolerance}
     ${low}=    Evaluate    ${ExpectedValue} - ${tolerance}
     Should Be True    ${value} <= ${high}
