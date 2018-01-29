@@ -11,6 +11,7 @@ class M1M3_Simulator:
 	ROBOT_LIBRARY_SCOPE = 'GLOBAL'
 
 	def __init__(self):
+
 		self._ilcSim = ILCSimulator.ILCSimulator()
 		self._inclinSim = InclinometerSimulator.InclinometerSimulator()
 		self._displaceSim = DisplaceSimulator.DisplacementSimulator()
@@ -34,9 +35,34 @@ class M1M3_Simulator:
 											displace6 = 6.0, 
 											displace7 = 7.0, 
 											displace8 = 8.0))
+		self._subnetToUDPClient(5).send(self._ilcSim.forceAndStatusRequest(serverAddr = 1, statusByte = 0, ssiEncoderValue = 1001, loadCellForce = 1.5))
+		self._subnetToUDPClient(5).send(self._ilcSim.forceAndStatusRequest(serverAddr = 2, statusByte = 0, ssiEncoderValue = 1002, loadCellForce = 2.5))
+		self._subnetToUDPClient(5).send(self._ilcSim.forceAndStatusRequest(serverAddr = 3, statusByte = 0, ssiEncoderValue = 1003, loadCellForce = 3.5))
+		self._subnetToUDPClient(5).send(self._ilcSim.forceAndStatusRequest(serverAddr = 4, statusByte = 0, ssiEncoderValue = 1004, loadCellForce = 4.5))
+		self._subnetToUDPClient(5).send(self._ilcSim.forceAndStatusRequest(serverAddr = 5, statusByte = 0, ssiEncoderValue = 1005, loadCellForce = 5.5))
+		self._subnetToUDPClient(5).send(self._ilcSim.forceAndStatusRequest(serverAddr = 6, statusByte = 0, ssiEncoderValue = 1006, loadCellForce = 6.5))
+		self._subnetToUDPClient(5).send(self._ilcSim.readLVDT(serverAddr = 1, lvdt1 = 0.2, lvdt2 = 0.2))
+		self._subnetToUDPClient(5).send(self._ilcSim.readLVDT(serverAddr = 2, lvdt1 = 1.2, lvdt2 = 1.2))
+		self._subnetToUDPClient(5).send(self._ilcSim.readLVDT(serverAddr = 3, lvdt1 = 2.2, lvdt2 = 2.2))
+		self._subnetToUDPClient(5).send(self._ilcSim.readLVDT(serverAddr = 4, lvdt1 = 3.2, lvdt2 = 3.2))
+		self._subnetToUDPClient(5).send(self._ilcSim.readLVDT(serverAddr = 5, lvdt1 = 4.2, lvdt2 = 4.2))
+		self._subnetToUDPClient(5).send(self._ilcSim.readLVDT(serverAddr = 6, lvdt1 = 5.2, lvdt2 = 5.2))
 
 	def _afterCommand(self):
 		time.sleep(1)
+
+	def _subnetToUDPClient(self, subnet):
+		if subnet == 1:
+			return self._udpClientSubnetA
+		elif subnet == 2:
+			return self._udpClientSubnetB
+		elif subnet == 3:
+			return self._udpClientSubnetC
+		elif subnet == 4:
+			return self._udpClientSubnetD
+		elif subnet == 5:
+			return self._udpClientSubnetE
+		raise ValueError()
 
 	def setInclinometer(self, value=0.0):
 		self._udpClientInclin.send(self._inclinSim.inclinometerResponse(degreesMeasured = value))
@@ -52,3 +78,9 @@ class M1M3_Simulator:
 											displace7 = dispG, 
 											displace8 = dispH))
 		self._afterCommand()
+
+	def setHardpointForceAndStatus(self, serverAddr, statusByte, ssiEncoderValue, loadCellForce):
+		self._subnetToUDPClient(5).send(self._ilcSim.forceAndStatusRequest(int(serverAddr), int(statusByte), int(ssiEncoderValue), float(loadCellForce)))
+
+	def setHardpointDisplacementLVDT(self, serverAddr, lvdt1, lvdt2):
+		self._subnetToUDPClient(5).send(self._ilcSim.readLVDT(int(serverAddr), float(lvdt1), float(lvdt2)))
