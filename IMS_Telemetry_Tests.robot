@@ -5,8 +5,8 @@ Suite Setup    Log Many    host=${Host}    CSC=${subSystem}    timeout=${timeout
 #Suite Teardown    Close All Connections
 Library    String
 Library    DateTime
-Library    M1M3_SAL
-Library    M1M3_Simulator
+Library    RFLibraries/M1M3_SAL
+Library    RFLibraries/M1M3_Simulator
 Resource    common.robot
 Resource    Global_Vars.robot
 

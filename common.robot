@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This resource file defines common keywords used by all the SAL test suites.
-Library    M1M3_SAL
+Library    RFLibraries/M1M3_SAL
 
 *** Keywords ***
 Verify Summary State Event
@@ -45,8 +45,8 @@ Verify Rational Array
 Verify Irrational Value
     [Documentation]    This keyword requires the name of the attribute, its value, the tolerance and then the expected value, in that order.
     [Arguments]    ${attribute}    ${value}    ${tolerance}    ${ExpectedValue}
-    ${value}=    Convert To Number    ${value}
-    ${ExpectedValue}=    Convert To Number    ${ExpectedValue}
+    ${value}=    Convert To Number    ${value}    ${4}
+    ${ExpectedValue}=    Convert To Number    ${ExpectedValue}    ${4}
     Log Many    Attribute: ${attribute}    Value: ${value}    Tolerance: ${tolerance}    Expected Value: ${ExpectedValue}
     ${high}=    Evaluate    ${ExpectedValue} + ${tolerance}
     ${low}=    Evaluate    ${ExpectedValue} - ${tolerance}
