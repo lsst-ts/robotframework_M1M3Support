@@ -72,6 +72,14 @@ class M1M3_Simulator:
 		self._subnetToUDPClient(self._hardpointMonitorSubnet).send(self._ilcSim.readDcaPressureValues(int(serverAddr), float(pressure1AxialPush), float(pressure2AxialPull),
                             							float(pressure3LateralPull), float(pressure4LateralPush)))
 
+	def setHardpointServerID(self, serverAddr, uniqueId, ilcAppType, networkNodeType, ilcSelectedOptions, networkNodeOptions, majorRev, minorRev, firmwareName):
+		self._subnetToUDPClient(self._hardpointSubnet).send(self._ilcSim.reportServerId(int(serverAddr), int(uniqueId), int(ilcAppType), int(networkNodeType),
+												int(ilcSelectedOptions), int(networkNodeOptions), int(majorRev), 
+												int(minorRev), str(firmwareName)))
+
+	def setHardpointServerStatus(self, serverAddr, mode, status, faults):
+		self._subnetToUDPClient(self._hardpointSubnet).send(self._ilcSim.reportServerStatus(int(serverAddr), int(mode), int(status), int(faults)))
+
 	def setToDefaults(self):
 		self._udpClientInclin.send(self._inclinSim.inclinometerResponse(degreesMeasured = 0.0))
 		self._udpClientDisplace.send(self._displaceSim.displacementResponse(displace1 = 1.0,
@@ -82,6 +90,36 @@ class M1M3_Simulator:
 											displace6 = 6.0,
 											displace7 = 7.0,
 											displace8 = 8.0))
+		self.setHardpointServerStatus(serverAddr = 84, mode = 50, status = 0, faults = 0)
+		self.setHardpointServerStatus(serverAddr = 85, mode = 50, status = 0, faults = 0)
+		self.setHardpointServerStatus(serverAddr = 86, mode = 50, status = 0, faults = 0)
+		self.setHardpointServerStatus(serverAddr = 87, mode = 50, status = 0, faults = 0)
+		self.setHardpointServerStatus(serverAddr = 88, mode = 50, status = 0, faults = 0)
+		self.setHardpointServerStatus(serverAddr = 89, mode = 50, status = 0, faults = 0)
+		self.setHardpointServerID(serverAddr = 1, uniqueId = 1, ilcAppType = 2, networkNodeType = 2, ilcSelectedOptions = 0, 
+					networkNodeOptions = 0, majorRev = 8, minorRev = 0, firmwareName = "Mock-HP")
+		self.setHardpointServerID(serverAddr = 2, uniqueId = 2, ilcAppType = 2, networkNodeType = 2, ilcSelectedOptions = 0, 
+					networkNodeOptions = 0, majorRev = 8, minorRev = 0, firmwareName = "Mock-HP")
+		self.setHardpointServerID(serverAddr = 3, uniqueId = 3, ilcAppType = 2, networkNodeType = 2, ilcSelectedOptions = 0, 
+					networkNodeOptions = 0, majorRev = 8, minorRev = 0, firmwareName = "Mock-HP")
+		self.setHardpointServerID(serverAddr = 4, uniqueId = 4, ilcAppType = 2, networkNodeType = 2, ilcSelectedOptions = 0, 
+					networkNodeOptions = 0, majorRev = 8, minorRev = 0, firmwareName = "Mock-HP")
+		self.setHardpointServerID(serverAddr = 5, uniqueId = 5, ilcAppType = 2, networkNodeType = 2, ilcSelectedOptions = 0, 
+					networkNodeOptions = 0, majorRev = 8, minorRev = 0, firmwareName = "Mock-HP")
+		self.setHardpointServerID(serverAddr = 6, uniqueId = 6, ilcAppType = 2, networkNodeType = 2, ilcSelectedOptions = 0, 
+					networkNodeOptions = 0, majorRev = 8, minorRev = 0, firmwareName = "Mock-HP")
+		self.setHardpointServerID(serverAddr = 84, uniqueId = 11, ilcAppType = 3, networkNodeType = 3, ilcSelectedOptions = 0,
+					networkNodeOptions = 0, majorRev = 8, minorRev = 0, firmwareName = "Mock-HM")
+		self.setHardpointServerID(serverAddr = 85, uniqueId = 12, ilcAppType = 3, networkNodeType = 3, ilcSelectedOptions = 0,
+					networkNodeOptions = 0, majorRev = 8, minorRev = 0, firmwareName = "Mock-HM")
+		self.setHardpointServerID(serverAddr = 86, uniqueId = 13, ilcAppType = 3, networkNodeType = 3, ilcSelectedOptions = 0,
+					networkNodeOptions = 0, majorRev = 8, minorRev = 0, firmwareName = "Mock-HM")
+		self.setHardpointServerID(serverAddr = 87, uniqueId = 14, ilcAppType = 3, networkNodeType = 3, ilcSelectedOptions = 0,
+					networkNodeOptions = 0, majorRev = 8, minorRev = 0, firmwareName = "Mock-HM")
+		self.setHardpointServerID(serverAddr = 88, uniqueId = 15, ilcAppType = 3, networkNodeType = 3, ilcSelectedOptions = 0,
+					networkNodeOptions = 0, majorRev = 8, minorRev = 0, firmwareName = "Mock-HM")
+		self.setHardpointServerID(serverAddr = 89, uniqueId = 16, ilcAppType = 3, networkNodeType = 3, ilcSelectedOptions = 0,
+					networkNodeOptions = 0, majorRev = 8, minorRev = 0, firmwareName = "Mock-HM")
 		self.setHardpointForceAndStatus(serverAddr = 1, statusByte = 0, ssiEncoderValue = 1001, loadCellForce = 1.5)
 		self.setHardpointForceAndStatus(serverAddr = 2, statusByte = 0, ssiEncoderValue = 1002, loadCellForce = 2.5)
 		self.setHardpointForceAndStatus(serverAddr = 3, statusByte = 0, ssiEncoderValue = 1003, loadCellForce = 3.5)
