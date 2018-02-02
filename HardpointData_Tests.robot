@@ -583,7 +583,7 @@ Verify Hardpoint Data Telemetry - DisplacementLVDT - Active
 
 Verify Hardpoint Data Telemetry - Encoder - Active
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    Encoder    ${-15926}    ${359737}    ${-65855}    ${-38691}    ${-315302}    ${369577}
+    Verify Rational Array    ${hpdata}    Encoder    ${93738}    ${-267778}    ${-403132}    ${-102335}    ${-453498}    ${150384}
 
 Verify Hardpoint Data Telemetry - Force - Active
     [Tags]    functional
@@ -753,7 +753,7 @@ Verify Hardpoint Data Telemetry - DisplacementLVDT - ParkedEngineering
 
 Verify Hardpoint Data Telemetry - Encoder - ParkedEngineering
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    Encoder    ${280607}    ${231351}    ${295442}    ${-407408}    ${76361}    ${198880}
+    Verify Rational Array    ${hpdata}    Encoder    ${192148}    ${-406285}    ${356122}    ${-254032}    ${-97329}    ${369088}
 
 Verify Hardpoint Data Telemetry - Force - ParkedEngineering
     [Tags]    functional
@@ -915,7 +915,7 @@ Verify Hardpoint Data Telemetry - DisplacementLVDT - ActiveEngineering
 
 Verify Hardpoint Data Telemetry - Encoder - ActiveEngineering
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    Encoder    ${-309055}    ${136871}    ${449348}    ${-364325}    ${-499898}    ${-278757}
+    Verify Rational Array    ${hpdata}    Encoder    ${-37641}    ${163077}    ${26358}    ${325099}    ${-162594}    ${-417537}
 
 Verify Hardpoint Data Telemetry - Force - ActiveEngineering
     [Tags]    functional
