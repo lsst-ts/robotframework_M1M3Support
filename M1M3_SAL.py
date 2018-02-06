@@ -13,6 +13,7 @@ class M1M3_SAL:
 		self._SALM1M3.salEvent("m1m3_logevent_DetailedState")
 		self._SALM1M3.salEvent("m1m3_logevent_SettingsApplied")
 		self._SALM1M3.salEvent("m1m3_logevent_HardpointMonitorInfo")
+		self._SALM1M3.salEvent("m1m3_logevent_ForceActuatorInfo")
 		## SAL Commands
 		self._SALM1M3.salCommand("m1m3_command_Start")
 		self._SALM1M3.salCommand("m1m3_command_Standby")
@@ -134,12 +135,12 @@ class M1M3_SAL:
 	def getEventSummaryState(self):
 		data = m1m3_logevent_SummaryStateC()
 		retVal = self._SALM1M3.getEvent_SummaryState(data)
-		return retVal==0, data.SummaryState
+		return retVal==0, data
 
 	def getEventDetailedState(self):
 		data = m1m3_logevent_DetailedStateC()	
 		retVal = self._SALM1M3.getEvent_DetailedState(data)
-		return retVal==0, data.DetailedState
+		return retVal==0, data
 
 	def getEventSettingsApplied(self):
 		data = m1m3_logevent_SettingsAppliedC()
@@ -149,6 +150,11 @@ class M1M3_SAL:
 	def getEventHardpointMonitorInfo(self):
 		data = m1m3_logevent_HardpointMonitorInfoC()
 		retVal = self._SALM1M3.getEvent_HardpointMonitorInfo(data)
+		return retVal==0, data
+
+	def getEventForceActuatorInfo(self):
+		data = m1m3_logevent_ForceActuatorInfoC()
+		retVal = self._SALM1M3.getEvent_ForceActuatorInfo(data)
 		return retVal==0, data
 
 	######## Utility Functions ########
