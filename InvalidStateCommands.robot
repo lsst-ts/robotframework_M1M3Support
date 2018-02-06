@@ -63,9 +63,9 @@ Get To Disabled State
     Comment    Verify system enters Disabled State.
     ${valid}    ${data}=    Get Event Summary State
     Log    ${valid}
-    Log    ${data}
+    Log    ${data.SummaryState}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    2
+    Should Be Equal As Integers    ${data.SummaryState}    2
 
 Verify Disabled Detailed State
     [Tags]    functional
@@ -121,9 +121,9 @@ Get To Enabled State
     Comment    Verify system enters Enabled State.
     ${valid}    ${data}=    Get Event Summary State
     Log    ${valid}
-    Log    ${data}
+    Log    ${data.SummaryState}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    3
+    Should Be Equal As Integers    ${data.SummaryState}    3
 
 Verify Parked Detailed State
     [Tags]    functional
@@ -585,9 +585,9 @@ Cleanup - Disable
     Comment    Verify system enters Disabled State.
     ${valid}    ${data}=    Get Event Summary State
     Log    ${valid}
-    Log    ${data}
+    Log    ${data.SummaryState}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    2
+    Should Be Equal As Integers    ${data.SummaryState}    2
 
 Verify System Disabled Detailed State
     [Tags]    functional
@@ -601,9 +601,9 @@ Cleanup - Standby
     Comment    Verify system enters Standby State.
     ${valid}    ${data}=    Get Event Summary State
     Log    ${valid}
-    Log    ${data}
+    Log    ${data.SummaryState}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    1
+    Should Be Equal As Integers    ${data.SummaryState}    1
 
 Verify System Standby Detailed State
     [Tags]    functional
