@@ -29,7 +29,7 @@ Verify Summary State Disabled Event
 
 Get Hardpoint Monitor Info Event - Disabled
     [Tags]    functional
-    ${valid}    ${hpmidata}=    Get Hardpoint Monitor Info Event 
+    ${valid}    ${hpmidata}=    Get Event    Hardpoint Monitor Info
     Set Suite Variable    ${hpmidata}
     Should Be True    ${valid}
 
@@ -309,7 +309,7 @@ Get to Enabled-Parked State
 Verify Hardpoint Monitor Info Event - Parked
     [Tags]    functional
     Comment    Verify system does NOT publish Hardpoint Monitor Info Event.
-    ${valid}    ${data}=    Get Hardpoint Monitor Info Event
+    ${valid}    ${data}=    Get Event Hardpoint Monitor Info
     Should Not Be True    ${valid}
     Should Be True    ${data.Timestamp} == ${0.0}
 
