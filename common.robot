@@ -7,15 +7,28 @@ Verify Summary State Event
     [Arguments]    ${expectedState}
     Comment    Every sub-State transition triggers a Summary State Event.
     ${valid}    ${data}=    Get Event Summary State
+    Log    ${data.Timestamp}
+    Log    ${data.SummaryState}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${expectedState}
+    Should Be Equal As Integers    ${data.SummaryState}    ${expectedState}
 
 Verify Detailed State Event 
     [Arguments]    ${expectedState}
     Comment    Every State transition triggers a Detailed State Event.
     ${valid}    ${data}=    Get Event Detailed State
+    Log    ${data.Timestamp}
+    Log    ${data.DetailedState}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${expectedState}
+    Should Be Equal As Integers    ${data.DetailedState}    ${expectedState}
+
+Get Event
+    [Arguments]    ${EventTopic}
+    Comment    Events are queued until read. Query the topic until the most recent event is returned.
+    : FOR    ${INDEX}    IN RANGE    1    1000
+    \    ${valid}    ${data}=    Get Event ${EventTopic}
+    \    Run Keyword If    ${valid}    Exit For Loop
+    \    Sleep    10ms
+    [Return]    ${valid}    ${data}
 
 Verify Timestamp 
     [Arguments]    ${timestamp}=${0}
