@@ -25,7 +25,7 @@ Get Event
     [Arguments]    ${EventTopic}
     Comment    Events are queued until read. Query the topic until the most recent event is returned.
     : FOR    ${INDEX}    IN RANGE    1    1000
-    \    ${valid}    ${data}=    Get Event ${EventTopic}
+    \    ${valid}    ${data}=    Run Keyword    Get Event ${EventTopic}
     \    Run Keyword If    ${valid}    Exit For Loop
     \    Sleep    10ms
     [Return]    ${valid}    ${data}
