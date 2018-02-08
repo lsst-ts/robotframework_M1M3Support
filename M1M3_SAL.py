@@ -157,6 +157,16 @@ class M1M3_SAL:
 		retVal = self._SALM1M3.getEvent_ForceActuatorInfo(data)
 		return retVal==0, data
 
+	######## Flust Topics ########
+	
+	def flushHardpointMonitorInfo(self):
+		retVal = self._SALM1M3.flushSamples_HardpointMonitorInfo()
+		return retVal==0
+
+	def flushForceActuatorInfo(self):
+		retVal = self._SALM1M3.flushSamples_ForceActuatorInfo()
+		return retVal==0
+
 	######## Utility Functions ########
 
 	def waitForNextSummaryState(self, wait=300):
