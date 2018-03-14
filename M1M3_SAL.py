@@ -14,6 +14,7 @@ class M1M3_SAL:
 		self._SALM1M3.salEvent("m1m3_logevent_SettingsApplied")
 		self._SALM1M3.salEvent("m1m3_logevent_HardpointMonitorInfo")
 		self._SALM1M3.salEvent("m1m3_logevent_ForceActuatorInfo")
+		self._SALM1M3.salEvent("m1m3_logevent_CommandRejectionWarning")
 		## SAL Commands
 		self._SALM1M3.salCommand("m1m3_command_Start")
 		self._SALM1M3.salCommand("m1m3_command_Standby")
@@ -155,6 +156,11 @@ class M1M3_SAL:
 	def getEventForceActuatorInfo(self):
 		data = m1m3_logevent_ForceActuatorInfoC()
 		retVal = self._SALM1M3.getEvent_ForceActuatorInfo(data)
+		return retVal==0, data
+
+	def getEventCommandRejectionWarning(self):
+		data = m1m3_logevent_CommandRejectionWarningC()
+		retVal = self._SALM1M3.getEvent_CommandRejectionWarning(data)
 		return retVal==0, data
 
 	######## Flust Topics ########

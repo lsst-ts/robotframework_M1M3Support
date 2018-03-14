@@ -21,6 +21,16 @@ Verify Detailed State Event
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data.DetailedState}    ${expectedState}
 
+Verify Command Rejection Warning
+	[Arguments]    ${command}    ${reason}
+	Comment    Verify the command was rejected.
+	${valid}    ${data}=    Get Event Command Rejection Warning
+	Log    ${data.Timestamp}
+	Log    ${data.Command}
+	Log    ${data.Reason}
+	Should Be True    ${valid}
+	Should Be Equal As Strings    ${data.Reason}    ${reason}
+
 Get Event
     [Arguments]    ${EventTopic}
     Comment    Events are queued until read. Query the topic until the most recent event is returned.
