@@ -29,7 +29,7 @@ Verify Command Rejection Warning
 	Log    ${data.Command}
 	Log    ${data.Reason}
 	Should Be True    ${valid}
-	Should Be Equal As Strings    ${data.Reason}    ${reason}
+	Should Be Equal As Strings    "${data.Reason}"    ${reason}
 
 Get Event
     [Arguments]    ${EventTopic}
