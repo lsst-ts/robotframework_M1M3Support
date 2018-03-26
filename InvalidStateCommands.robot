@@ -73,12 +73,12 @@ Get To Disabled State
     Log    ${valid}
     Log    ${data.SummaryState}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data.SummaryState}    ${1}
+    Should Be Equal As Integers    ${data.SummaryState}    ${SummaryDisabled}
 
 Verify Disabled Detailed State
     [Tags]    functional
     Comment    Verify system enters Disabled Detailed State.
-    Verify Detailed State Event    ${1}
+    Verify Detailed State Event    ${SummaryDisabled}
 
 From Disabled Issue Start Command
     [Tags]    functional
@@ -138,12 +138,12 @@ Get To Enabled State
     Log    ${valid}
     Log    ${data.SummaryState}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data.SummaryState}    ${2}
+    Should Be Equal As Integers    ${data.SummaryState}    ${SummaryEnabled}
 
 Verify Parked Detailed State
     [Tags]    functional
     Comment    Verify system enters Parked Detailed State.
-    Verify Detailed State Event    ${6}
+    Verify Detailed State Event    ${DetailedParked}
 
 From Enabled-Parked Issue Start Command
     [Tags]    functional
@@ -192,12 +192,12 @@ Get To Raising State
     Comment    Issue Raise Command.
     Issue Raise Command
     Comment    Verify system enters Enabled State.
-    Verify Summary State Event    ${2}
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Raising Detailed State
     [Tags]    functional
     Comment    Verify system enters Raising Detailed State.
-    Verify Detailed State Event    ${7}
+    Verify Detailed State Event    ${DetailedRaising}
 
 From Enabled-Raising Issue Start Command
     [Tags]    functional
@@ -312,12 +312,12 @@ Get To Lowering State
     Comment    Issue Lower Command.
     Issue Lower Command
     Comment    Verify system enters Enabled State.
-    Verify Summary State Event    ${2}
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Lowering Detailed State
     [Tags]    functional
     Comment    Verify system enters Lowering Detailed State.
-    Verify Detailed State Event    ${9}
+    Verify Detailed State Event    ${DetailedLowering}
 
 From Enabled-Lowering Issue Start Command
     [Tags]    functional
@@ -389,20 +389,24 @@ Wait Until Lower Completes
     Log    ${valid}
     Log    ${data}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${6}
-    Verify Summary State Event    ${2}
+    Should Be Equal As Integers    ${data}    ${DetailedParked}
+
+Verify Lower Summary State
+    [Tags]    functional
+    Comment    Verify system enters Enabled Summary State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Get To ParkedEngineering State
     [Tags]    functional
     Comment    Issue EnterEnginering Command.
     Issue EnterEngineering Command
     Comment    Verify system enters Parked Engineering State.
-    Verify Summary State Event    ${2}
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify ParkedEngineering Detailed State
     [Tags]    functional
     Comment    Verify system enters ParkedEngineering Detailed State.
-    Verify Detailed State Event    ${11}
+    Verify Detailed State Event    ${DetailedParkedEngineering}
 
 From Enabled-ParkedEnginering Issue Start Command
     [Tags]    functional
@@ -451,12 +455,12 @@ Get To RaisingEngineering State
     Comment    Issue Raise Command.
     Issue Raise Command
     Comment    Verify system enters Enabled State.
-    Verify Summary State Event    ${2}
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify RaisingEngineering Detailed State
     [Tags]    functional
     Comment    Verify system enters RaisingEngineering Detailed State.
-    Verify Detailed State Event    ${12}
+    Verify Detailed State Event    ${DetailedRaisingEngineering}
 
 From Enabled-RaisingEngineering Issue Start Command
     [Tags]    functional
@@ -571,12 +575,12 @@ Get To LoweringEngineering State
     Comment    Issue Lower Command.
     Issue Lower Command
     Comment    Verify system enters Enabled State.
-    Verify Summary State Event    ${2}
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify LoweringEngineering Detailed State
     [Tags]    functional
     Comment    Verify system enters LoweringEngineering Detailed State.
-    Verify Detailed State Event    ${14}
+    Verify Detailed State Event    ${DetailedLoweringEngineering}
 
 From Enabled-LoweringEngineering Issue Start Command
     [Tags]    functional
@@ -648,8 +652,12 @@ Wait Until LoweringEngineering Completes
     Log    ${valid}
     Log    ${data}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${11}
-    Verify Summary State Event    ${2}
+    Should Be Equal As Integers    ${data}    ${DetailedParkedEngineering}
+
+Verify LoweringEngineering Summary State
+    [Tags]    functional
+    Comment    Verify system enters Enabled Summary State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Cleanup - Disable
     [Tags]    functional
@@ -660,12 +668,12 @@ Cleanup - Disable
     Log    ${valid}
     Log    ${data.SummaryState}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data.SummaryState}    ${1}
+    Should Be Equal As Integers    ${data.SummaryState}    ${SummaryDisabled}
 
 Verify System Disabled Detailed State
     [Tags]    functional
     Comment    Verify system enters Disabled Detailed State.
-    Verify Detailed State Event    ${1}
+    Verify Detailed State Event    ${SummaryDisabled}
 
 Cleanup - Standby
     [Tags]    functional
@@ -676,12 +684,12 @@ Cleanup - Standby
     Log    ${valid}
     Log    ${data.SummaryState}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data.SummaryState}    ${5}
+    Should Be Equal As Integers    ${data.SummaryState}    ${SummaryStandby}
 
 Verify System Standby Detailed State
     [Tags]    functional
     Comment    Verify system enters Standby Detailed State.
-    Verify Detailed State Event    ${5}
+    Verify Detailed State Event    ${SummaryStandby}
 
 *** Keywords ***
 Verify No Summary State Event
