@@ -20,8 +20,12 @@ Get to Disabled State
     Comment    Issue Start Command.
     Issue Start Command
     Comment    Verify system enters Disabled Detailed State.
-    Verify Detailed State Event    ${2}
-    Verify Summary State Event    ${2}
+    Verify Detailed State Event    ${DetailedDisabled}
+
+Verify Summary State Event - Disabled
+    [Tags]    functional
+    Comment    Verify system enters Disabled Summary State.
+    Verify Summary State Event    ${SummaryDisabled}
 
 Verify Inclinometer Telemetry - Disabled
     [Tags]    functional
@@ -39,8 +43,12 @@ Get to Enabled-Parked State
     Comment    Issue Enable Command.
     Issue Enable Command
     Comment    Verify system enters Parked Detailed State.
-    Verify Detailed State Event    ${5}
-    Verify Summary State Event    ${3}
+    Verify Detailed State Event    ${DetailedParked}
+
+Verify Summary State Event - Parked
+    [Tags]    functional
+    Comment    Verify system enters Enabled Summary State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Inclinometer Telemetry - Parked
     [Tags]    functional
@@ -58,8 +66,12 @@ Get to Enabled-Raising State
     Comment    Issue Raise M1M3 Command
     Issue Raise Command
     Comment    Verify system enters Raising State.
-    Verify Detailed State Event    ${6}
-    Verify Summary State Event    ${3}
+    Verify Detailed State Event    ${DetailedRaising}
+
+Verify Summary State Event - Raising
+    [Tags]    functional
+    Comment    Verify system enters Enabled Summary State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Inclinometer Telemetry - Raising
     [Tags]    functional
@@ -79,8 +91,12 @@ Wait Until Raise Completes
     Log    ${valid}
     Log    ${data}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${7}
-    Verify Summary State Event    ${3}
+    Should Be Equal As Integers    ${data}    ${DetailedActive}
+
+Verify Summary State Event - Raise Complete
+    [Tags]    functional
+    Comment    Verify system enters Enabled Summary State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Inclinometer Telemetry - Active
     [Tags]    functional
@@ -97,9 +113,13 @@ Get to Enabled-Lowering State
     [Tags]    functional
     Comment    Issue Lower M1M3 Command
     Issue Lower Command
-    Comment    Verify system enters Raising State.
-    Verify Detailed State Event    ${8}
-    Verify Summary State Event    ${3}
+    Comment    Verify system enters Lowering State.
+    Verify Detailed State Event    ${DetailedLowering}
+
+Verify Summary State Event - Lowering
+    [Tags]    functional
+    Comment    Verify system enters Enabled Summary State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Inclinometer Telemetry - Lowering
     [Tags]    functional
@@ -119,16 +139,24 @@ Wait Until Lower Completes
     Log    ${valid}
     Log    ${data}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${5}
-    Verify Summary State Event    ${3}
+    Should Be Equal As Integers    ${data}    ${DetailedParked}
+
+Verify Summary State Event - Lower Complete
+    [Tags]    functional
+    Comment    Verify system enters Enabled Summary State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Get to ParkedEngineering State
     [Tags]    functional
     Comment    Issue EnterEngineering Command.
     Issue EnterEngineering Command
     Comment    Verify system enters ParkedEngineering Detailed State.
-    Verify Detailed State Event    ${10}
-    Verify Summary State Event    ${3}
+    Verify Detailed State Event    ${DetailedParkedEngineering}
+
+Verify Summary State Event - ParkedEngineering
+    [Tags]    functional
+    Comment    Verify system enters Enabled Summary State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Inclinometer Telemetry - ParkedEngineering
     [Tags]    functional
@@ -146,8 +174,12 @@ Get to Enabled-RaisingEngineering State
     Comment    Issue Raise M1M3 Command
     Issue Raise Command
     Comment    Verify system enters RaisingEngineering State.
-    Verify Detailed State Event    ${11}
-    Verify Summary State Event    ${3}
+    Verify Detailed State Event    ${DetailedRaisingEngineering}
+
+Verify Summary State Event - RaisingEngineering
+    [Tags]    functional
+    Comment    Verify system enters Enabled Summary State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Inclinometer Telemetry - RaisingEngineering
     [Tags]    functional
@@ -167,8 +199,12 @@ Wait Until Engineering Raise Completes
     Log    ${valid}
     Log    ${data}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${12}
-    Verify Summary State Event    ${3}
+    Should Be Equal As Integers    ${data}    ${DetailedActiveEngineering}
+
+Verify Summary State Event - RaisingEngineering Complete
+    [Tags]    functional
+    Comment    Verify system enters Enabled Summary State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Inclinometer Telemetry - ActiveEngineering
     [Tags]    functional
@@ -185,9 +221,13 @@ Get to Enabled-LoweringEngineering State
     [Tags]    functional
     Comment    Issue Lower M1M3 Command
     Issue Lower Command
-    Comment    Verify system enters Raising State.
-    Verify Detailed State Event    ${13}
-    Verify Summary State Event    ${3}
+    Comment    Verify system enters LoweringEngineering State.
+    Verify Detailed State Event    ${DetailedLoweringEngineering}
+
+Verify Summary State Event - LoweringEngineering
+    [Tags]    functional
+    Comment    Verify system enters Enabled Summary State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Inclinometer Telemetry - LoweringEngineering
     [Tags]    functional
@@ -207,24 +247,36 @@ Wait Until Engineering Lower Completes
     Log    ${valid}
     Log    ${data}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${10}
-    Verify Summary State Event    ${3}
+    Should Be Equal As Integers    ${data}    ${DetailedParkedEngineering}
+
+Verify Summary State Event - LoweringEngineering Complete
+    [Tags]    functional
+    Comment    Verify system enters Enabled Summary State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Get to Disabled State - Cleanup
     [Tags]    functional
     Comment    Issue Disable Command.
     Issue Disable Command
     Comment    Verify system enters Disabled State.
-    Verify Summary State Event    ${2}
-    Verify Detailed State Event    ${2}
+    Verify Detailed State Event    ${DetailedDisabled}
+
+Verify Summary State Event - Cleanup Disabled
+    [Tags]    functional
+    Comment    Verify system enters Disabled Summary State.
+    Verify Summary State Event    ${SummaryDisabled}
 
 Get to Standby State - Cleanup
     [Tags]    functional
     Comment    Issue Standby Command.
     Issue Standby Command
     Comment    Verify system enters Standby State.
-    Verify Summary State Event    ${1}
-    Verify Detailed State Event    ${1}
+    Verify Detailed State Event    ${DetailedStandby}
+
+Verify Summary State Event - Cleanup Standby
+    [Tags]    functional
+    Comment    Verify system enters Standby Summary State.
+    Verify Summary State Event    ${SummaryStandby}
 
 Get Inclinometer Telemetry - Standby
     Comment    Have to get the last sample in the buffer before continuing.
@@ -249,6 +301,6 @@ Verify Inclinometer Telemetry
     Log    ${timestamp}
     Log    ${data}
     Should Be True    ${valid}
-    Should Be Equal As Numbers    ${data}    ${value}
+    Should Be Equal As Numbers    ${data}    ${value}    precision=2
     Comment    TSS-
     Comment    Should Be True    ${timestamp} > ${epoch}
