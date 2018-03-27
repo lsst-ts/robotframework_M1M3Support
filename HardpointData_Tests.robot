@@ -20,12 +20,12 @@ Get to Disabled State
     Comment    Issue Start Command.
     Issue Start Command
     Comment    Verify system enters Disabled Detailed State.
-    Verify Detailed State Event    ${2}
+    Verify Detailed State Event    ${DetailedDisabled}
 
 Verify Summary State Disabled Event
     [Tags]    functional
     Comment    Verify system enters Disabled Summary State.
-    Verify Summary State Event    ${2}
+    Verify Summary State Event    ${SummaryDisabled}
 
 Get Hardpoint Monitor Info Event - Disabled
     [Tags]    functional
@@ -35,25 +35,9 @@ Get Hardpoint Monitor Info Event - Disabled
 
 ############ BEGIN Verify Hardpoint Monitor Info Event Attributes ############
 
-Verify Hardpoint Monitor Info Event - ApplicationCRCMismatch
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    ApplicationCRCMismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Info Event - ApplicationMissing
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    ApplicationMissing    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Info Event - ApplicationTypeMismatch
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    ApplicationTypeMismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
 Verify Hardpoint Monitor Info Event - ILCApplicationType
     [Tags]    functional
     Verify Rational Array    ${hpmidata}    ILCApplicationType    ${3}    ${3}    ${3}    ${3}    ${3}    ${3}
-
-Verify Hardpoint Monitor Info Event - ILCSelectedOptions
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    ILCSelectedOptions    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - ILCUniqueId
     [Tags]    functional
@@ -66,22 +50,6 @@ Verify Hardpoint Monitor Info Event - MajorRevision
 Verify Hardpoint Monitor Info Event - MinorRevision
     [Tags]    functional
     Verify Rational Array    ${hpmidata}    MinorRevision    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Info Event - MezzanineApplicationCRCMismatch
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    MezzanineApplicationCRCMismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Info Event - MezzanineApplicationMissing
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    MezzanineApplicationMissing    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Info Event - MezzanineBootloaderActive
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    MezzanineBootloaderActive    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Info Event - MezzanineDCPRS422ChipFault
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    MezzanineDCPRS422ChipFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - MezzanineFirmwareType
     [Tags]    functional
@@ -99,10 +67,6 @@ Verify Hardpoint Monitor Info Event - MezzanineUniqueId
     [Tags]    functional
     Verify Rational Array    ${hpmidata}    MezzanineUniqueId    ${11}    ${12}    ${13}    ${14}    ${15}    ${16}
 
-Verify Hardpoint Monitor Info Event - MezzanineUniqueIdCRCError
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    MezzanineUniqueIdCRCError    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
 Verify Hardpoint Monitor Info Event - ModbusAddress
     [Tags]    functional
     Verify Rational Array    ${hpmidata}    ModbusAddress    ${84}    ${85}    ${86}    ${87}    ${88}    ${89}
@@ -111,199 +75,137 @@ Verify Hardpoint Monitor Info Event - ModbusSubnet
     [Tags]    functional
     Verify Rational Array    ${hpmidata}    ModbusSubnet    ${5}    ${5}    ${5}    ${5}    ${5}    ${5}
 
-Verify Hardpoint Monitor Info Event - NetworkNodeOptions
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    NetworkNodeOptions    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
 Verify Hardpoint Monitor Info Event - NetworkNodeType
     [Tags]    functional
     Verify Rational Array    ${hpmidata}    NetworkNodeType    ${3}    ${3}    ${3}    ${3}    ${3}    ${3}
-
-Verify Hardpoint Monitor Info Event - OneWire1Mismatch
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    OneWire1Mismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Info Event - OneWire2Mismatch
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    OneWire2Mismatch    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Info Event - OneWireMissing
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    OneWireMissing    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Info Event - ReferenceID
     [Tags]    functional
     Verify Rational Array    ${hpmidata}    ReferenceId    ${11}    ${12}    ${13}    ${14}    ${15}    ${16}
 
-Verify Hardpoint Monitor Info Event - UniqueIdCRCError
-    [Tags]    functional
-    Verify Rational Array    ${hpmidata}    UniqueIdCRCError    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
 ############ END Verify Hardpoint Monitor Info Event Attributes ############
 
-############ BEGIN Verify Hardpoint Monitor Status Telemetry Attributes ############
+############ BEGIN Verify Hardpoint Monitor Data Telemetry Attributes ############
 
-Get Hardpoint Monitor Status Telemetry - Disabled
+Get Hardpoint Monitor Data Telemetry - Disabled
     [Tags]    functional
-    ${valid}    ${hpmsdata}=    Get Hardpoint Monitor Status Telemetry
-    Set Suite Variable    ${hpmsdata}
-    Should Be True    ${valid}
-
-Verify Hardpoint Monitor Status Telemetry - AUXPowerFault
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    AUXPowerFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - BrownoutDetected
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    BrownoutDetected    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - EventTrapReset
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    EventTrapReset    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - FaultOverridden
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    FaultOverridden    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - MajorFault
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    MajorFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - MezzanineEventTrapReset
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    MezzanineEventTrapReset    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - MezzanineS1A1InterfaceFault
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    MezzanineS1A1InterfaceFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - MezzanineS1A1LVDTFault
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    MezzanineS1A1LVDTFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - MezzanineS1A2InterfaceFault
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    MezzanineS1A2InterfaceFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - MezzanineS1A2LVDTFault
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    MezzanineS1A2LVDTFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - MinorFault
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    MinorFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - Mode
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    Mode    ${50}    ${50}    ${50}    ${50}    ${50}    ${50}
-
-Verify Hardpoint Monitor Status Telemetry - MotorPowerFault
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    MotorPowerFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - SMCPowerFault
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    SMCPowerFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - SSRPowerFault
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    SSRPowerFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Monitor Status Telemetry - WatchdogReset
-    [Tags]    functional
-    Verify Rational Array    ${hpmsdata}    WatchdogReset    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-############ END Verify Hardpoint Monitor Status Telemetry Attributes ############
-
-############ BEGIN Verify Hardpoint Data Telemetry Attributes ############
-
-Get Hardpoint Data Telemetry - Disabled
-    [Tags]    functional
-    ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
+    ${valid}    ${hpdata}=    Get Hardpoint Monitor Data Telemetry
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
-Verify Hardpoint Data Telemetry - BreakawayLVDT
+Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.1}    ${-0.1}    ${-1.1}    ${-2.1}    ${-3.1}    ${-4.1}    ${-5.1}
 
-Verify Hardpoint Data Telemetry - BreakawayPressure
-    [Tags]    functional
-    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.1}    ${0.1}    ${1.1}    ${2.1}    ${3.1}    ${4.1}    ${5.1}
-
-Verify Hardpoint Data Telemetry - BroadcastCounter
-    [Tags]    functional
-    Verify Rational Array    ${hpdata}    BroadcastCounter    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Data Telemetry - CCWLimitOperated
-    [Tags]    functional
-    Verify Rational Array    ${hpdata}    CCWLimitOperated    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Data Telemetry - CWLimitOperated
-    [Tags]    functional
-    Verify Rational Array    ${hpdata}    CWLimitOperated    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Data Telemetry - Displacement
-    [Tags]    functional
-    Verify Irrational Array    ${hpdata}    Displacement    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
-
-Verify Hardpoint Data Telemetry - DisplacementLVDT
+Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${0.2}    ${1.2}    ${2.2}    ${3.2}    ${4.2}    ${5.2}
 
-Verify Hardpoint Data Telemetry - Encoder
+Verify Hardpoint Monitor Data Telemetry - BreakawayPressure
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    Encoder    ${1001}    ${1002}    ${1003}    ${1004}    ${1005}    ${1006}
+    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.1}    ${0.1}    ${1.1}    ${2.1}    ${3.1}    ${4.1}    ${5.1}
 
-Verify Hardpoint Data Telemetry - Force
+Verify Hardpoint Monitor Data Telemetry - PressureSensor1
     [Tags]    functional
-    Verify Irrational Array    ${hpdata}    Force    ${0.001}    ${1.5}    ${2.5}    ${3.5}    ${4.5}    ${5.5}    ${6.5}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - ILCFault
+Verify Hardpoint Monitor Data Telemetry - PressureSensor2
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    ILCFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - StepsCommanded
+Verify Hardpoint Monitor Data Telemetry - PressureSensor3
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
+
+############ END Verify Hardpoint Monitor Data Telemetry Attributes ############
+
+############ BEGIN Verify Hardpoint Actuator Data Telemetry ############
+
+Verify Hardpoint Monitor Data Telemetry - StepsCommanded - Parked
     [Tags]    functional
     Verify Rational Array    ${hpdata}    StepsCommanded    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - StepsQueued
+Verify Hardpoint Monitor Data Telemetry - StepsQueued - Parked
     [Tags]    functional
     Verify Rational Array    ${hpdata}    StepsQueued    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - XPosition
+Verify Hardpoint Monitor Data Telemetry - MeasuredForce - Parked
     [Tags]    functional
-    Verify Irrational Value    XPosition    ${hpdata.XPosition}    ${0.001}    ${0}
+    Verify Irrational Array    ${hpdata}    MeasureForce    ${0.001}    ${350.9240}    ${559.5369}    ${-53.5340}    ${318.7000}    ${-586.7139}    ${950.8309}
 
-Verify Hardpoint Data Telemetry - XRotation
+Verify Hardpoint Monitor Data Telemetry - Encoder - Parked
     [Tags]    functional
-    Verify Irrational Value    XRotation    ${hpdata.XRotation}    ${0.001}    ${0}
+    Verify Rational Array    ${hpdata}    Encoder    ${88476}    ${4812}    ${-34908}    ${-5373}    ${16161}    ${-53064}
 
-Verify Hardpoint Data Telemetry - YPosition
+Verify Hardpoint Monitor Data Telemetry - Displacement - Parked
     [Tags]    functional
-    Verify Irrational Value    YPosition    ${hpdata.YPosition}    ${0.001}    ${0}
+    Verify Irrational Array    ${hpdata}    Displacement    ${0.001}    ${0.0216}    ${0.0011}    ${-0.0085}    ${-0.0013}    ${0.0039}    ${-0.0130}
 
-Verify Hardpoint Data Telemetry - YRotation
+Verify Hardpoint Monitor Data Telemetry - XForce - Parked
     [Tags]    functional
-    Verify Irrational Value    YRotation    ${hpdata.YRotation}    ${0.001}    ${0}
+    Verify Irrational Value    XForce    ${hpdata.XForce}    ${0.001}    ${0.0216}
 
-Verify Hardpoint Data Telemetry - ZPosition
+Verify Hardpoint Monitor Data Telemetry - YForce - Parked
     [Tags]    functional
-    Verify Irrational Value    ZPosition    ${hpdata.ZPosition}    ${0.001}    ${0.0003}
+    Verify Irrational Value    YForce    ${hpdata.YForce}    ${0.001}    ${0.0216}
 
-Verify Hardpoint Data Telemetry - ZRotation
+Verify Hardpoint Monitor Data Telemetry - ZForce - Parked
     [Tags]    functional
-    Verify Irrational Value    ZRotation    ${hpdata.ZRotation}    ${0.001}    ${0}
+    Verify Irrational Value    ZForce    ${hpdata.ZForce}    ${0.001}    ${0.0216}
 
-############ END Verify Hardpoint Data Telemetry Attributes ############
+Verify Hardpoint Monitor Data Telemetry - XMoment - Parked
+    [Tags]    functional
+    Verify Irrational Value    XMoment    ${hpdata.XMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YMoment - Parked
+    [Tags]    functional
+    Verify Irrational Value    YMoment    ${hpdata.YMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZMoment - Parked
+    [Tags]    functional
+    Verify Irrational Value    ZMoment    ${hpdata.ZMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ForceMagnitude - Parked
+    [Tags]    functional
+    Verify Irrational Value    ${hpdata}    ForceMagnitude    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XPosition - Parked
+    [Tags]    functional
+    Verify Irrational Value    XPosition    ${hpdata.XPosition}    ${0.001}    ${0.0164}
+
+Verify Hardpoint Monitor Data Telemetry - XRotation - Parked
+    [Tags]    functional
+    Verify Irrational Value    XRotation    ${hpdata.XRotation}    ${0.001}    ${0.0023}
+
+Verify Hardpoint Monitor Data Telemetry - YPosition - Parked
+    [Tags]    functional
+    Verify Irrational Value    YPosition    ${hpdata.YPosition}    ${0.001}    ${-0.0031}
+
+Verify Hardpoint Monitor Data Telemetry - YRotation - Parked
+    [Tags]    functional
+    Verify Irrational Value    YRotation    ${hpdata.YRotation}    ${0.001}    ${0.0001}
+
+Verify Hardpoint Monitor Data Telemetry - ZPosition - Parked
+    [Tags]    functional
+    Verify Irrational Value    ZPosition    ${hpdata.ZPosition}    ${0.001}    ${0.0010}
+
+Verify Hardpoint Monitor Data Telemetry - ZRotation - Parked
+    [Tags]    functional
+    Verify Irrational Value    ZRotation    ${hpdata.ZRotation}    ${0.001}    ${-0.0021}
+
+############ END Verify Hardpoint Monitor Data Telemetry ############
 
 Get to Enabled-Parked State
     [Tags]    functional
     Comment    Issue Enable Command.
     Issue Enable Command
     Comment    Verify system enters Parked Detailed State.
-    Verify Detailed State Event    ${5}
-    Verify Summary State Event    ${3}
+    Verify Detailed State Event    ${DetailedParked}
+
+Verify Summary State Event - Parked
+    [Tags]    functional
+    Comment    Verify system enters Enabled State.
+    Verify Summary State Event    ${SummaryEnabled}
     Sleep    300ms    Wait for next outer loop cycle
 
 Verify Hardpoint Monitor Info Event - Parked
@@ -319,7 +221,7 @@ Get Hardpoint Monitor Status Telemetry - Parked
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
-############ BEGIN Verify Hardpoint Data Telemetry - PARKED ############
+############ BEGIN Verify Hardpoint Monitor Data Telemetry - PARKED ############
 
 Set Hardpoint Forces And Statuses - Parked
     [Tags]    functional
@@ -355,87 +257,119 @@ Get Hardpoint Data Telemetry - Parked
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
-Verify Hardpoint Data Telemetry - BreakawayLVDT - Parked
+Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - Parked
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${-67.7013}    ${80.8065}    ${-779.3144}    ${691.2441}    ${261.4818}    ${-553.3500}
 
-Verify Hardpoint Data Telemetry - BreakawayPressure - Parked
-    [Tags]    functional
-    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${827.8000}    ${24.0640}    ${439.5877}    ${-593.9491}    ${-767.0862}    ${737.8273}
-
-Verify Hardpoint Data Telemetry - BroadcastCounter - Parked
-    [Tags]    functional
-    Verify Rational Array    ${hpdata}    BroadcastCounter    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Data Telemetry - CCWLimitOperated - Parked
-    [Tags]    functional
-    Verify Rational Array    ${hpdata}    CCWLimitOperated    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Data Telemetry - CWLimitOperated - Parked
-    [Tags]    functional
-    Verify Rational Array    ${hpdata}    CWLimitOperated    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
-
-Verify Hardpoint Data Telemetry - Displacement - Parked
-    [Tags]    functional
-    Verify Irrational Array    ${hpdata}    Displacement    ${0.001}    ${0.0216}    ${0.0011}    ${-0.0085}    ${-0.0013}    ${0.0039}    ${-0.0130}
-
-Verify Hardpoint Data Telemetry - DisplacementLVDT - Parked
+Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - Parked
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-32.0664}    ${30.7562}    ${381.2256}    ${-603.9484}    ${-859.8013}    ${-390.1598}
 
-Verify Hardpoint Data Telemetry - Encoder - Parked
+Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - Parked
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    Encoder    ${88476}    ${4812}    ${-34908}    ${-5373}    ${16161}    ${-53064}
+    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${827.8000}    ${24.0640}    ${439.5877}    ${-593.9491}    ${-767.0862}    ${737.8273}
 
-Verify Hardpoint Data Telemetry - Force - Parked
+Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - Parked
     [Tags]    functional
-    Verify Irrational Array    ${hpdata}    Force    ${0.001}    ${350.9240}    ${559.5369}    ${-53.5340}    ${318.7000}    ${-586.7139}    ${950.8309}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - ILCFault - Parked
+Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - Parked
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    ILCFault    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - StepsCommanded - Parked
+Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - Parked
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
+
+############ END Verify Hardpoint Monitor Data Telemetry - PARKED ############
+
+############ BEGIN Verify Hardpoint Actuator Data Telemetry - PARKED ############
+
+Verify Hardpoint Monitor Data Telemetry - StepsCommanded - Parked
     [Tags]    functional
     Verify Rational Array    ${hpdata}    StepsCommanded    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - StepsQueued - Parked
+Verify Hardpoint Monitor Data Telemetry - StepsQueued - Parked
     [Tags]    functional
     Verify Rational Array    ${hpdata}    StepsQueued    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - XPosition - Parked
+Verify Hardpoint Monitor Data Telemetry - MeasuredForce - Parked
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    MeasureForce    ${0.001}    ${350.9240}    ${559.5369}    ${-53.5340}    ${318.7000}    ${-586.7139}    ${950.8309}
+
+Verify Hardpoint Monitor Data Telemetry - Encoder - Parked
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    Encoder    ${88476}    ${4812}    ${-34908}    ${-5373}    ${16161}    ${-53064}
+
+Verify Hardpoint Monitor Data Telemetry - Displacement - Parked
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    Displacement    ${0.001}    ${0.0216}    ${0.0011}    ${-0.0085}    ${-0.0013}    ${0.0039}    ${-0.0130}
+
+Verify Hardpoint Monitor Data Telemetry - XForce - Parked
+    [Tags]    functional
+    Verify Irrational Value    XForce    ${hpdata.XForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YForce - Parked
+    [Tags]    functional
+    Verify Irrational Value    YForce    ${hpdata.YForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZForce - Parked
+    [Tags]    functional
+    Verify Irrational Value    ZForce    ${hpdata.ZForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XMoment - Parked
+    [Tags]    functional
+    Verify Irrational Value    XMoment    ${hpdata.XMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YMoment - Parked
+    [Tags]    functional
+    Verify Irrational Value    YMoment    ${hpdata.YMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZMoment - Parked
+    [Tags]    functional
+    Verify Irrational Value    ZMoment    ${hpdata.ZMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ForceMagnitude - Parked
+    [Tags]    functional
+    Verify Irrational Value    ${hpdata}    ForceMagnitude    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XPosition - Parked
     [Tags]    functional
     Verify Irrational Value    XPosition    ${hpdata.XPosition}    ${0.001}    ${0.0164}
 
-Verify Hardpoint Data Telemetry - XRotation - Parked
+Verify Hardpoint Monitor Data Telemetry - XRotation - Parked
     [Tags]    functional
     Verify Irrational Value    XRotation    ${hpdata.XRotation}    ${0.001}    ${0.0023}
 
-Verify Hardpoint Data Telemetry - YPosition - Parked
+Verify Hardpoint Monitor Data Telemetry - YPosition - Parked
     [Tags]    functional
     Verify Irrational Value    YPosition    ${hpdata.YPosition}    ${0.001}    ${-0.0031}
 
-Verify Hardpoint Data Telemetry - YRotation - Parked
+Verify Hardpoint Monitor Data Telemetry - YRotation - Parked
     [Tags]    functional
     Verify Irrational Value    YRotation    ${hpdata.YRotation}    ${0.001}    ${0.0001}
 
-Verify Hardpoint Data Telemetry - ZPosition - Parked
+Verify Hardpoint Monitor Data Telemetry - ZPosition - Parked
     [Tags]    functional
     Verify Irrational Value    ZPosition    ${hpdata.ZPosition}    ${0.001}    ${0.0010}
 
-Verify Hardpoint Data Telemetry - ZRotation - Parked
+Verify Hardpoint Monitor Data Telemetry - ZRotation - Parked
     [Tags]    functional
     Verify Irrational Value    ZRotation    ${hpdata.ZRotation}    ${0.001}    ${-0.0021}
 
-############ END Verify Hardpoint Data Telemetry - PARKED ############
+############ END Verify Hardpoint Actuator Data Telemetry - PARKED ############
 
 Get to Enabled-Raising State
     [Tags]    functional
     Comment    Issue Raise M1M3 Command
     Issue Raise Command
     Comment    Verify system enters Raising State.
-    Verify Detailed State Event    ${6}
-    Verify Summary State Event    ${3}
+    Verify Detailed State Event    ${DetailedRaising}
+
+Verify Summary State Event - Raising
+    [Tags]    functional
+    Comment    Verify system enters Enabled State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Hardpoint Monitor Info Event - Raising
     [Tags]    functional
@@ -450,7 +384,7 @@ Get Hardpoint Monitor Status Telemetry - Raising
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
-############ BEGIN Verify Hardpoint Data Telemetry - RAISING ############
+############ BEGIN Verify Hardpoint Monitor Data Telemetry - RAISING ############
 
 Set Hardpoint Forces And Statuses - Raising
     [Tags]    functional
@@ -487,27 +421,108 @@ Get Hardpoint Data Telemetry - Raising
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
-Verify Hardpoint Data Telemetry - BreakawayLVDT - Raising
+Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - Raising
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${6.2985}    ${-0.1147}    ${3.8486}    ${-6.173}    ${-4.6194}    ${-4.2489}
 
-Verify Hardpoint Data Telemetry - BreakawayPressure - Raising
+Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - Raising
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${34.4916}    ${16.2201}    ${51.4933}    ${44.2715}    ${2.9238}    ${35.6619}
 
-Verify Hardpoint Data Telemetry - DisplacementLVDT - Raising
+Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - Raising
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${3.2604}    ${-3.9019}    ${8.2823}    ${0.1635}    ${-8.9626}    ${1.8729}
 
-Verify Hardpoint Data Telemetry - Encoder - Raising
+Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - Raising
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    Encoder    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - Force - Raising
+Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - Raising
     [Tags]    functional
-    Verify Irrational Array    ${hpdata}    Force    ${0.001}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-############ END Verify Hardpoint Data Telemetry - RAISING ############
+Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - Raising
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
+
+############ END Verify Hardpoint Monitor Data Telemetry - RAISING ############
+
+############ BEGIN Verify Hardpoint Actuator Data Telemetry - RAISING ############
+
+Verify Hardpoint Monitor Data Telemetry - StepsCommanded - Raising
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsCommanded    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Monitor Data Telemetry - StepsQueued - Raising
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsQueued    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Monitor Data Telemetry - MeasuredForce - Raising
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    MeasureForce    ${0.001}    ${350.9240}    ${559.5369}    ${-53.5340}    ${318.7000}    ${-586.7139}    ${950.8309}
+
+Verify Hardpoint Monitor Data Telemetry - Encoder - Raising
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    Encoder    ${88476}    ${4812}    ${-34908}    ${-5373}    ${16161}    ${-53064}
+
+Verify Hardpoint Monitor Data Telemetry - Displacement - Raising
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    Displacement    ${0.001}    ${0.0216}    ${0.0011}    ${-0.0085}    ${-0.0013}    ${0.0039}    ${-0.0130}
+
+Verify Hardpoint Monitor Data Telemetry - XForce - Raising
+    [Tags]    functional
+    Verify Irrational Value    XForce    ${hpdata.XForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YForce - Raising
+    [Tags]    functional
+    Verify Irrational Value    YForce    ${hpdata.YForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZForce - Raising
+    [Tags]    functional
+    Verify Irrational Value    ZForce    ${hpdata.ZForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XMoment - Raising
+    [Tags]    functional
+    Verify Irrational Value    XMoment    ${hpdata.XMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YMoment - Raising
+    [Tags]    functional
+    Verify Irrational Value    YMoment    ${hpdata.YMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZMoment - Raising
+    [Tags]    functional
+    Verify Irrational Value    ZMoment    ${hpdata.ZMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ForceMagnitude - Raising
+    [Tags]    functional
+    Verify Irrational Value    ${hpdata}    ForceMagnitude    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XPosition - Raising
+    [Tags]    functional
+    Verify Irrational Value    XPosition    ${hpdata.XPosition}    ${0.001}    ${0.0164}
+
+Verify Hardpoint Monitor Data Telemetry - XRotation - Raising
+    [Tags]    functional
+    Verify Irrational Value    XRotation    ${hpdata.XRotation}    ${0.001}    ${0.0023}
+
+Verify Hardpoint Monitor Data Telemetry - YPosition - Raising
+    [Tags]    functional
+    Verify Irrational Value    YPosition    ${hpdata.YPosition}    ${0.001}    ${-0.0031}
+
+Verify Hardpoint Monitor Data Telemetry - YRotation - Raising
+    [Tags]    functional
+    Verify Irrational Value    YRotation    ${hpdata.YRotation}    ${0.001}    ${0.0001}
+
+Verify Hardpoint Monitor Data Telemetry - ZPosition - Raising
+    [Tags]    functional
+    Verify Irrational Value    ZPosition    ${hpdata.ZPosition}    ${0.001}    ${0.0010}
+
+Verify Hardpoint Monitor Data Telemetry - ZRotation - Raising
+    [Tags]    functional
+    Verify Irrational Value    ZRotation    ${hpdata.ZRotation}    ${0.001}    ${-0.0021}
+
+############ END Verify Hardpoint Actuator Data Telemetry - RAISING ############
+
 
 Wait Until Raise Completes
     [Tags]    functional
@@ -516,8 +531,12 @@ Wait Until Raise Completes
     Log    ${valid}
     Log    ${data}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${7}
-    Verify Summary State Event    ${3}
+    Should Be Equal As Integers    ${data}    ${DetailedActive}
+
+Verify Summary State Event - Raise Complete
+    [Tags]    functional
+    Comment    Verify system enters Enabled State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Hardpoint Monitor Info Event - Active
     [Tags]    functional
@@ -532,7 +551,7 @@ Get Hardpoint Monitor Status Telemetry - Active
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
-############ BEGIN Verify Hardpoint Data Telemetry - ACTIVE ############
+############ BEGIN Verify Hardpoint Monitor Data Telemetry - ACTIVE ############
 
 Set Hardpoint Forces And Statuses - Active
     [Tags]    functional
@@ -569,35 +588,120 @@ Get Hardpoint Data Telemetry - Active
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
-Verify Hardpoint Data Telemetry - BreakawayLVDT - Active
+Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - Active
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${-6.356}    ${-2.4262}    ${5.09}    ${2.9923}    ${3.7093}    ${2.6619}
 
-Verify Hardpoint Data Telemetry - BreakawayPressure - Active
+Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - Active
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${50.831}    ${120.2331}    ${82.262}    ${111.5033}    ${91.9502}    ${48.0472}
 
-Verify Hardpoint Data Telemetry - DisplacementLVDT - Active
+Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - Active
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-1.7328}    ${-1.4}    ${0.0076}    ${7.498}    ${-6.7294}    ${-0.1038}
 
-Verify Hardpoint Data Telemetry - Encoder - Active
+Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - Active
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    Encoder    ${93738}    ${-267778}    ${-403132}    ${-102335}    ${-453498}    ${150384}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - Force - Active
+Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - Active
     [Tags]    functional
-    Verify Irrational Array    ${hpdata}    Force    ${0.001}    ${4812.3538}    ${-3943.7594}    ${4602.6788}    ${3539.1055}    ${-1379.5847}    ${-878.3023}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-############ END Verify Hardpoint Data Telemetry - ACTIVE ############
+Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - Active
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
+
+############ END Verify Hardpoint Monitor Data Telemetry - ACTIVE ############
+
+############ BEGIN Verify Hardpoint Actuator Data Telemetry - ACTIVE ############
+    
+Verify Hardpoint Monitor Data Telemetry - StepsCommanded - Active
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsCommanded    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Monitor Data Telemetry - StepsQueued - Active
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsQueued    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    
+Verify Hardpoint Monitor Data Telemetry - MeasuredForce - Active
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    MeasureForce    ${0.001}    ${350.9240}    ${559.5369}    ${-53.5340}    ${318.7000}    ${-586.7139}    ${950.8309}
+
+Verify Hardpoint Monitor Data Telemetry - Encoder - Active
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    Encoder    ${88476}    ${4812}    ${-34908}    ${-5373}    ${16161}    ${-53064}
+
+Verify Hardpoint Monitor Data Telemetry - Displacement - Active
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    Displacement    ${0.001}    ${0.0216}    ${0.0011}    ${-0.0085}    ${-0.0013}    ${0.0039}    ${-0.0130}
+
+Verify Hardpoint Monitor Data Telemetry - XForce - Active
+    [Tags]    functional
+    Verify Irrational Value    XForce    ${hpdata.XForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YForce - Active
+    [Tags]    functional
+    Verify Irrational Value    YForce    ${hpdata.YForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZForce - Active
+    [Tags]    functional
+    Verify Irrational Value    ZForce    ${hpdata.ZForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XMoment - Active
+    [Tags]    functional
+    Verify Irrational Value    XMoment    ${hpdata.XMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YMoment - Active
+    [Tags]    functional
+    Verify Irrational Value    YMoment    ${hpdata.YMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZMoment - Active
+    [Tags]    functional
+    Verify Irrational Value    ZMoment    ${hpdata.ZMoment}    ${0.001}    ${0.0216}
+    
+Verify Hardpoint Monitor Data Telemetry - ForceMagnitude - Active
+    [Tags]    functional
+    Verify Irrational Value    ${hpdata}    ForceMagnitude    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XPosition - Active
+    [Tags]    functional
+    Verify Irrational Value    XPosition    ${hpdata.XPosition}    ${0.001}    ${0.0164}
+    
+Verify Hardpoint Monitor Data Telemetry - XRotation - Active
+    [Tags]    functional 
+    Verify Irrational Value    XRotation    ${hpdata.XRotation}    ${0.001}    ${0.0023}
+    
+Verify Hardpoint Monitor Data Telemetry - YPosition - Active
+    [Tags]    functional  
+    Verify Irrational Value    YPosition    ${hpdata.YPosition}    ${0.001}    ${-0.0031}
+
+Verify Hardpoint Monitor Data Telemetry - YRotation - Active
+    [Tags]    functional
+    Verify Irrational Value    YRotation    ${hpdata.YRotation}    ${0.001}    ${0.0001}
+    
+Verify Hardpoint Monitor Data Telemetry - ZPosition - Active
+    [Tags]    functional
+    Verify Irrational Value    ZPosition    ${hpdata.ZPosition}    ${0.001}    ${0.0010}
+
+Verify Hardpoint Monitor Data Telemetry - ZRotation - Active
+    [Tags]    functional
+    Verify Irrational Value    ZRotation    ${hpdata.ZRotation}    ${0.001}    ${-0.0021}
+    
+############ END Verify Hardpoint Actuator Data Telemetry - ACTIVE ############
+
 
 Get to Enabled-Lowering State
     [Tags]    functional
     Comment    Issue Lower M1M3 Command
     Issue Lower Command
-    Comment    Verify system enters Raising State.
-    Verify Detailed State Event    ${8}
-    Verify Summary State Event    ${3}
+    Comment    Verify system enters Lowering State.
+    Verify Detailed State Event    ${DetailedLowering}
+
+Verify Summary State Event - Lowering
+    [Tags]    functional
+    Comment    Verify system enters Enabled State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Hardpoint Monitor Info Event - Lowering
     [Tags]    functional
@@ -612,7 +716,7 @@ Get Hardpoint Monitor Status Telemetry - Lowering
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
-############ BEGIN Verify Hardpoint Data Telemetry - LOWERING ############
+############ BEGIN Verify Hardpoint Monitor Data Telemetry - LOWERING ############
 
 Set Hardpoint Forces And Statuses - Lowering
     [Tags]    functional
@@ -649,27 +753,108 @@ Get Hardpoint Data Telemetry - Lowering
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
-Verify Hardpoint Data Telemetry - BreakawayLVDT - Lowering
+Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - Lowering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${-4.0986}    ${-5.6215}    ${9.1817}    ${-5.8255}    ${-5.9124}    ${6.3352}
 
-Verify Hardpoint Data Telemetry - BreakawayPressure - Lowering
+Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - Lowering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${123.4892}    ${27.0135}    ${44.2858}    ${51.5121}    ${23.4114}    ${73.439}
 
-Verify Hardpoint Data Telemetry - DisplacementLVDT - Lowering
+Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - Lowering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-3.8844}    ${-1.0793}    ${-3.5968}    ${-9.6489}    ${-4.1641}    ${9.444}
 
-Verify Hardpoint Data Telemetry - Encoder - Lowering
+Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - Lowering
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    Encoder    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - Force - Lowering
+Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - Lowering
     [Tags]    functional
-    Verify Irrational Array    ${hpdata}    Force    ${0.001}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-############ END Verify Hardpoint Data Telemetry - LOWERING ############
+Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - Lowering
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
+
+############ END Verify Hardpoint Monitor Data Telemetry - LOWERING ############
+
+############ BEGIN Verify Hardpoint Actuator Data Telemetry - LOWERING ############
+    
+Verify Hardpoint Monitor Data Telemetry - StepsCommanded - Lowering
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsCommanded    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Monitor Data Telemetry - StepsQueued - Lowering
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsQueued    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    
+Verify Hardpoint Monitor Data Telemetry - MeasuredForce - Lowering
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    MeasureForce    ${0.001}    ${350.9240}    ${559.5369}    ${-53.5340}    ${318.7000}    ${-586.7139}    ${950.8309}
+
+Verify Hardpoint Monitor Data Telemetry - Encoder - Lowering
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    Encoder    ${88476}    ${4812}    ${-34908}    ${-5373}    ${16161}    ${-53064}
+
+Verify Hardpoint Monitor Data Telemetry - Displacement - Lowering
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    Displacement    ${0.001}    ${0.0216}    ${0.0011}    ${-0.0085}    ${-0.0013}    ${0.0039}    ${-0.0130}
+
+Verify Hardpoint Monitor Data Telemetry - XForce - Lowering
+    [Tags]    functional
+    Verify Irrational Value    XForce    ${hpdata.XForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YForce - Lowering
+    [Tags]    functional
+    Verify Irrational Value    YForce    ${hpdata.YForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZForce - Lowering
+    [Tags]    functional
+    Verify Irrational Value    ZForce    ${hpdata.ZForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XMoment - Lowering
+    [Tags]    functional
+    Verify Irrational Value    XMoment    ${hpdata.XMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YMoment - Lowering
+    [Tags]    functional
+    Verify Irrational Value    YMoment    ${hpdata.YMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZMoment - Lowering
+    [Tags]    functional
+    Verify Irrational Value    ZMoment    ${hpdata.ZMoment}    ${0.001}    ${0.0216}
+    
+Verify Hardpoint Monitor Data Telemetry - ForceMagnitude - Lowering
+    [Tags]    functional
+    Verify Irrational Value    ${hpdata}    ForceMagnitude    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XPosition - Lowering
+    [Tags]    functional
+    Verify Irrational Value    XPosition    ${hpdata.XPosition}    ${0.001}    ${0.0164}
+    
+Verify Hardpoint Monitor Data Telemetry - XRotation - Lowering
+    [Tags]    functional 
+    Verify Irrational Value    XRotation    ${hpdata.XRotation}    ${0.001}    ${0.0023}
+    
+Verify Hardpoint Monitor Data Telemetry - YPosition - Lowering
+    [Tags]    functional  
+    Verify Irrational Value    YPosition    ${hpdata.YPosition}    ${0.001}    ${-0.0031}
+
+Verify Hardpoint Monitor Data Telemetry - YRotation - Lowering
+    [Tags]    functional
+    Verify Irrational Value    YRotation    ${hpdata.YRotation}    ${0.001}    ${0.0001}
+    
+Verify Hardpoint Monitor Data Telemetry - ZPosition - Lowering
+    [Tags]    functional
+    Verify Irrational Value    ZPosition    ${hpdata.ZPosition}    ${0.001}    ${0.0010}
+
+Verify Hardpoint Monitor Data Telemetry - ZRotation - Lowering
+    [Tags]    functional
+    Verify Irrational Value    ZRotation    ${hpdata.ZRotation}    ${0.001}    ${-0.0021}
+    
+############ END Verify Hardpoint Actuator Data Telemetry - LOWERING ############
+
 
 Wait Until Lower Completes
     [Tags]    functional
@@ -678,16 +863,24 @@ Wait Until Lower Completes
     Log    ${valid}
     Log    ${data}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${5}
-    Verify Summary State Event    ${3}
+    Should Be Equal As Integers    ${data}    ${DetailedParked}
+
+Verify Summary State Event - Lowering Complete
+    [Tags]    functional
+    Comment    Verify system enters Enabled State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Get to ParkedEngineering State
     [Tags]    functional
     Comment    Issue EnterEngineering Command.
     Issue EnterEngineering Command
     Comment    Verify system enters ParkedEngineering Detailed State.
-    Verify Detailed State Event    ${10}
-    Verify Summary State Event    ${3}
+    Verify Detailed State Event    ${DetailedParkedEngineering}
+
+Verify Summary State Event - ParkedEngineering
+    [Tags]    functional
+    Comment    Verify system enters Enabled State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Hardpoint Monitor Info Event - ParkedEngineering
     [Tags]    functional
@@ -702,7 +895,7 @@ Get Hardpoint Monitor Status Telemetry - ParkedEngineering
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
-############ BEGIN Verify Hardpoint Data Telemetry - PARKEDENGINEERING ############
+############ BEGIN Verify Hardpoint Monitor Data Telemetry - PARKEDENGINEERING ############
 
 Set Hardpoint Forces And Statuses - ParkedEngineering
     [Tags]    functional
@@ -739,35 +932,120 @@ Get Hardpoint Data Telemetry - ParkedEngineering
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
-Verify Hardpoint Data Telemetry - BreakawayLVDT - ParkedEngineering
+Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - ParkedEngineering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${-5.7547}    ${7.5998}    ${-0.6323}    ${1.4139}    ${3.0318}    ${3.4932}
 
-Verify Hardpoint Data Telemetry - BreakawayPressure - ParkedEngineering
+Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - ParkedEngineering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${42.6241}    ${70.8409}    ${103.4864}    ${77.7477}    ${13.7352}    ${27.3488}
 
-Verify Hardpoint Data Telemetry - DisplacementLVDT - ParkedEngineering
+Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - ParkedEngineering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-0.9152}    ${-5.3859}    ${-3.6556}    ${-2.7282}    ${5.6386}    ${-5.2086}
 
-Verify Hardpoint Data Telemetry - Encoder - ParkedEngineering
+Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - ParkedEngineering
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    Encoder    ${192148}    ${-406285}    ${356122}    ${-254032}    ${-97329}    ${369088}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - Force - ParkedEngineering
+Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - ParkedEngineering
     [Tags]    functional
-    Verify Irrational Array    ${hpdata}    Force    ${0.001}    ${-765.5576}    ${-4408.2886}    ${2683.3783}    ${1022.9206}    ${2359.2162}    ${4170.0464}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-############ END Verify Hardpoint Data Telemetry - PARKEDENGINEERING ############
+Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
+
+############ END Verify Hardpoint Monitor Data Telemetry - PARKEDENGINEERING ############
+
+############ BEGIN Verify Hardpoint Actuator Data Telemetry - PARKEDENGINEERING ############
+    
+Verify Hardpoint Monitor Data Telemetry - StepsCommanded - ParkedEngineering
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsCommanded    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Monitor Data Telemetry - StepsQueued - ParkedEngineering
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsQueued    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    
+Verify Hardpoint Monitor Data Telemetry - MeasuredForce - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    MeasureForce    ${0.001}    ${350.9240}    ${559.5369}    ${-53.5340}    ${318.7000}    ${-586.7139}    ${950.8309}
+
+Verify Hardpoint Monitor Data Telemetry - Encoder - ParkedEngineering
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    Encoder    ${88476}    ${4812}    ${-34908}    ${-5373}    ${16161}    ${-53064}
+
+Verify Hardpoint Monitor Data Telemetry - Displacement - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    Displacement    ${0.001}    ${0.0216}    ${0.0011}    ${-0.0085}    ${-0.0013}    ${0.0039}    ${-0.0130}
+
+Verify Hardpoint Monitor Data Telemetry - XForce - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Value    XForce    ${hpdata.XForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YForce - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Value    YForce    ${hpdata.YForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZForce - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Value    ZForce    ${hpdata.ZForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XMoment - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Value    XMoment    ${hpdata.XMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YMoment - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Value    YMoment    ${hpdata.YMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZMoment - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Value    ZMoment    ${hpdata.ZMoment}    ${0.001}    ${0.0216}
+    
+Verify Hardpoint Monitor Data Telemetry - ForceMagnitude - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Value    ${hpdata}    ForceMagnitude    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XPosition - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Value    XPosition    ${hpdata.XPosition}    ${0.001}    ${0.0164}
+    
+Verify Hardpoint Monitor Data Telemetry - XRotation - ParkedEngineering
+    [Tags]    functional 
+    Verify Irrational Value    XRotation    ${hpdata.XRotation}    ${0.001}    ${0.0023}
+    
+Verify Hardpoint Monitor Data Telemetry - YPosition - ParkedEngineering
+    [Tags]    functional  
+    Verify Irrational Value    YPosition    ${hpdata.YPosition}    ${0.001}    ${-0.0031}
+
+Verify Hardpoint Monitor Data Telemetry - YRotation - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Value    YRotation    ${hpdata.YRotation}    ${0.001}    ${0.0001}
+    
+Verify Hardpoint Monitor Data Telemetry - ZPosition - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Value    ZPosition    ${hpdata.ZPosition}    ${0.001}    ${0.0010}
+
+Verify Hardpoint Monitor Data Telemetry - ZRotation - ParkedEngineering
+    [Tags]    functional
+    Verify Irrational Value    ZRotation    ${hpdata.ZRotation}    ${0.001}    ${-0.0021}
+    
+############ END Verify Hardpoint Actuator Data Telemetry - PARKEDENGINEERING ############
+
 
 Get to Enabled-RaisingEngineering State
     [Tags]    functional
     Comment    Issue Raise M1M3 Command
     Issue Raise Command
     Comment    Verify system enters RaisingEngineering State.
-    Verify Detailed State Event    ${11}
-    Verify Summary State Event    ${3}
+    Verify Detailed State Event    ${DetailedRaisingEngineering}
+
+Verify Summary State Event - RaisingEngineering
+    [Tags]    functional
+    Comment    Verify system enters Enabled State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Hardpoint Monitor Info Event - RaisingEngineering
     [Tags]    functional
@@ -782,7 +1060,7 @@ Get Hardpoint Monitor Status Telemetry - RaisingEngineering
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
-############ BEGIN Verify Hardpoint Data Telemetry - RAISINGENGINEERING ############
+############ BEGIN Verify Hardpoint Monitor Data Telemetry - RAISINGENGINEERING ############
 
 Set Hardpoint Forces And Statuses - RaisingEngineering
     [Tags]    functional
@@ -819,27 +1097,108 @@ Get Hardpoint Data Telemetry - RaisingEngineering
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
-Verify Hardpoint Data Telemetry - BreakawayLVDT - RaisingEngineering
+Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - RaisingEngineering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${6.5002}    ${4.3867}    ${-0.6658}    ${2.8957}    ${-4.0986}    ${-8.0855}
 
-Verify Hardpoint Data Telemetry - BreakawayPressure - RaisingEngineering
+Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - RaisingEngineering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${38.1029}    ${96.8142}    ${78.9591}    ${29.5881}    ${101.6804}    ${115.2536}
 
-Verify Hardpoint Data Telemetry - DisplacementLVDT - RaisingEngineering
+Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - RaisingEngineering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-2.2664}    ${-0.4983}    ${-4.9625}    ${6.1291}    ${0.1223}    ${-5.8437}
 
-Verify Hardpoint Data Telemetry - Encoder - RaisingEngineering
+Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - RaisingEngineering
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    Encoder    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - Force - RaisingEngineering
+Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - RaisingEngineering
     [Tags]    functional
-    Verify Irrational Array    ${hpdata}    Force    ${0.001}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-############ END Verify Hardpoint Data Telemetry - RAISINGENGINEERING ############
+Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - RaisingEngineering
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
+
+############ END Verify Hardpoint Monitor Data Telemetry - RAISINGENGINEERING ############
+
+############ BEGIN Verify Hardpoint Actuator Data Telemetry - RAISINGENGINEERING ############
+    
+Verify Hardpoint Monitor Data Telemetry - StepsCommanded - Raising
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsCommanded    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Monitor Data Telemetry - StepsQueued - Raising
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsQueued    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    
+Verify Hardpoint Monitor Data Telemetry - MeasuredForce - Raising
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    MeasureForce    ${0.001}    ${350.9240}    ${559.5369}    ${-53.5340}    ${318.7000}    ${-586.7139}    ${950.8309}
+
+Verify Hardpoint Monitor Data Telemetry - Encoder - Raising
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    Encoder    ${88476}    ${4812}    ${-34908}    ${-5373}    ${16161}    ${-53064}
+
+Verify Hardpoint Monitor Data Telemetry - Displacement - Raising
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    Displacement    ${0.001}    ${0.0216}    ${0.0011}    ${-0.0085}    ${-0.0013}    ${0.0039}    ${-0.0130}
+
+Verify Hardpoint Monitor Data Telemetry - XForce - Raising
+    [Tags]    functional
+    Verify Irrational Value    XForce    ${hpdata.XForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YForce - Raising
+    [Tags]    functional
+    Verify Irrational Value    YForce    ${hpdata.YForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZForce - Raising
+    [Tags]    functional
+    Verify Irrational Value    ZForce    ${hpdata.ZForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XMoment - Raising
+    [Tags]    functional
+    Verify Irrational Value    XMoment    ${hpdata.XMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YMoment - Raising
+    [Tags]    functional
+    Verify Irrational Value    YMoment    ${hpdata.YMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZMoment - Raising
+    [Tags]    functional
+    Verify Irrational Value    ZMoment    ${hpdata.ZMoment}    ${0.001}    ${0.0216}
+    
+Verify Hardpoint Monitor Data Telemetry - ForceMagnitude - Raising
+    [Tags]    functional
+    Verify Irrational Value    ${hpdata}    ForceMagnitude    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XPosition - Raising
+    [Tags]    functional
+    Verify Irrational Value    XPosition    ${hpdata.XPosition}    ${0.001}    ${0.0164}
+    
+Verify Hardpoint Monitor Data Telemetry - XRotation - Raising
+    [Tags]    functional 
+    Verify Irrational Value    XRotation    ${hpdata.XRotation}    ${0.001}    ${0.0023}
+    
+Verify Hardpoint Monitor Data Telemetry - YPosition - Raising
+    [Tags]    functional  
+    Verify Irrational Value    YPosition    ${hpdata.YPosition}    ${0.001}    ${-0.0031}
+
+Verify Hardpoint Monitor Data Telemetry - YRotation - Raising
+    [Tags]    functional
+    Verify Irrational Value    YRotation    ${hpdata.YRotation}    ${0.001}    ${0.0001}
+    
+Verify Hardpoint Monitor Data Telemetry - ZPosition - Raising
+    [Tags]    functional
+    Verify Irrational Value    ZPosition    ${hpdata.ZPosition}    ${0.001}    ${0.0010}
+
+Verify Hardpoint Monitor Data Telemetry - ZRotation - Raising
+    [Tags]    functional
+    Verify Irrational Value    ZRotation    ${hpdata.ZRotation}    ${0.001}    ${-0.0021}
+    
+############ END Verify Hardpoint Actuator Data Telemetry - RAISING ############
+
 
 Wait Until Engineering Raise Completes
     [Tags]    functional
@@ -848,8 +1207,12 @@ Wait Until Engineering Raise Completes
     Log    ${valid}
     Log    ${data}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${12}
-    Verify Summary State Event    ${3}
+    Should Be Equal As Integers    ${data}    ${DetailedActiveEngineering}
+
+Verify Summary State Event - RaisingEngineering Complete
+    [Tags]    functional
+    Comment    Verify system enters Enabled State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Hardpoint Monitor Info Event - ActiveEngineering
     [Tags]    functional
@@ -864,7 +1227,7 @@ Get Hardpoint Monitor Status Telemetry - ActiveEngineering
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
-############ BEGIN Verify Hardpoint Data Telemetry - ACTIVEENGINEERING ############
+############ BEGIN Verify Hardpoint Monitor Data Telemetry - ACTIVEENGINEERING ############
 
 Set Hardpoint Forces And Statuses - ActiveEngineering
     [Tags]    functional
@@ -901,35 +1264,120 @@ Get Hardpoint Data Telemetry - ActiveEngineering
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
-Verify Hardpoint Data Telemetry - BreakawayLVDT - ActiveEngineering
+Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - ActiveEngineering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${-7.1027}    ${4.9707}    ${-5.3761}    ${3.0922}    ${3.1161}    ${7.2899}
 
-Verify Hardpoint Data Telemetry - BreakawayPressure - ActiveEngineering
+Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - ActiveEngineering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${2.9479}    ${94.9948}    ${2.0569}    ${62.0459}    ${22.2302}    ${60.5436}
 
-Verify Hardpoint Data Telemetry - DisplacementLVDT - ActiveEngineering
+Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - ActiveEngineering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-3.3515}    ${-4.0261}    ${2.4002}    ${4.856}    ${6.8209}    ${-2.8102}
 
-Verify Hardpoint Data Telemetry - Encoder - ActiveEngineering
+Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - ActiveEngineering
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    Encoder    ${-37641}    ${163077}    ${26358}    ${325099}    ${-162594}    ${-417537}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - Force - ActiveEngineering
+Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - ActiveEngineering
     [Tags]    functional
-    Verify Irrational Array    ${hpdata}    Force    ${0.001}    ${1863.7192}    ${3828.2121}    ${190.6504}    ${1581.8369}    ${-264.2161}    ${1835.9168}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-############ END Verify Hardpoint Data Telemetry - ACTIVEENGINEERING ############
+Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
+
+############ END Verify Hardpoint Monitor Data Telemetry - ACTIVEENGINEERING ############
+
+############ BEGIN Verify Hardpoint Actuator Data Telemetry - ACTIVEENGINEERING ############
+    
+Verify Hardpoint Monitor Data Telemetry - StepsCommanded - ActiveEngineering
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsCommanded    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Monitor Data Telemetry - StepsQueued - ActiveEngineering
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsQueued    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    
+Verify Hardpoint Monitor Data Telemetry - MeasuredForce - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    MeasureForce    ${0.001}    ${350.9240}    ${559.5369}    ${-53.5340}    ${318.7000}    ${-586.7139}    ${950.8309}
+
+Verify Hardpoint Monitor Data Telemetry - Encoder - ActiveEngineering
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    Encoder    ${88476}    ${4812}    ${-34908}    ${-5373}    ${16161}    ${-53064}
+
+Verify Hardpoint Monitor Data Telemetry - Displacement - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    Displacement    ${0.001}    ${0.0216}    ${0.0011}    ${-0.0085}    ${-0.0013}    ${0.0039}    ${-0.0130}
+
+Verify Hardpoint Monitor Data Telemetry - XForce - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Value    XForce    ${hpdata.XForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YForce - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Value    YForce    ${hpdata.YForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZForce - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Value    ZForce    ${hpdata.ZForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XMoment - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Value    XMoment    ${hpdata.XMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YMoment - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Value    YMoment    ${hpdata.YMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZMoment - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Value    ZMoment    ${hpdata.ZMoment}    ${0.001}    ${0.0216}
+    
+Verify Hardpoint Monitor Data Telemetry - ForceMagnitude - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Value    ${hpdata}    ForceMagnitude    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XPosition - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Value    XPosition    ${hpdata.XPosition}    ${0.001}    ${0.0164}
+    
+Verify Hardpoint Monitor Data Telemetry - XRotation - ActiveEngineering
+    [Tags]    functional 
+    Verify Irrational Value    XRotation    ${hpdata.XRotation}    ${0.001}    ${0.0023}
+    
+Verify Hardpoint Monitor Data Telemetry - YPosition - ActiveEngineering
+    [Tags]    functional  
+    Verify Irrational Value    YPosition    ${hpdata.YPosition}    ${0.001}    ${-0.0031}
+
+Verify Hardpoint Monitor Data Telemetry - YRotation - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Value    YRotation    ${hpdata.YRotation}    ${0.001}    ${0.0001}
+    
+Verify Hardpoint Monitor Data Telemetry - ZPosition - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Value    ZPosition    ${hpdata.ZPosition}    ${0.001}    ${0.0010}
+
+Verify Hardpoint Monitor Data Telemetry - ZRotation - ActiveEngineering
+    [Tags]    functional
+    Verify Irrational Value    ZRotation    ${hpdata.ZRotation}    ${0.001}    ${-0.0021}
+    
+############ END Verify Hardpoint Actuator Data Telemetry - ACTIVEENGINEERING ############
+
 
 Get to Enabled-LoweringEngineering State
     [Tags]    functional
     Comment    Issue Lower M1M3 Command
     Issue Lower Command
-    Comment    Verify system enters Raising State.
-    Verify Detailed State Event    ${13}
-    Verify Summary State Event    ${3}
+    Comment    Verify system enters LoweringEngineering State.
+    Verify Detailed State Event    ${DetailedLoweringEngineering}
+
+Verify Summary State Event - LoweringEngineering
+    [Tags]    functional
+    Comment    Verify system enters Enabled State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Verify Hardpoint Monitor Info Event - LoweringEngineering
     [Tags]    functional
@@ -944,7 +1392,7 @@ Get Hardpoint Monitor Status Telemetry - LoweringEngineering
     Set Suite Variable    ${hpmsdata}
     Should Be True    ${valid}
 
-############ BEGIN Verify Hardpoint Data Telemetry - LOWERINGENGINEERING ############
+############ BEGIN Verify Hardpoint Monitor Data Telemetry - LOWERINGENGINEERING ############
 
 Set Hardpoint Forces And Statuses - LoweringEngineering
     [Tags]    functional
@@ -981,27 +1429,108 @@ Get Hardpoint Data Telemetry - LoweringEngineering
     Set Suite Variable    ${hpdata}
     Should Be True    ${valid}
 
-Verify Hardpoint Data Telemetry - BreakawayLVDT - LoweringEngineering
+Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - LoweringEngineering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${-3.2376}    ${-6.7826}    ${-9.9491}    ${1.9663}    ${-7.371}    ${9.5657}
 
-Verify Hardpoint Data Telemetry - BreakawayPressure - LoweringEngineering
+Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - LoweringEngineering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${43.7634}    ${101.6443}    ${54.1675}    ${53.2244}    ${104.1298}    ${48.1102}
 
-Verify Hardpoint Data Telemetry - DisplacementLVDT - LoweringEngineering
+Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - LoweringEngineering
     [Tags]    functional
     Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-1.4411}    ${3.0871}    ${-6.4417}    ${9.0157}    ${-0.1022}    ${1.1736}
 
-Verify Hardpoint Data Telemetry - Encoder - LoweringEngineering
+Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - LoweringEngineering
     [Tags]    functional
-    Verify Rational Array    ${hpdata}    Encoder    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-Verify Hardpoint Data Telemetry - Force - LoweringEngineering
+Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - LoweringEngineering
     [Tags]    functional
-    Verify Irrational Array    ${hpdata}    Force    ${0.001}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
-############ END Verify Hardpoint Data Telemetry - LOWERINGENGINEERING ############
+Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
+
+############ END Verify Hardpoint Monitor Data Telemetry - LOWERINGENGINEERING ############
+
+############ BEGIN Verify Hardpoint Actuator Data Telemetry - LOWERINGENGINEERING ############
+    
+Verify Hardpoint Monitor Data Telemetry - StepsCommanded - LoweringEngineering
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsCommanded    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+
+Verify Hardpoint Monitor Data Telemetry - StepsQueued - LoweringEngineering
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    StepsQueued    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    
+Verify Hardpoint Monitor Data Telemetry - MeasuredForce - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    MeasureForce    ${0.001}    ${350.9240}    ${559.5369}    ${-53.5340}    ${318.7000}    ${-586.7139}    ${950.8309}
+
+Verify Hardpoint Monitor Data Telemetry - Encoder - LoweringEngineering
+    [Tags]    functional
+    Verify Rational Array    ${hpdata}    Encoder    ${88476}    ${4812}    ${-34908}    ${-5373}    ${16161}    ${-53064}
+
+Verify Hardpoint Monitor Data Telemetry - Displacement - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Array    ${hpdata}    Displacement    ${0.001}    ${0.0216}    ${0.0011}    ${-0.0085}    ${-0.0013}    ${0.0039}    ${-0.0130}
+
+Verify Hardpoint Monitor Data Telemetry - XForce - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Value    XForce    ${hpdata.XForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YForce - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Value    YForce    ${hpdata.YForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZForce - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Value    ZForce    ${hpdata.ZForce}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XMoment - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Value    XMoment    ${hpdata.XMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - YMoment - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Value    YMoment    ${hpdata.YMoment}    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - ZMoment - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Value    ZMoment    ${hpdata.ZMoment}    ${0.001}    ${0.0216}
+    
+Verify Hardpoint Monitor Data Telemetry - ForceMagnitude - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Value    ${hpdata}    ForceMagnitude    ${0.001}    ${0.0216}
+
+Verify Hardpoint Monitor Data Telemetry - XPosition - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Value    XPosition    ${hpdata.XPosition}    ${0.001}    ${0.0164}
+    
+Verify Hardpoint Monitor Data Telemetry - XRotation - LoweringEngineering
+    [Tags]    functional 
+    Verify Irrational Value    XRotation    ${hpdata.XRotation}    ${0.001}    ${0.0023}
+    
+Verify Hardpoint Monitor Data Telemetry - YPosition - LoweringEngineering
+    [Tags]    functional  
+    Verify Irrational Value    YPosition    ${hpdata.YPosition}    ${0.001}    ${-0.0031}
+
+Verify Hardpoint Monitor Data Telemetry - YRotation - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Value    YRotation    ${hpdata.YRotation}    ${0.001}    ${0.0001}
+    
+Verify Hardpoint Monitor Data Telemetry - ZPosition - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Value    ZPosition    ${hpdata.ZPosition}    ${0.001}    ${0.0010}
+
+Verify Hardpoint Monitor Data Telemetry - ZRotation - LoweringEngineering
+    [Tags]    functional
+    Verify Irrational Value    ZRotation    ${hpdata.ZRotation}    ${0.001}    ${-0.0021}
+    
+############ END Verify Hardpoint Actuator Data Telemetry - LOWERINGENGINEERING ############
+
 
 Wait Until Engineering Lower Completes
     [Tags]    functional
@@ -1010,16 +1539,24 @@ Wait Until Engineering Lower Completes
     Log    ${valid}
     Log    ${data}
     Should Be True    ${valid}
-    Should Be Equal As Integers    ${data}    ${10}
-    Verify Summary State Event    ${3}
+    Should Be Equal As Integers    ${data}    ${DetailedParkedEngineering}
+
+Verify Summary State Event - LoweringEngineering Complete
+    [Tags]    functional
+    Comment    Verify system enters Enabled State.
+    Verify Summary State Event    ${SummaryEnabled}
 
 Get to Disabled State - Cleanup
     [Tags]    functional
     Comment    Issue Disable Command.
     Issue Disable Command
     Comment    Verify system enters Disabled State.
-    Verify Summary State Event    ${2}
-    Verify Detailed State Event    ${2}
+    Verify Detailed State Event    ${DetailedDisabled}
+
+Verify Summary State Event - Disabled
+    [Tags]    functional
+    Comment    Verify system enters Enabled State.
+    Verify Summary State Event    ${SummaryDisabled}
 
 Verify Hardpoint Monitor Info Event - Disabled from Enabled
     [Tags]    functional
@@ -1033,8 +1570,12 @@ Get to Standby State - Cleanup
     Comment    Issue Standby Command.
     Issue Standby Command
     Comment    Verify system enters Standby State.
-    Verify Summary State Event    ${1}
-    Verify Detailed State Event    ${1}
+    Verify Detailed State Event    ${DetailedStandby}
+
+Verify Summary State Event - Standby
+    [Tags]    functional
+    Comment    Verify system enters Enabled State.
+    Verify Summary State Event    ${SummaryStandby}
 
 Verify Hardpoint Monitor Info Event - Standby
     [Tags]    functional
@@ -1052,12 +1593,12 @@ Verify Hardpoint Monitor Status Telemetry - Standby
     ${valid}    ${hpmsdata}=    Get Hardpoint Monitor Status Telemetry
     Should Not Be True    ${valid}
 
-Verify Hardpoint Data Telemetry - Standby
+Verify Hardpoint Monitor Data Telemetry - Standby
     [Tags]    functional
     Comment    Have to get the last sample in the buffer before continuing.
     ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
     Should Be True    ${valid}
-    Comment    Verify Hardpoint Data Telemetry is not published.
+    Comment    Verify Hardpoint Monitor Data Telemetry is not published.
     ${valid}    ${hpdata}=    Get Hardpoint Data Telemetry
     Should Not Be True    ${valid}
 
@@ -1066,32 +1607,18 @@ Get Hardpoint Monitor Info Event
     Comment    Verify system publishes Hardpoint Monitor Info Event.
     ${valid}    ${data}=    Get Event Hardpoint Monitor Info
     Log    ${data.Timestamp}
-    Log    ${data.ApplicationCRCMismatch}
-    Log    ${data.ApplicationMissing}
-    Log    ${data.ApplicationTypeMismatch}
     Log    ${data.ILCApplicationType}
-    Log    ${data.ILCSelectedOptions}
     Log    ${data.ILCUniqueId}
     Log    ${data.MajorRevision}
-    Log    ${data.MezzanineApplicationCRCMismatch}
-    Log    ${data.MezzanineApplicationMissing}
-    Log    ${data.MezzanineBootloaderActive}
-    Log    ${data.MezzanineDCPRS422ChipFault}
     Log    ${data.MezzanineFirmwareType}
     Log    ${data.MezzanineMajorRevision}
     Log    ${data.MezzanineMinorRevision}
     Log    ${data.MezzanineUniqueId}
-    Log    ${data.MezzanineUniqueIdCRCError}
     Log    ${data.MinorRevision}
     Log    ${data.ModbusAddress}
     Log    ${data.ModbusSubnet}
-    Log    ${data.NetworkNodeOptions}
     Log    ${data.NetworkNodeType}
-    Log    ${data.OneWire1Mismatch}
-    Log    ${data.OneWire2Mismatch}
-    Log    ${data.OneWireMissing}
     Log    ${data.ReferenceId}
-    Log    ${data.UniqueIdCRCError}
     [Return]    ${valid}    ${data}
 
 Get Hardpoint Monitor Status Telemetry
@@ -1111,17 +1638,22 @@ Get Hardpoint Monitor Status Telemetry
     Log    ${data.SMCPowerFault}
     [Return]    ${valid}    ${data}
 
-Get Hardpoint Data Telemetry
+Get Hardpoint Monitor Data Telemetry
     Comment    Verify system publishes Hardpoint Data Telemetry.
-    ${valid}    ${data}=    Get Sample Hardpoint Data
+    ${valid}    ${data}=    Get Sample Hardpoint Monitor Data
     Log    ${data.Timestamp}
     Log    ${data.BreakawayLVDT}
+    Log    ${data.DisplacementLVDT}
     Log    ${data.BreakawayPressure}
+    Log    ${data.PressureSensor1}
+    Log    ${data.PressureSensor2}
+    Log    ${data.PressureSensor3}
+
+Temp Keyword
     Log    ${data.BroadcastCounter}
     Log    ${data.CCWLimitOperated}
     Log    ${data.CWLimitOperated}
     Log    ${data.Displacement}
-    Log    ${data.DisplacementLVDT}
     Log    ${data.Encoder}
     Log    ${data.Force}
     Log    ${data.ILCFault}
