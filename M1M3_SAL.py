@@ -28,8 +28,8 @@ class M1M3_SAL:
 		## SAL Telemetry
 		self._SALM1M3.salTelemetrySub("m1m3_InclinometerData")
 		self._SALM1M3.salTelemetrySub("m1m3_IMSData")
-		self._SALM1M3.salTelemetrySub("m1m3_HardpointMonitorStatus")
-		self._SALM1M3.salTelemetrySub("m1m3_HardpointData")
+		self._SALM1M3.salTelemetrySub("m1m3_HardpointActuatorData")
+		self._SALM1M3.salTelemetrySub("m1m3_HardpointMonitorData")
 
 	def _afterCommand(self):
 		time.sleep(1)
@@ -55,14 +55,14 @@ class M1M3_SAL:
 		retVal = self._SALM1M3.getSample_IMSData(data)
 		return retVal == 0, data
 
-	def getSampleHardpointData(self):
-		data = m1m3_HardpointDataC()
-		retVal = self._SALM1M3.getSample_HardpointData(data)
+	def getSampleHardpointMonitorData(self):
+		data = m1m3_HardpointMonitorDataC()
+		retVal = self._SALM1M3.getSample_HardpointMonitorData(data)
 		return retVal == 0, data
 
-	def getSampleHardpointMonitorStatus(self):
-		data = m1m3_HardpointMonitorStatusC()
-		retVal = self._SALM1M3.getSample_HardpointMonitorStatus(data)
+	def getSampleHardpointActuatorData(self):
+		data = m1m3_HardpointActuatorDataC()
+		retVal = self._SALM1M3.getSample_HardpointActuatorData(data)
 		return retVal == 0, data
 
 	######## M1M3 Commands ########
