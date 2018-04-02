@@ -264,7 +264,7 @@ Verify Summary State Event - LowerEngineering Complete
     Comment    Verify system enters Enabled Summary State.
     Verify Summary State Event    ${SummaryEnabled}
 
-Start EngineeringRaise
+Start EngineeringRaise for Abort
     [Tags]    functional
     Comment    Issue Raise Command.
     Issue Raise Command
@@ -287,7 +287,7 @@ Abort EngineeringRaise
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    ${DetailedLoweringEngineering}
 
-Verify Summary State Event - RaiseEngineering for Abort
+Verify Summary State Event - Abort
     [Tags]    functional
     Comment    Verify system enters Enabled Summary State.
     Verify Summary State Event    ${SummaryEnabled}
@@ -301,7 +301,7 @@ Wait Until EngineeringLower Completes - Abort
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    ${DetailedParkedEngineering}
 
-Verify Summary State Event - RaiseEngineering for Abort Complete
+Verify Summary State Event - Abort - Lower Complete
     [Tags]    functional
     Comment    Verify system enters Enabled Summary State.
     Verify Summary State Event    ${SummaryEnabled}
