@@ -32,7 +32,8 @@ Verify Summary State Disabled Event
 Get Hardpoint Monitor Info Event - Disabled
     [Tags]    functional
     Comment    The HardpointMonitorInfo Event is only published on the Start Command, from Standby to Disabled.
-    ${valid}    ${hpmidata}=    Get Hardpoint Monitor Info Event
+    Comment    Use the Get Event keyword, to clear out old Hardpoint Monitor Info events.
+    ${valid}    ${hpmidata}=    Get Event    Hardpoint Monitor Info
     Set Suite Variable    ${hpmidata}
     Should Be True    ${valid}
 
