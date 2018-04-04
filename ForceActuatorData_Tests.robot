@@ -43,18 +43,16 @@ Verify Force Actuator Info Event - ActuatorType
     Comment    ActuatorType is configured in the M1M3 Control software settings.
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    Should Be Equal    ${faidata.ActuatorType[${index}]}    ${row[${forceActuatorTableTypeIndex}]}
+    \    Run Keyword and Continue on Failure    Should Be Equal    ${faidata.ActuatorType[${index}]}    ${row[${forceActuatorTableTypeIndex}]}
     \    ${index}=    Evaluate    ${index} + ${1}
-    #Verify Force Actuator Info    ActuatorType    ${forceActuatorTableTypeIndex}
 
 Verify Force Actuator Info Event - ActuatorOrientation
     [Tags]    functional
     Comment    ActuatorOrientation is configured in the M1M3 Control software settings. 
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    Should Be Equal    ${faidata.ActuatorOrientation[${index}]}    ${row[${forceActuatorTableOrientationIndex}]}
+    \    Run Keyword and Continue on Failure    Should Be Equal    ${faidata.ActuatorOrientation[${index}]}    ${row[${forceActuatorTableOrientationIndex}]}
     \    ${index}=    Evaluate    ${index} + ${1}
-    #Verify Force Actuator Info    ActuatorOrientation    ${forceActuatorTableOrientationIndex}
 
 Verify Force Actuator Info Event - ADCScanRate
     [Tags]    functional    skipped
@@ -109,8 +107,8 @@ Verify Force Actuator Info Event - ILCSelectedOptions
     Comment    ILCSelectedOptions is set by the M1M3_Simulator.setServerID keyword, ilcSelectedOptions parameter.
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    Run Keyword If    ${index} <= ${16}    Set Test Variable    ${value}    ${0}
-    \    Run Keyword If    ${index} >= ${16}    Set Test Variable    ${value}    ${2}
+    \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} <= ${16}    Set Test Variable    ${value}    ${0}
+    \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} >= ${16}    Set Test Variable    ${value}    ${2}
     \    Verify Rational Value    ILCSelectedOptions    ${faidata.ILCSelectedOptions[${index}]}    ${value}
     \    ${index}=    Evaluate    ${index} + ${1}
 
