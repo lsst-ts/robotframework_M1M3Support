@@ -5,8 +5,8 @@ Suite Setup    Run Keywords    M1M3_Simulator.Set to Defaults    AND    Log Many
 Suite Teardown    M1M3_Simulator.Set to Defaults
 Library    String
 Library    DateTime
-Library    M1M3_SAL
-Library    M1M3_Simulator
+Library    Library/M1M3_SAL
+Library    Library/M1M3_Simulator
 Resource    common.robot
 Resource    Global_Vars.robot
 

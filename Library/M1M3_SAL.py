@@ -14,6 +14,7 @@ class M1M3_SAL:
 		self._SALM1M3.salEvent("m1m3_logevent_SettingsApplied")
 		self._SALM1M3.salEvent("m1m3_logevent_HardpointMonitorInfo")
 		self._SALM1M3.salEvent("m1m3_logevent_ForceActuatorInfo")
+		self._SALM1M3.salEvent("m1m3_logevent_ForceActuatorState")
 		self._SALM1M3.salEvent("m1m3_logevent_CommandRejectionWarning")
 		## SAL Commands
 		self._SALM1M3.salCommand("m1m3_command_Start")
@@ -30,6 +31,7 @@ class M1M3_SAL:
 		self._SALM1M3.salTelemetrySub("m1m3_IMSData")
 		self._SALM1M3.salTelemetrySub("m1m3_HardpointActuatorData")
 		self._SALM1M3.salTelemetrySub("m1m3_HardpointMonitorData")
+		self._SALM1M3.salTelemetrySub("m1m3_ForceActuatorData")
 
 	def _afterCommand(self):
 		time.sleep(1)
@@ -63,6 +65,11 @@ class M1M3_SAL:
 	def getSampleHardpointActuatorData(self):
 		data = m1m3_HardpointActuatorDataC()
 		retVal = self._SALM1M3.getSample_HardpointActuatorData(data)
+		return retVal == 0, data
+
+	def getSampleForceActuatorData(self):
+		data = m1m3_ForceActuatorDataC()
+		retVal = self._SALM1M3.getSample_ForceActuatorData(data)
 		return retVal == 0, data
 
 	######## M1M3 Commands ########
@@ -156,6 +163,11 @@ class M1M3_SAL:
 	def getEventForceActuatorInfo(self):
 		data = m1m3_logevent_ForceActuatorInfoC()
 		retVal = self._SALM1M3.getEvent_ForceActuatorInfo(data)
+		return retVal==0, data
+
+	def getEventForceActuatorState(self):
+		data = m1m3_logevent_ForceActuatorStateC()
+		retVal = self._SALM1M3.getEvent_ForceActuatorState(data)
 		return retVal==0, data
 
 	def getEventCommandRejectionWarning(self):
