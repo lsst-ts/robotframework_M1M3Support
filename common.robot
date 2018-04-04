@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This resource file defines common keywords used by all the SAL test suites.
-Library    Library/M1M3_SAL
+Library    Library/M1M3_SAL.py
 
 *** Keywords ***
 Verify Summary State Event

@@ -6,6 +6,7 @@ import InclinometerSimulator
 import DisplaceSimulator
 import AccelSimulator
 import UDP
+from   M1M3_ReferenceData import *
 
 class M1M3_Simulator:
 	ROBOT_LIBRARY_SCOPE = 'GLOBAL'
@@ -31,6 +32,7 @@ class M1M3_Simulator:
 		# Configure Simulator to known state
 		self.setToDefaults()
 
+	# Common use functions
 	def _afterCommand(self):
 		time.sleep(1)
 
@@ -47,9 +49,11 @@ class M1M3_Simulator:
 			return self._udpClientSubnetE
 		raise ValueError()
 
+	# BEGIN M1M3 Simulator Configuration commands
+
+	# Inclinometer and Displacement configuration commands
 	def setInclinometer(self, value=0.0):
 		self._udpClientInclin.send(self._inclinSim.inclinometerResponse(degreesMeasured = value))
-		self._afterCommand()
 
 	def setDisplacement(self, dispA=1.0, dispB=2.0, dispC=3.0, dispD=4.0, dispE=5.0, dispF=6.0, dispG=7.0, dispH=8.0):
 		self._udpClientDisplace.send(self._displaceSim.displacementResponse(displace1 = dispA, 
@@ -60,8 +64,8 @@ class M1M3_Simulator:
 											displace6 = dispF, 
 											displace7 = dispG, 
 											displace8 = dispH))
-		self._afterCommand()
 
+	# Hardpoint Actuator configuration commands
 	def setHardpointForceAndStatus(self, serverAddr, statusByte, ssiEncoderValue, loadCellForce):
 		self._subnetToUDPClient(self._hardpointSubnet).send(self._ilcSim.forceAndStatusRequest(int(serverAddr), int(statusByte), int(ssiEncoderValue), float(loadCellForce)))
 
@@ -83,6 +87,31 @@ class M1M3_Simulator:
 	def setHardpointServerStatus(self, serverAddr, mode, status, faults):
 		self._subnetToUDPClient(self._hardpointSubnet).send(self._ilcSim.reportServerStatus(int(serverAddr), int(mode), int(status), int(faults)))
 
+	# Force Actuator configuration commands
+	def setSinglePneumaticAxisForce(self, subnet, serverAddr, statusByte, loadCellForce):
+		self._subnetToUDPClient(subnet).send(self._ilcSim.singlePneumaticAxisForce(int(serverAddr), int(statusByte), float(loadCellForce)))
+
+	def setSinglePneumaticForceAndStatus(self, subnet, serverAddr, statusByte, loadCellForce):
+		self._subnetToUDPClient(subnet).send(self._ilcSim.singlePneumaticForceAndStatus(int(serverAddr), int(statusByte), float(loadCellForce)))
+
+	def setDualPneumaticAxisForce(self, subnet, serverAddr, statusByte, axialLoadCellForce, lateralLoadCellForce):
+		self._subnetToUDPClient(subnet).send(self._ilcSim.dualPneumaticAxisForce(int(serverAddr), int(statusByte), float(axialLoadCellForce), float(lateralLoadCellForce)))
+
+	def setDualPneumaticForceAndStatus(self, subnet, serverAddr, statusByte, axialLoadCellForce, lateralLoadCellForce):
+		self._subnetToUDPClient(subnet).send(self._ilcSim.dualPneumaticForceAndStatus(int(serverAddr), int(statusByte), float(axialLoadCellForce), float(lateralLoadCellForce)))
+
+	def setServerID(self, subnet, serverAddr, uniqueId, ilcAppType, networkNodeType, ilcSelectedOptions, networkNodeOptions, majorRev, minorRev, firmwareName):
+		self._subnetToUDPClient(subnet).send(self._ilcSim.reportServerId(int(serverAddr), int(uniqueId), int(ilcAppType), int(networkNodeType),
+												int(ilcSelectedOptions), int(networkNodeOptions), int(majorRev), 
+												int(minorRev), str(firmwareName)))
+
+	def setServerStatus(self, subnet, serverAddr, mode, status, faults):
+		self._subnetToUDPClient(subnet).send(self._ilcSim.reportServerStatus(int(serverAddr), int(mode), int(status), int(faults)))
+
+	def setMezzanineID(self, subnet, serverAddr, dcaUniqueId, firmwareType, firmwareVersion):
+                self._subnetToUDPClient(subnet).send(self._ilcSim.reportDcaId(int(serverAddr), int(dcaUniqueId), int(firmwareType), int(firmwareVersion)))
+
+	# Set Simulator to default values
 	def setToDefaults(self):
 		self._udpClientInclin.send(self._inclinSim.inclinometerResponse(degreesMeasured = 0.0))
 		self._udpClientDisplace.send(self._displaceSim.displacementResponse(displace1 = 1.0,
@@ -147,3 +176,26 @@ class M1M3_Simulator:
 		self.setHardpointMonitorMezzanineID(serverAddr=87, dcaUniqueId=1010, firmwareType=54, firmwareVersion=0x0802)
 		self.setHardpointMonitorMezzanineID(serverAddr=88, dcaUniqueId=1011, firmwareType=54, firmwareVersion=0x0802)
 		self.setHardpointMonitorMezzanineID(serverAddr=89, dcaUniqueId=1012, firmwareType=54, firmwareVersion=0x0802)
+
+		# Force Actuator Default settings
+		for row in forceActuatorTable:
+			# Each row in forceActuatorTable is itself an array.
+			index = row[forceActuatorTableIndexIndex]
+			subnet = row[forceActuatorTableSubnetIndex]
+			address = row[forceActuatorTableAddressIndex]
+			actuatorID = row[forceActuatorTableIDIndex]
+			if address <= 16:
+				self.setSinglePneumaticAxisForce(subnet = subnet, serverAddr = address, statusByte = 0, loadCellForce = actuatorID)
+				self.setSinglePneumaticForceAndStatus(subnet = subnet, serverAddr = address, statusByte = 0, loadCellForce = actuatorID)
+				self.setServerID(subnet = subnet, serverAddr = address, uniqueId = actuatorID, ilcAppType = 2, networkNodeType = 2, ilcSelectedOptions = 0,
+						networkNodeOptions = 0, majorRev = 8, minorRev = 2, firmwareName = "Mock-FA")
+			else:
+				self.setDualPneumaticAxisForce(subnet = subnet, serverAddr = address, statusByte = 0, 
+									axialLoadCellForce = actuatorID, lateralLoadCellForce = actuatorID)
+				self.setDualPneumaticForceAndStatus(subnet = subnet, serverAddr = address, statusByte = 0,
+									axialLoadCellForce = actuatorID, lateralLoadCellForce = actuatorID)
+
+				self.setServerID(subnet = subnet, serverAddr = address, uniqueId = actuatorID, ilcAppType = 2, networkNodeType = 2, ilcSelectedOptions = 2,
+						networkNodeOptions = 2, majorRev = 8, minorRev = 2, firmwareName = "Mock-FA")
+			self.setServerStatus(subnet = subnet, serverAddr = address, mode = 0, status = 0, faults = 0)
+			self.setMezzanineID(subnet = subnet, serverAddr = address, dcaUniqueId = actuatorID + 1000, firmwareType=52, firmwareVersion=0x0802)

@@ -1,7 +1,4 @@
-*** Settings ***
-
-*** Variables ***
-${hardpointMonitorTable} = [
+hardpointMonitorTable = [
 #DataIndex, ActuatorID, Subnet, ServerAddress
 [0, 11, 5, 84],
 [1, 12, 5, 85],
@@ -11,7 +8,7 @@ ${hardpointMonitorTable} = [
 [5, 16, 5, 89],
 ]
 
-${hardpointActuatorTable} = [
+hardpointActuatorTable = [
 #DataIndex, ActuatorID, Subnet, ServerAddress
 [0,1,5,1],
 [1,2,5,2],
@@ -21,12 +18,12 @@ ${hardpointActuatorTable} = [
 [5,6,5,6],
 ]
 
-${dataIndexCol}		0
-${actuatorIdCol}	1
-${subnetCol}		2
-${serverAddressCol}	3
+dataIndexCol = 0
+actuatorIdCol = 1
+subnetCol = 2
+serverAddressCol = 3
 
-${forceActuatorTable} = [
+forceActuatorTable = [
 #DataIndex, ActuatorID, XPosition, YPosition, ZPosition, Type, Subnet, Address, Orientation
 [0,101,0.776782775878906,0,-2.158743,'SAA',3,1,'NA'],
 [1,102,1.44256799316406,0,-2.158743,'DAA',1,17,'+Y'],

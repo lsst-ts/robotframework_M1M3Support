@@ -4,9 +4,9 @@ Force Tags
 Suite Setup    Log Many    host=${Host}    CSC=${subSystem}    timeout=${timeout}
 #Suite Teardown    Close All Connections
 Library    String
-Library    Library/M1M3_SAL
 Resource    common.robot
 Resource    Global_Vars.robot
+Library    Library/M1M3_SAL.py
 
 *** Variables ***
 ${subSystem}    m1m3
