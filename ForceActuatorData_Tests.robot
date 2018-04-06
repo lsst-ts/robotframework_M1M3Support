@@ -3,13 +3,13 @@ Documentation    M1M3 Force Actuator Telemetry tests.
 Force Tags    
 Suite Setup    Run Keywords    M1M3_Simulator.Set to Defaults    AND    Log Many    host=${Host}    CSC=${subSystem}
 Suite Teardown    M1M3_Simulator.Set to Defaults
-Library    String
-Library    DateTime
-Library    Library/M1M3_Simulator.py
-Resource    common.robot
-Resource    Global_Vars.robot
-Variables    Library/M1M3_ReferenceData.py
-Library    Library/M1M3_SAL.py
+Library		String
+Library		DateTime
+Library		Library/M1M3_Simulator.py
+Resource	common.robot
+Resource	Global_Vars.robot
+Variables	Library/M1M3_ReferenceData.py
+Library		Library/M1M3_SAL.py
 
 *** Variables ***
 ${subSystem}    m1m3
@@ -39,7 +39,7 @@ Get Force Actuator Info Event - Disabled
     Report Force Actuator Info Event    ${faidata}
 
 Verify Force Actuator Info Event - ActuatorType
-    [Tags]    functional
+    [Tags]    functional    TSS-2509
     Comment    ActuatorType is configured in the M1M3 Control software settings.
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
@@ -47,7 +47,7 @@ Verify Force Actuator Info Event - ActuatorType
     \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - ActuatorOrientation
-    [Tags]    functional
+    [Tags]    functional    TSS-2509
     Comment    ActuatorOrientation is configured in the M1M3 Control software settings. 
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
@@ -55,46 +55,73 @@ Verify Force Actuator Info Event - ActuatorOrientation
     \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - ADCScanRate
-    [Tags]    functional    skipped
-    Comment    ADCScanRate is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
-    Verify Rational Array    ${faidata}    ADCScanRate    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
+    [Tags]    functional
+    Comment    ADCScanRate is set by the M1M3_Simulator.setAdcSampleRate keyword, scanRateCode parameter.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    ADCScanRate    ${faidata.ADCScanRate[${index}]}    ${8}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - BackupPrimaryCylinderCoefficient
-    [Tags]    functional    skipped
-    Comment    BackupPrimaryCylinderCoefficient is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
-    Verify Rational Array    ${faidata}    BackupPrimaryCylinderCoefficient    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
+    [Tags]    functional
+    Comment    BackupPrimaryCylinderCoefficient is set by the M1M3_Simulator.setCalibrationData keyword, backupAdcCalibration1 parameter.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} + ${1}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    BackupPrimaryCylinderCoefficient    ${faidata.BackupPrimaryCylinderCoefficient[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - BackupSecondaryCylinderCoefficient
-    [Tags]    functional    skipped
-    Comment    BackupSecondaryCylinderCoefficient is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
-    Verify Rational Array    ${faidata}    BackupSecondaryCylinderCoefficient    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
+    [Tags]    functional
+    Comment    BackupSecondaryCylinderCoefficient is set by the M1M3_Simulator.setCalibrationData keyword, backupAdcCalibration1 parameter.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} + ${1}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    BackupSecondaryCylinderCoefficient    ${faidata.BackupSecondaryCylinderCoefficient[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - BackupPrimaryCylinderLoadCellOffset
-    [Tags]    functional    skipped
-    Comment    BackupPrimaryCylinderLoadCellOffset is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
-    Verify Rational Array    ${faidata}    BackupPrimaryCylinderLoadCellOffset    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
+    [Tags]    functional
+    Comment    BackupPrimaryCylinderLoadCellOffset is set by the M1M3_Simulator.setCalibrationData keyword, backupSensorOffset1 parameter.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} + ${100}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    BackupPrimaryCylinderLoadCellOffset    ${faidata.BackupPrimaryCylinderLoadCellOffset[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - BackupSecondaryCylinderLoadCellOffset
-    [Tags]    functional    skipped
-    Comment    BackupSecondaryCylinderLoadCellOffset is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
-    Verify Rational Array    ${faidata}    BackupSecondaryCylinderLoadCellOffset    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
+    [Tags]    functional
+    Comment    BackupSecondaryCylinderLoadCellOffset is set by the M1M3_Simulator.setCalibrationData keyword, backupSensorOffset2 parameter.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} + ${101}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    BackupSecondaryCylinderLoadCellOffset    ${faidata.BackupSecondaryCylinderLoadCellOffset[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - BackupPrimaryCylinderLoadCellSensitivity
-    [Tags]    functional    skipped
-    Comment    BackupPrimaryCylinderLoadCellSensitivity is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
-    Verify Rational Array    ${faidata}    BackupPrimaryCylinderLoadCellSensitivity    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
+    [Tags]    functional
+    Comment    BackupPrimaryCylinderLoadCellSensitivity is set by the M1M3_Simulator.setCalibrationData keyword, backupSensorSensitivity1 parameter.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} + ${1000}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    BackupPrimaryCylinderLoadCellSensitivity    ${faidata.BackupPrimaryCylinderLoadCellSensitivity[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - BackupSecondaryCylinderLoadCellSensitivity
-    [Tags]    functional    skipped
-    Comment    BackupSecondaryCylinderLoadCellSensitivity is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
-    Verify Rational Array    ${faidata}    BackupSecondaryCylinderLoadCellSensitivity    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
+    [Tags]    functional
+    Comment    BackupSecondaryCylinderLoadCellSensitivity is set by the M1M3_Simulator.setCalibrationData keyword, backupSensorSensitivity2 parameter.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} + ${1001}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    BackupSecondaryCylinderLoadCellSensitivity    ${faidata.BackupSecondaryCylinderLoadCellSensitivity[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - ILCApplicationType
     [Tags]    functional
     Comment    ILCApplicationType is set by the M1M3_Simulator.setServerID keyword, ilcAppType parameter.
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    Verify Rational Value    ILCApplicationType    ${faidata.ILCApplicationType[${index}]}    ${2}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    ILCApplicationType    ${faidata.ILCApplicationType[${index}]}    ${2}
     \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - ILCUniqueId
@@ -113,49 +140,73 @@ Verify Force Actuator Info Event - ILCSelectedOptions
     \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - MainPrimaryCylinderCoefficient
-    [Tags]    functional    skipped
-    Comment    MainPrimaryCylinderCoefficient is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
-    Verify Rational Array    ${faidata}    MainPrimaryCylinderCoefficient    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
+    [Tags]    functional
+    Comment    MainPrimaryCylinderCoefficient is set by the M1M3_Simulator.setCalibrationData keyword, mainAdcCalibration1 parameter.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIndexIndex}]} + ${0}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    MainPrimaryCylinderCoefficient    ${faidata.MainPrimaryCylinderCoefficient[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - MainSecondaryCylinderCoefficient
-    [Tags]    functional    skipped
-    Comment    MainSecondaryCylinderCoefficient is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
-    Verify Rational Array    ${faidata}    MainSecondaryCylinderCoefficient    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
+    [Tags]    functional
+    Comment    MainSecondaryCylinderCoefficient is set by the M1M3_Simulator.setCalibrationData keyword, mainAdcCalibration1 parameter.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIndexIndex}]} + ${0}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    MainSecondaryCylinderCoefficient    ${faidata.MainSecondaryCylinderCoefficient[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - MainPrimaryCylinderLoadCellOffset
-    [Tags]    functional    skipped
-    Comment    MainPrimaryCylinderLoadCellOffset is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
-    Verify Rational Array    ${faidata}    MainPrimaryCylinderLoadCellOffset    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
+    [Tags]    functional
+    Comment    MainPrimaryCylinderLoadCellOffset is set by the M1M3_Simulator.setCalibrationData keyword, mainSensorOffset1 parameter.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIndexIndex}]} + ${100}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    MainPrimaryCylinderLoadCellOffset    ${faidata.MainPrimaryCylinderLoadCellOffset[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - MainSecondaryCylinderLoadCellOffset
-    [Tags]    functional    skipped
-    Comment    MainSecondaryCylinderLoadCellOffset is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
-    Verify Rational Array    ${faidata}    MainSecondaryCylinderLoadCellOffset    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
+    [Tags]    functional
+    Comment    MainSecondaryCylinderLoadCellOffset is set by the M1M3_Simulator.setCalibrationData keyword, mainSensorOffset2 parameter.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIndexIndex}]} + ${101}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    MainSecondaryCylinderLoadCellOffset    ${faidata.MainSecondaryCylinderLoadCellOffset[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - MainPrimaryCylinderLoadCellSensitivity
-    [Tags]    functional    skipped
-    Comment    MainPrimaryCylinderLoadCellSensitivity is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
-    Verify Rational Array    ${faidata}    MainPrimaryCylinderLoadCellSensitivity    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
+    [Tags]    functional
+    Comment    MainPrimaryCylinderLoadCellSensitivity is set by the M1M3_Simulator.setCalibrationData keyword, mainSensorSensitivity1 parameter.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIndexIndex}]} + ${1000}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    MainPrimaryCylinderLoadCellSensitivity    ${faidata.MainPrimaryCylinderLoadCellSensitivity[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - MainSecondaryCylinderLoadCellSensitivity
-    [Tags]    functional    skipped
-    Comment    MainSecondaryCylinderLoadCellSensitivity is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
-    Verify Rational Array    ${faidata}    MainSecondaryCylinderLoadCellSensitivity    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
+    [Tags]    functional
+    Comment    MainSecondaryCylinderLoadCellSensitivity is set by the M1M3_Simulator.setCalibrationData keyword, mainSensorSensitivity2 parameter.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIndexIndex}]} + ${1001}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    MainSecondaryCylinderLoadCellSensitivity    ${faidata.MainSecondaryCylinderLoadCellSensitivity[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - MajorRevision
     [Tags]    functional
-    Comment    MajorRevision is set by the M1M3_Simulator.YYYYYYY keyword, majorRev parameter.
+    Comment    MajorRevision is set by the M1M3_Simulator.setServerID keyword, majorRev parameter.
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    Verify Rational Value    MajorRevision    ${faidata.MajorRevision[${index}]}    ${8}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    MajorRevision    ${faidata.MajorRevision[${index}]}    ${8}
     \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - MinorRevision
     [Tags]    functional
-    Comment    MinorRevision is set by the M1M3_Simulator.YYYYYYY keyword, minorRev parameter.
+    Comment    MinorRevision is set by the M1M3_Simulator.setServerID keyword, minorRev parameter.
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    Verify Rational Value    MinorRevision    ${faidata.MinorRevision[${index}]}    ${2}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    MinorRevision    ${faidata.MinorRevision[${index}]}    ${2}
     \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - MezzanineFirmwareType
@@ -163,7 +214,7 @@ Verify Force Actuator Info Event - MezzanineFirmwareType
     Comment    MezzanineFirmwareType is set by the M1M3_Simulator.setHardpointMonitorMezzanineID keyword, firmwareType parameter.
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    Verify Rational Value    MezzanineFirmwareType    ${faidata.MezzanineFirmwareType[${index}]}    ${52}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    MezzanineFirmwareType    ${faidata.MezzanineFirmwareType[${index}]}    ${52}
     \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - MezzanineMajorRevision
@@ -171,7 +222,7 @@ Verify Force Actuator Info Event - MezzanineMajorRevision
     Comment    MezzanineMajorRevision is set by the M1M3_Simulator.setHardpointMonitorMezzanineID keyword, firmwareVersion parameter.
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    Verify Rational Value    MezzanineMajorRevision    ${faidata.MezzanineMajorRevision[${index}]}    ${8}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    MezzanineMajorRevision    ${faidata.MezzanineMajorRevision[${index}]}    ${8}
     \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - MezzanineMinorRevision
@@ -179,7 +230,7 @@ Verify Force Actuator Info Event - MezzanineMinorRevision
     Comment    MezzanineMinorRevision is set by the M1M3_Simulator.setHardpointMonitorMezzanineID keyword, firmwareVersion parameter.
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    Verify Rational Value    MinorRevision    ${faidata.MinorRevision[${index}]}    ${2}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    MinorRevision    ${faidata.MinorRevision[${index}]}    ${2}
     \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - MezzanineUniqueId
@@ -188,22 +239,22 @@ Verify Force Actuator Info Event - MezzanineUniqueId
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
     \    ${mezzID}=    Evaluate    ${row[1]} + ${1000}
-    \    Verify Rational Value    MezzanineUniqueId    ${faidata.MezzanineUniqueId[${index}]}    ${mezzID}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    MezzanineUniqueId    ${faidata.MezzanineUniqueId[${index}]}    ${mezzID}
     \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - MezzaninePrimaryCylinderGain
     [Tags]    functional    skipped
-    Comment    MezzaninePrimaryCylinderGain is set by the  M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
+    Comment    MezzaninePrimaryCylinderGain is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
     Verify Rational Array    ${faidata}    MezzaninePrimaryCylinderGain    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
 
 Verify Force Actuator Info Event - MezzanineSecondaryCylinderGain
     [Tags]    functional    skipped
-    Comment    MezzanineSecondaryCylinderGain is set by the  M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
+    Comment    MezzanineSecondaryCylinderGain is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
     Verify Rational Array    ${faidata}    MezzanineSecondaryCylinderGain    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
 
 Verify Force Actuator Info Event - ModbusAddress
     [Tags]    functional
-    Comment    ModbusAddress is set by the M1M3_Simulator.YYYYYYY keyword, serverAddr parameter.
+    Comment    ModbusAddress is defined on the ILCs.  See the forceActuatorTable in M1M3_ReferenceData.py.
     Verify Force Actuator Info    ModbusAddress    ${forceActuatorTableAddressIndex}
 
 Verify Force Actuator Info Event - ModbusSubnet
@@ -216,35 +267,40 @@ Verify Force Actuator Info Event - NetworkNodeType
     Comment    NetworkNodeType is set by the M1M3_Simulator.setServerID keyword, NetworkNodeType parameter.
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    Verify Rational Value    NetworkNodeType    ${faidata.NetworkNodeType[${index}]}    ${2}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    NetworkNodeType    ${faidata.NetworkNodeType[${index}]}    ${2}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - NetworkNodeOptions
     [Tags]    functional
-    Comment    NetworkNodeOptions is set by the  M1M3_Simulator.setServerID keyword, NetworkNodeOptions parameter.
+    Comment    NetworkNodeOptions is set by the M1M3_Simulator.setServerID keyword, NetworkNodeOptions parameter.
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    Run Keyword If    ${index} <= ${16}    Set Test Variable    ${value}    ${0}
-    \    Run Keyword If    ${index} >= ${16}    Set Test Variable    ${value}    ${2}
-    \    Verify Rational Value    NetworkNodeOptions    ${faidata.NetworkNodeOptions[${index}]}    ${value}
+    \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} <= ${16}    Set Test Variable    ${value}    ${0}
+    \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} >= ${16}    Set Test Variable    ${value}    ${2}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    NetworkNodeOptions    ${faidata.NetworkNodeOptions[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - ReferenceID
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    ReferenceId is set by the M1M3_Simulator.YYYYYYY keyword, uniqueId  parameter.
-    Verify Rational Array    ${faidata}    ReferenceId    ${11}    ${12}    ${13}    ${14}    ${15}    ${16}
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    ReferenceId    ${faidata.ReferenceId[${index}]}    ${row[${forceActuatorTableIDIndex}]}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Info Event - XDataReferenceId
     [Tags]    functional    skipped
-    Comment    XDataReferenceId is set by the  M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
+    Comment    XDataReferenceId is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
     Verify Rational Array    ${faidata}    XDataReferenceId    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
 
 Verify Force Actuator Info Event - YDataReferenceId
     [Tags]    functional    skipped
-    Comment    YDataReferenceId is set by the  M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
+    Comment    YDataReferenceId is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
     Verify Rational Array    ${faidata}    YDataReferenceId    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
 
 Verify Force Actuator Info Event - ZDataReferenceId
     [Tags]    functional    skipped
-    Comment    ZDataReferenceId is set by the  M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
+    Comment    ZDataReferenceId is set by the M1M3_Simulator.YYYYYYY keyword, ZZZZZZZZ parameter.
     Verify Rational Array    ${faidata}    ZDataReferenceId    ${A}    ${A}    ${A}    ${A}    ${A}    ${A}
 
 Verify Force Actuator Info Event - XPosition
@@ -335,7 +391,7 @@ Verify Force Actuator Data Telemetry - BalanceForcesApplied
 
 ############ BEGIN Verify Force Actuator State Event ############
 
-Get Force Actuator State Event
+Get Force Actuator State Event - Disabled
     [Tags]    functional
     ${valid}    ${fasdata}=    Get Force Actuator State Event
     Set Suite Variable    ${fasdata}
@@ -568,19 +624,19 @@ Verify Force Actuator State Event - SupportPercentage - Parked
 ############ END Verify Force Actuator State Event - PARKED ############
 
 Get to Enabled-Raising State
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Issue Raise M1M3 Command
     Issue Raise Command
     Comment    Verify system enters Raising State.
     Verify Detailed State Event    ${DetailedRaising}
 
 Verify Summary State Event - Raising
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters Enabled State.
     Verify Summary State Event    ${SummaryEnabled}
 
 Verify Force Actuator Info Event - Raising
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system does NOT publish Force Actuator Info Event.
     ${valid}    ${data}=    Get Force Actuator Info Event
     Should Not Be True    ${valid}
@@ -608,7 +664,7 @@ Set Hardpoint Pressures - Raising
 ############ BEGIN Verify Force Actuator Data Telemetry - RAISING ############
 
 Get Force Actuator Data Telemetry - Raising
-    [Tags]    functional    skipped
+    [Tags]    functional
     ${valid}    ${fadata}=    Get Force Actuator Data Telemetry
     Set Suite Variable    ${fadata}
     Should Be True    ${valid}
@@ -679,7 +735,7 @@ Verify Force Actuator Data Telemetry - BalanceForcesApplied - Raising
 ############ BEGIN Verify Force Actuator State Event - RAISING ############
 
 Get Force Actuator State Event - Raising 
-    [Tags]    functional    skipped
+    [Tags]    functional
     ${valid}    ${fasdata}=    Get Force Actuator State Event
     Set Suite Variable    ${fasdata}
     Should Be True    ${valid}
@@ -739,21 +795,19 @@ Verify Force Actuator State Event - SupportPercentage - Raising
 ############ END Verify Force Actuator State Event - RAISING ############
 
 Wait Until Raise Completes
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters Active State.
     ${valid}    ${data}=    Wait For Next Detailed State    ${300}
-    Log    ${valid}
-    Log    ${data}
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    ${DetailedActive}
 
 Verify Summary State Event - Raise Complete
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters Enabled State.
     Verify Summary State Event    ${SummaryEnabled}
 
 Verify Force Actuator Info Event - Active
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system does NOT publish Force Actuator Info Event.
     ${valid}    ${data}=    Get Force Actuator Info Event
     Should Not Be True    ${valid}
@@ -781,7 +835,7 @@ Set Hardpoint Pressures - Active
 ############ BEGIN Verify Force Actuator Data Telemetry - ACTIVE ############
 
 Get Force Actuator Data Telemetry - Active
-    [Tags]    functional    skipped
+    [Tags]    functional
     Sleep    300ms    Wait for next outer loop cycle
     ${valid}    ${fadata}=    Get Force Actuator Data Telemetry
     Set Suite Variable    ${fadata}
@@ -853,10 +907,10 @@ Verify Force Actuator Data Telemetry - BalanceForcesApplied - Active
 ############ BEGIN Verify Force Actuator State Event - ACTIVE ############
 
 Get Force Actuator State Event - Active 
-    [Tags]    functional    skipped
+    [Tags]    functional
     ${valid}    ${fasdata}=    Get Force Actuator State Event
     Set Suite Variable    ${fasdata}
-    Should Be True    ${valid}
+    Should Not Be True    ${valid}
     
 Verify Force Actuator State Event - ILCState - Active
     [Tags]    functional    skipped
@@ -914,19 +968,19 @@ Verify Force Actuator State Event - SupportPercentage - Active
 
 
 Get to Enabled-Lowering State
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Issue Lower M1M3 Command
     Issue Lower Command
     Comment    Verify system enters Lowering State.
     Verify Detailed State Event    ${DetailedLowering}
 
 Verify Summary State Event - Lowering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters Enabled State.
     Verify Summary State Event    ${SummaryEnabled}
 
 Verify Force Actuator Info Event - Lowering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system does NOT publish Force Actuator Info Event.
     ${valid}    ${data}=    Get Force Actuator Info Event
     Should Not Be True    ${valid}
@@ -954,7 +1008,7 @@ Set Hardpoint Pressures - Lowering
 ############ BEGIN Verify Force Actuator Data Telemetry - LOWERING ############
 
 Get Force Actuator Data Telemetry - Lowering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Sleep    300ms    Wait for next outer loop cycle
     ${valid}    ${fadata}=    Get Force Actuator Data Telemetry
     Set Suite Variable    ${fadata}
@@ -1026,11 +1080,11 @@ Verify Force Actuator Data Telemetry - BalanceForcesApplied - Lowering
 ############ BEGIN Verify Force Actuator State Event - LOWERING ############
 
 Get Force Actuator State Event - Lowering 
-    [Tags]    functional    skipped
+    [Tags]    functional
     Sleep    300ms    Wait for next outer loop cycle
     ${valid}    ${fasdata}=    Get Force Actuator State Event
     Set Suite Variable    ${fasdata}
-    Should Be True    ${valid}
+    Should Not Be True    ${valid}
     
 Verify Force Actuator State Event - ILCState - Lowering
     [Tags]    functional    skipped
@@ -1086,35 +1140,32 @@ Verify Force Actuator State Event - SupportPercentage - Lowering
     
 ############ END Verify Force Actuator State Event - LOWERING ############
 
-
 Wait Until Lower Completes
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters Parked State.
     ${valid}    ${data}=    Wait For Next Detailed State    ${300}
-    Log    ${valid}
-    Log    ${data}
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    ${DetailedParked}
 
 Verify Summary State Event - Lowering Complete
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters Enabled State.
     Verify Summary State Event    ${SummaryEnabled}
 
 Get to ParkedEngineering State
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Issue EnterEngineering Command.
     Issue EnterEngineering Command
     Comment    Verify system enters ParkedEngineering Detailed State.
     Verify Detailed State Event    ${DetailedParkedEngineering}
 
 Verify Summary State Event - ParkedEngineering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters Enabled State.
     Verify Summary State Event    ${SummaryEnabled}
 
 Verify Force Actuator Info Event - ParkedEngineering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system does NOT publish Force Actuator Info Event.
     ${valid}    ${data}=    Get Force Actuator Info Event
     Should Not Be True    ${valid}
@@ -1142,7 +1193,7 @@ Set Hardpoint Pressures - ParkedEngineering
 ############ BEGIN Verify Force Actuator Data Telemetry - PARKEDENGINEERING ############
 
 Get Force Actuator Data Telemetry - ParkedEngineering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Sleep    300ms    Wait for next outer loop cycle
     ${valid}    ${fadata}=    Get Force Actuator Data Telemetry
     Set Suite Variable    ${fadata}
@@ -1208,17 +1259,16 @@ Verify Force Actuator Data Telemetry - BalanceForcesApplied - ParkedEngineering
     Comment    ThermalForcesApplied is set by the M1M3_Simulator.setHardpointDCAPressure keyword, pressure4LateralPush parameter.
     Verify Irrational Array    ${fadata}    BalanceForcesApplied    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
 
-
 ############ END Verify Force Actuator Data Telemetry - PARKEDENGINEERING ############
 
 ############ BEGIN Verify Force Actuator State Event - PARKEDENGINEERING ############
 
 Get Force Actuator State Event - ParkedEngineering 
-    [Tags]    functional    skipped
+    [Tags]    functional
     Sleep    300ms    Wait for next outer loop cycle
     ${valid}    ${fasdata}=    Get Force Actuator State Event
     Set Suite Variable    ${fasdata}
-    Should Be True    ${valid}
+    Should Not Be True    ${valid}
     
 Verify Force Actuator State Event - ILCState - ParkedEngineering
     [Tags]    functional    skipped
@@ -1276,19 +1326,19 @@ Verify Force Actuator State Event - SupportPercentage - ParkedEngineering
 
 
 Get to Enabled-RaisingEngineering State
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Issue Raise M1M3 Command
     Issue Raise Command
     Comment    Verify system enters RaisingEngineering State.
     Verify Detailed State Event    ${DetailedRaisingEngineering}
 
 Verify Summary State Event - RaisingEngineering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters Enabled State.
     Verify Summary State Event    ${SummaryEnabled}
 
 Verify Force Actuator Info Event - RaisingEngineering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system does NOT publish Force Actuator Info Event.
     ${valid}    ${data}=    Get Force Actuator Info Event
     Should Not Be True    ${valid}
@@ -1315,7 +1365,7 @@ Set Hardpoint Pressures - RaisingEngineering
 
 ############ BEGIN Verify Force Actuator Data Telemetry - RAISINGENGINEERING ############
 
-Get Force Actuator Data Telemetry - RaisingEngineering
+Get Force Actuator Data 
     [Tags]    functional    skipped
     Sleep    300ms    Wait for next outer loop cycle
     ${valid}    ${fadata}=    Get Force Actuator Data Telemetry
@@ -1382,17 +1432,16 @@ Verify Force Actuator Data Telemetry - BalanceForcesApplied - RaisingEngineering
     Comment    ThermalForcesApplied is set by the M1M3_Simulator.setHardpointDCAPressure keyword, pressure4LateralPush parameter.
     Verify Irrational Array    ${fadata}    BalanceForcesApplied    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
 
-
 ############ END Verify Force Actuator Data Telemetry - RAISINGENGINEERING ############
 
 ############ BEGIN Verify Force Actuator State Event - RAISINGENGINEERING ############
 
 Get Force Actuator State Event - RaisingEngineering 
-    [Tags]    functional    skipped
+    [Tags]    functional
     Sleep    300ms    Wait for next outer loop cycle
     ${valid}    ${fasdata}=    Get Force Actuator State Event
     Set Suite Variable    ${fasdata}
-    Should Be True    ${valid}
+    Should Not Be True    ${valid}
     
 Verify Force Actuator State Event - ILCState - RaisingEngineering
     [Tags]    functional    skipped
@@ -1448,23 +1497,20 @@ Verify Force Actuator State Event - SupportPercentage - RaisingEngineering
     
 ############ END Verify Force Actuator State Event - RAISING ############
 
-
 Wait Until Engineering Raise Completes
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters ActiveEngineering State.
     ${valid}    ${data}=    Wait For Next Detailed State    ${300}
-    Log    ${valid}
-    Log    ${data}
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    ${DetailedActiveEngineering}
 
 Verify Summary State Event - RaisingEngineering Complete
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters Enabled State.
     Verify Summary State Event    ${SummaryEnabled}
 
 Verify Force Actuator Info Event - ActiveEngineering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system does NOT publish Force Actuator Info Event.
     ${valid}    ${data}=    Get Force Actuator Info Event
     Should Not Be True    ${valid}
@@ -1492,7 +1538,7 @@ Set Hardpoint Pressures - ActiveEngineering
 ############ BEGIN Verify Force Actuator Data Telemetry - ACTIVEENGINEERING ############
 
 Get Force Actuator Data Telemetry - ActiveEngineering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Sleep    300ms    Wait for next outer loop cycle
     ${valid}    ${fadata}=    Get Force Actuator Data Telemetry
     Set Suite Variable    ${fadata}
@@ -1558,17 +1604,16 @@ Verify Force Actuator Data Telemetry - BalanceForcesApplied - ActiveEngineering
     Comment    ThermalForcesApplied is set by the M1M3_Simulator.setHardpointDCAPressure keyword, pressure4LateralPush parameter.
     Verify Irrational Array    ${fadata}    BalanceForcesApplied    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
 
-
 ############ END Verify Force Actuator Data Telemetry - ACTIVEENGINEERING ############
 
 ############ BEGIN Verify Force Actuator State Event - ACTIVEENGINEERING ############
 
 Get Force Actuator State Event - ActiveEngineering 
-    [Tags]    functional    skipped
+    [Tags]    functional
     Sleep    300ms    Wait for next outer loop cycle
     ${valid}    ${fasdata}=    Get Force Actuator State Event
     Set Suite Variable    ${fasdata}
-    Should Be True    ${valid}
+    Should Not Be True    ${valid}
     
 Verify Force Actuator State Event - ILCState - ActiveEngineering
     [Tags]    functional    skipped
@@ -1625,19 +1670,19 @@ Verify Force Actuator State Event - SupportPercentage - ActiveEngineering
 ############ END Verify Force Actuator State Event - ACTIVEENGINEERING ############
 
 Get to Enabled-LoweringEngineering State
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Issue Lower M1M3 Command
     Issue Lower Command
     Comment    Verify system enters LoweringEngineering State.
     Verify Detailed State Event    ${DetailedLoweringEngineering}
 
 Verify Summary State Event - LoweringEngineering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters Enabled State.
     Verify Summary State Event    ${SummaryEnabled}
 
 Verify Force Actuator Info Event - LoweringEngineering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system does NOT publish Force Actuator Info Event.
     ${valid}    ${data}=    Get Force Actuator Info Event
     Should Not Be True    ${valid}
@@ -1665,7 +1710,7 @@ Set Hardpoint Pressures - LoweringEngineering
 ############ BEGIN Verify Force Actuator Data Telemetry - LOWERINGENGINEERING ############
 
 Get Force Actuator Data Telemetry - LoweringEngineering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Sleep    300ms    Wait for next outer loop cycle
     ${valid}    ${fadata}=    Get Force Actuator Data Telemetry
     Set Suite Variable    ${fadata}
@@ -1731,17 +1776,16 @@ Verify Force Actuator Data Telemetry - BalanceForcesApplied - LoweringEngineerin
     Comment    ThermalForcesApplied is set by the M1M3_Simulator.setHardpointDCAPressure keyword, pressure4LateralPush parameter.
     Verify Irrational Array    ${fadata}    BalanceForcesApplied    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
 
-
 ############ END Verify Force Actuator Data Telemetry - LOWERINGENGINEERING ############
 
 ############ BEGIN Verify Force Actuator State Event - LOWERINGENGINEERING ############
     
 Get Force Actuator State Event - LoweringEngineering
-    [Tags]    functional    skipped
+    [Tags]    functional
     Sleep    300ms    Wait for next outer loop cycle
     ${valid}    ${fasdata}=    Get Force Actuator State Event
     Set Suite Variable    ${fasdata}
-    Should Be True    ${valid}
+    Should Not Be True    ${valid}
 
 Verify Force Actuator State Event - ILCState - LoweringEngineering
     [Tags]    functional    skipped
@@ -1798,16 +1842,14 @@ Verify Force Actuator State Event - SupportPercentage - LoweringEngineering
 ############ END Verify Force Actuator State Event - LOWERINGENGINEERING ############
 
 Wait Until Engineering Lower Completes
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters ParkedEngineering State.
     ${valid}    ${data}=    Wait For Next Detailed State    ${300}
-    Log    ${valid}
-    Log    ${data}
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    ${DetailedParkedEngineering}
 
 Verify Summary State Event - LoweringEngineering Complete
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters Enabled State.
     Verify Summary State Event    ${SummaryEnabled}
 
@@ -1819,12 +1861,12 @@ Get to Disabled State - Cleanup
     Verify Detailed State Event    ${DetailedDisabled}
 
 Verify Summary State Event - Disabled
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters Enabled State.
     Verify Summary State Event    ${SummaryDisabled}
 
 Verify Force Actuator Info Event - Disabled from Enabled
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system does NOT publish Force Actuator Info Event.
     ${valid}    ${data}=    Get Force Actuator Info Event
     Should Not Be True    ${valid}
@@ -1838,19 +1880,19 @@ Get to Standby State - Cleanup
     Verify Detailed State Event    ${DetailedStandby}
 
 Verify Summary State Event - Standby
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system enters Enabled State.
     Verify Summary State Event    ${SummaryStandby}
 
 Verify Force Actuator Info Event - Standby
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify system does NOT publish Force Actuator Info Event.
     ${valid}    ${data}=    Get Force Actuator Info Event
     Should Not Be True    ${valid}
     Should Be True    ${data.Timestamp} == ${0.0}
 
 Verify Force Actuator Data Telemetry - Standby
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Have to get the last sample in the buffer before continuing.
     ${valid}    ${fadata}=    Get Force Actuator Data Telemetry
     Should Be True    ${valid}
@@ -1859,11 +1901,11 @@ Verify Force Actuator Data Telemetry - Standby
     Should Not Be True    ${valid}
 
 Verify Force Actuator State Event - Standby
-    [Tags]    functional    skipped
+    [Tags]    functional
     Comment    Verify Force Actuator State Event is NOT published in Standby.
     ${valid}    ${fasdata}=    Get Force Actuator State Event
     Should Not Be True    ${valid}
-    Should Be True    ${data.Timestamp} == ${0.0}
+    Should Be True    ${fasdata.Timestamp} == ${0.0}
 
 *** Keywords ***
 Verify Force Actuator Info
@@ -1876,7 +1918,7 @@ Verify Force Actuator Info
 Get Force Actuator Info Event
     Comment    Verify system publishes the Force Actuator Info Event.
     ${valid}    ${data}=    Get Event Force Actuator Info
-    Report Force Actuator Info Event
+    Report Force Actuator Info Event    ${data}
     [Return]    ${valid}    ${data}
 
 Report Force Actuator Info Event
@@ -1904,7 +1946,6 @@ Report Force Actuator Info Event
     Log    ${data.MajorRevision}
     Log    ${data.MezzaninePrimaryCylinderGain}
     Log    ${data.MezzanineSecondaryCylinderGain}
-    Log    ${data.MezzanineFirmwareType}
     Log    ${data.MezzanineFirmwareType}
     Log    ${data.MezzanineMajorRevision}
     Log    ${data.MezzanineMinorRevision}
