@@ -100,6 +100,7 @@ class M1M3_Simulator:
 	def setDualPneumaticForceAndStatus(self, subnet, serverAddr, statusByte, axialLoadCellForce, lateralLoadCellForce):
 		self._subnetToUDPClient(subnet).send(self._ilcSim.dualPneumaticForceAndStatus(int(serverAddr), int(statusByte), float(axialLoadCellForce), float(lateralLoadCellForce)))
 
+	# ILC configuration commands
 	def setServerID(self, subnet, serverAddr, uniqueId, ilcAppType, networkNodeType, ilcSelectedOptions, networkNodeOptions, majorRev, minorRev, firmwareName):
 		self._subnetToUDPClient(subnet).send(self._ilcSim.reportServerId(int(serverAddr), int(uniqueId), int(ilcAppType), int(networkNodeType),
 												int(ilcSelectedOptions), int(networkNodeOptions), int(majorRev), 
@@ -110,6 +111,24 @@ class M1M3_Simulator:
 
 	def setMezzanineID(self, subnet, serverAddr, dcaUniqueId, firmwareType, firmwareVersion):
                 self._subnetToUDPClient(subnet).send(self._ilcSim.reportDcaId(int(serverAddr), int(dcaUniqueId), int(firmwareType), int(firmwareVersion)))
+
+	def setCalibrationData(self, subnet, serverAddr, 
+				mainAdcCalibration1, mainAdcCalibration2, mainAdcCalibration3, mainAdcCalibration4,
+				mainSensorOffset1, mainSensorOffset2, mainSensorOffset3, mainSensorOffset4,
+				mainSensorSensitivity1, mainSensorSensitivity2, mainSensorSensitivity3, mainSensorSensitivity4,
+				backupAdcCalibration1, backupAdcCalibration2, backupAdcCalibration3, backupAdcCalibration4,
+				backupSensorOffset1, backupSensorOffset2, backupSensorOffset3, backupSensorOffset4,
+				backupSensorSensitivity1, backupSensorSensitivity2, backupSensorSensitivity3, backupSensorSensitivity4):
+		self._subnetToUDPClient(subnet).send(self._ilcSim.readCalibrationData(int(serverAddr), 
+							float(mainAdcCalibration1), float(mainAdcCalibration2), float(mainAdcCalibration3), float(mainAdcCalibration4), 
+							float(mainSensorOffset1), float(mainSensorOffset2), float(mainSensorOffset3), float(mainSensorOffset4),
+							float(mainSensorSensitivity1), float(mainSensorSensitivity2), float(mainSensorSensitivity3), float(mainSensorSensitivity4), 
+							float(backupAdcCalibration1), float(backupAdcCalibration2), float(backupAdcCalibration3), float(backupAdcCalibration4),
+							float(backupSensorOffset1), float(backupSensorOffset2), float(backupSensorOffset3), float(backupSensorOffset4),
+							float(backupSensorSensitivity1), float(backupSensorSensitivity2), float(backupSensorSensitivity3), float(backupSensorSensitivity4)))
+
+	def setAdcSampleRate(self, subnet, serverAddr, scanRateCode):
+		self._subnetToUDPClient(subnet).send(self._ilcSim.setAdcSampleRate(int(serverAddr), int(scanRateCode)))
 
 	# Set Simulator to default values
 	def setToDefaults(self):
@@ -199,3 +218,13 @@ class M1M3_Simulator:
 						networkNodeOptions = 2, majorRev = 8, minorRev = 2, firmwareName = "Mock-FA")
 			self.setServerStatus(subnet = subnet, serverAddr = address, mode = 0, status = 0, faults = 0)
 			self.setMezzanineID(subnet = subnet, serverAddr = address, dcaUniqueId = actuatorID + 1000, firmwareType=52, firmwareVersion=0x0802)
+			# Set ILC default calibration values
+			self.setCalibrationData(subnet = subnet, serverAddr = address, 
+						mainAdcCalibration1 = index, mainAdcCalibration2 = index + 1, mainAdcCalibration3 = index + 2, mainAdcCalibration4 = index + 3,
+						mainSensorOffset1 = index + 100, mainSensorOffset2 = index + 101, mainSensorOffset3 = index + 102, mainSensorOffset4 = index + 103,
+						mainSensorSensitivity1 = index + 1000, mainSensorSensitivity2 = index + 1001, mainSensorSensitivity3 = index + 1002, mainSensorSensitivity4 = index + 1003,
+						backupAdcCalibration1 = actuatorID + 1, backupAdcCalibration2 = actuatorID + 2, backupAdcCalibration3 = actuatorID + 3, backupAdcCalibration4 = actuatorID + 4,
+						backupSensorOffset1 = actuatorID + 100, backupSensorOffset2 = actuatorID + 101, backupSensorOffset3 = actuatorID + 102, backupSensorOffset4 = actuatorID + 103,
+						backupSensorSensitivity1 = actuatorID + 1000, backupSensorSensitivity2 = actuatorID + 1001, backupSensorSensitivity3 = actuatorID + 1002, 
+						backupSensorSensitivity4 = actuatorID + 1003)
+			self.setAdcSampleRate(subnet = subnet, serverAddr = address, scanRateCode = 8)
