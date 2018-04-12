@@ -89,16 +89,21 @@ class M1M3_Simulator:
 
 	# Force Actuator configuration commands
 	def setSinglePneumaticAxisForce(self, subnet, serverAddr, statusByte, loadCellForce):
-		self._subnetToUDPClient(subnet).send(self._ilcSim.singlePneumaticAxisForce(int(serverAddr), int(statusByte), float(loadCellForce)))
+		self._subnetToUDPClient(int(subnet)).send(self._ilcSim.singlePneumaticAxisForce(int(serverAddr), int(statusByte), float(loadCellForce)))
 
 	def setSinglePneumaticForceAndStatus(self, subnet, serverAddr, statusByte, loadCellForce):
-		self._subnetToUDPClient(subnet).send(self._ilcSim.singlePneumaticForceAndStatus(int(serverAddr), int(statusByte), float(loadCellForce)))
+		self._subnetToUDPClient(int(subnet)).send(self._ilcSim.singlePneumaticForceAndStatus(int(serverAddr), int(statusByte), float(loadCellForce)))
+		print('Subnet: %s, serverAddr: %s, statusByte: %s, loadCellForce: %s' % (subnet, serverAddr, statusByte, loadCellForce))
 
 	def setDualPneumaticAxisForce(self, subnet, serverAddr, statusByte, axialLoadCellForce, lateralLoadCellForce):
-		self._subnetToUDPClient(subnet).send(self._ilcSim.dualPneumaticAxisForce(int(serverAddr), int(statusByte), float(axialLoadCellForce), float(lateralLoadCellForce)))
+		self._subnetToUDPClient(int(subnet)).send(self._ilcSim.dualPneumaticAxisForce(int(serverAddr), int(statusByte), float(axialLoadCellForce), float(lateralLoadCellForce)))
 
 	def setDualPneumaticForceAndStatus(self, subnet, serverAddr, statusByte, axialLoadCellForce, lateralLoadCellForce):
-		self._subnetToUDPClient(subnet).send(self._ilcSim.dualPneumaticForceAndStatus(int(serverAddr), int(statusByte), float(axialLoadCellForce), float(lateralLoadCellForce)))
+		self._subnetToUDPClient(int(subnet)).send(self._ilcSim.dualPneumaticForceAndStatus(int(serverAddr), int(statusByte), float(axialLoadCellForce), float(lateralLoadCellForce)))
+		print('Subnet: %s, serverAddr: %s, statusByte: %s, axialLoadCellForce: %s, lateralLoadCellForce: %s' % (subnet, serverAddr, statusByte, axialLoadCellForce, lateralLoadCellForce))
+
+	def setBoostValueDcaGains(self, subnet, serverAddr, axialBoostValveGain, lateralBoostValveGain):
+		self._subnetToUDPClient(int(subnet)).send(self._ilcSim.readBoostValueDcaGains(int(serverAddr), float(axialBoostValveGain), float(lateralBoostValveGain)))
 
 	# ILC configuration commands
 	def setServerID(self, subnet, serverAddr, uniqueId, ilcAppType, networkNodeType, ilcSelectedOptions, networkNodeOptions, majorRev, minorRev, firmwareName):
@@ -205,14 +210,14 @@ class M1M3_Simulator:
 			actuatorID = row[forceActuatorTableIDIndex]
 			if address <= 16:
 				self.setSinglePneumaticAxisForce(subnet = subnet, serverAddr = address, statusByte = 0, loadCellForce = actuatorID)
-				self.setSinglePneumaticForceAndStatus(subnet = subnet, serverAddr = address, statusByte = 0, loadCellForce = actuatorID)
+				self.setSinglePneumaticForceAndStatus(subnet = subnet, serverAddr = address, statusByte = 0, loadCellForce = 10)    #actuatorID)
 				self.setServerID(subnet = subnet, serverAddr = address, uniqueId = actuatorID, ilcAppType = 2, networkNodeType = 2, ilcSelectedOptions = 0,
 						networkNodeOptions = 0, majorRev = 8, minorRev = 2, firmwareName = "Mock-FA")
 			else:
 				self.setDualPneumaticAxisForce(subnet = subnet, serverAddr = address, statusByte = 0, 
 									axialLoadCellForce = actuatorID, lateralLoadCellForce = actuatorID)
 				self.setDualPneumaticForceAndStatus(subnet = subnet, serverAddr = address, statusByte = 0,
-									axialLoadCellForce = actuatorID, lateralLoadCellForce = actuatorID)
+									axialLoadCellForce = 10, lateralLoadCellForce = 20)    #actuatorID, lateralLoadCellForce = actuatorID - 1)
 
 				self.setServerID(subnet = subnet, serverAddr = address, uniqueId = actuatorID, ilcAppType = 2, networkNodeType = 2, ilcSelectedOptions = 2,
 						networkNodeOptions = 2, majorRev = 8, minorRev = 2, firmwareName = "Mock-FA")
@@ -228,3 +233,4 @@ class M1M3_Simulator:
 						backupSensorSensitivity1 = actuatorID + 1000, backupSensorSensitivity2 = actuatorID + 1001, backupSensorSensitivity3 = actuatorID + 1002, 
 						backupSensorSensitivity4 = actuatorID + 1003)
 			self.setAdcSampleRate(subnet = subnet, serverAddr = address, scanRateCode = 8)
+			self.setBoostValueDcaGains(subnet = subnet, serverAddr = address, axialBoostValveGain = 1.0, lateralBoostValveGain = 1.0)
