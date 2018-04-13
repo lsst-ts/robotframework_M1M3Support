@@ -36,3 +36,13 @@ ${DetailedActiveEngineering}	13
 ${DetailedLoweringEngineering}	14
 ${DetaileLoweringFault}		15
 ${DetailedHardpointCorrection}	16
+
+##### Force Actuator Enumerations #####
+${NA}		0
+${PosY}		1
+${NegY}		2
+${PosX}		3
+${NegX}		4
+
+${SAA}		0
+${DAA}		1
