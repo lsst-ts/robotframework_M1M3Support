@@ -210,17 +210,17 @@ class M1M3_Simulator:
 			actuatorID = row[forceActuatorTableIDIndex]
 			if address <= 16:
 				self.setSinglePneumaticAxisForce(subnet = subnet, serverAddr = address, statusByte = 0, loadCellForce = actuatorID)
-				self.setSinglePneumaticForceAndStatus(subnet = subnet, serverAddr = address, statusByte = 0, loadCellForce = 10)    #actuatorID)
+				self.setSinglePneumaticForceAndStatus(subnet = subnet, serverAddr = address, statusByte = 0, loadCellForce = actuatorID)
 				self.setServerID(subnet = subnet, serverAddr = address, uniqueId = actuatorID, ilcAppType = 2, networkNodeType = 2, ilcSelectedOptions = 0,
 						networkNodeOptions = 0, majorRev = 8, minorRev = 2, firmwareName = "Mock-FA")
 			else:
 				self.setDualPneumaticAxisForce(subnet = subnet, serverAddr = address, statusByte = 0, 
 									axialLoadCellForce = actuatorID, lateralLoadCellForce = actuatorID)
 				self.setDualPneumaticForceAndStatus(subnet = subnet, serverAddr = address, statusByte = 0,
-									axialLoadCellForce = 10, lateralLoadCellForce = 20)    #actuatorID, lateralLoadCellForce = actuatorID - 1)
-
+									axialLoadCellForce = actuatorID, lateralLoadCellForce = actuatorID - 1)
 				self.setServerID(subnet = subnet, serverAddr = address, uniqueId = actuatorID, ilcAppType = 2, networkNodeType = 2, ilcSelectedOptions = 2,
 						networkNodeOptions = 2, majorRev = 8, minorRev = 2, firmwareName = "Mock-FA")
+
 			self.setServerStatus(subnet = subnet, serverAddr = address, mode = 0, status = 0, faults = 0)
 			self.setMezzanineID(subnet = subnet, serverAddr = address, dcaUniqueId = actuatorID + 1000, firmwareType=52, firmwareVersion=0x0802)
 			# Set ILC default calibration values
