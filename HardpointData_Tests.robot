@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation    M1M3 Hardpoint Actuator and Hardpoint Monitor Telemetry tests.
 Force Tags    
-Suite Setup    Run Keywords    M1M3_Simulator.Set to Defaults    AND    Log Many    host=${Host}    CSC=${subSystem}    timeout=${timeout}
+Suite Setup    Run Keywords    M1M3_Simulator.Set to Defaults    AND    Log Many    Default Tolerance:${defaultTol}    Moment Tolerance:${momentTol}
 Suite Teardown    M1M3_Simulator.Set to Defaults
 Library    String
 Library    DateTime
@@ -11,8 +11,8 @@ Resource    Global_Vars.robot
 Library    Library/M1M3_SAL.py
 
 *** Variables ***
-${subSystem}    m1m3
-${timeout}    30s
+${defaultTol}    ${0.001}
+${momentTol}    ${0.01}
 
 *** Test Cases ***
 Get to Disabled State
@@ -115,7 +115,7 @@ Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT
 Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT
     [Tags]    functional
     Comment    DisplacementLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt2 parameter.
-    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${0.2}    ${1.2}    ${2.2}    ${3.2}    ${4.2}    ${5.2}
+    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${defaultTol}    ${0.2}    ${1.2}    ${2.2}    ${3.2}    ${4.2}    ${5.2}
 
 Verify Hardpoint Monitor Data Telemetry - BreakawayPressure
     [Tags]    functional
@@ -125,17 +125,17 @@ Verify Hardpoint Monitor Data Telemetry - BreakawayPressure
 Verify Hardpoint Monitor Data Telemetry - PressureSensor1
     [Tags]    functional
     Comment    PressureSensor1 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure2AxialPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0.001}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${defaultTol}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor2
     [Tags]    functional
     Comment    PressureSensor2 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure3LateralPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0.001}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${defaultTol}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor3
     [Tags]    functional
     Comment    PressureSensor3 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure4LateralPush parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${defaultTol}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}    ${0.00024}
 
 ############ END Verify Hardpoint Monitor Data Telemetry Attributes ############
 
@@ -158,7 +158,7 @@ Verify Hardpoint Actuator Data Telemetry - StepsQueued
 
 Verify Hardpoint Actuator Data Telemetry - MeasuredForce
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    MeasuredForce    ${0.001}    ${1.5}    ${2.5}    ${3.5}    ${4.5}    ${5.5}    ${6.5}
+    Verify Irrational Array    ${hpadata}    MeasuredForce    ${defaultTol}    ${1.5}    ${2.5}    ${3.5}    ${4.5}    ${5.5}    ${6.5}
 
 Verify Hardpoint Actuator Data Telemetry - Encoder
     [Tags]    functional
@@ -166,59 +166,59 @@ Verify Hardpoint Actuator Data Telemetry - Encoder
 
 Verify Hardpoint Actuator Data Telemetry - Displacement
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    Displacement    ${0.001}    ${0.0002}    ${0.0002}    ${0.0002}    ${0.0002}    ${0.0002}    ${0.0002}
+    Verify Irrational Array    ${hpadata}    Displacement    ${defaultTol}    ${0.0002}    ${0.0002}    ${0.0002}    ${0.0002}    ${0.0002}    ${0.0002}
 
 Verify Hardpoint Actuator Data Telemetry - Fx
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fx    ${hpadata.Fx}    ${0.001}    ${-1.8903}
+    Verify Irrational Value    Fx    ${hpadata.Fx}    ${defaultTol}    ${-1.8903}
 
 Verify Hardpoint Actuator Data Telemetry - Fy
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fy    ${hpadata.Fy}    ${0.001}    ${3.2739}
+    Verify Irrational Value    Fy    ${hpadata.Fy}    ${defaultTol}    ${3.2739}
 
 Verify Hardpoint Actuator Data Telemetry - Fz
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fz    ${hpadata.Fz}    ${0.001}    ${-15.421}
+    Verify Irrational Value    Fz    ${hpadata.Fz}    ${defaultTol}    ${-15.421}
 
 Verify Hardpoint Actuator Data Telemetry - Mx
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mx    ${hpadata.Mx}    ${0.001}    ${-8.8196}
+    Verify Irrational Value    Mx    ${hpadata.Mx}    ${momentTol}    ${-8.8196}
 
 Verify Hardpoint Actuator Data Telemetry - My
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    My    ${hpadata.My}    ${0.001}    ${-5.0765}
+    Verify Irrational Value    My    ${hpadata.My}    ${momentTol}    ${-5.0765}
 
 Verify Hardpoint Actuator Data Telemetry - Mz
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mz    ${hpadata.Mz}    ${0.001}    ${6.9760}
+    Verify Irrational Value    Mz    ${hpadata.Mz}    ${momentTol}    ${6.9760}
 
 Verify Hardpoint Actuator Data Telemetry - ForceMagnitude
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${0.001}    ${15.8772}
+    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${defaultTol}    ${15.8772}
 
 Verify Hardpoint Actuator Data Telemetry - XPosition
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0000}
+    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${defaultTol}    ${0.0000}
 
 Verify Hardpoint Actuator Data Telemetry - YPosition
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0003}
+    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${defaultTol}    ${0.0003}
 
 Verify Hardpoint Actuator Data Telemetry - ZPosition
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0000}
+    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${defaultTol}    ${0.0000}
 
 Verify Hardpoint Actuator Data Telemetry - XRotation
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${-0.0000}
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${defaultTol}    ${-0.0000}
 
 Verify Hardpoint Actuator Data Telemetry - YRotation
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0000}
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${defaultTol}    ${0.0000}
 
 Verify Hardpoint Actuator Data Telemetry - ZRotation
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${0.0000}
+    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${defaultTol}    ${0.0000}
 
 ############ END Verify Hardpoint Monitor Data Telemetry ############
 
@@ -281,32 +281,32 @@ Get Hardpoint Monitor Data Telemetry - Parked
 Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - Parked
     [Tags]    functional
     Comment    BreakawayLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt1 parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${-67.7013}    ${80.8065}    ${-779.3144}    ${691.2441}    ${261.4818}    ${-553.3500}
+    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${defaultTol}    ${-67.7013}    ${80.8065}    ${-779.3144}    ${691.2441}    ${261.4818}    ${-553.3500}
 
 Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - Parked
     [Tags]    functional
     Comment    DisplacementLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt2 parameter.
-    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-32.0664}    ${30.7562}    ${381.2256}    ${-603.9484}    ${-859.8013}    ${-390.1598}
+    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${defaultTol}    ${-32.0664}    ${30.7562}    ${381.2256}    ${-603.9484}    ${-859.8013}    ${-390.1598}
 
 Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - Parked
     [Tags]    functional
     Comment    BreakawayPressure is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${827.8000}    ${24.0640}    ${439.5877}    ${-593.9491}    ${-767.0862}    ${737.8273}
+    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${defaultTol}    ${827.8000}    ${24.0640}    ${439.5877}    ${-593.9491}    ${-767.0862}    ${737.8273}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - Parked
     [Tags]    functional
     Comment    PressureSensor1 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure2AxialPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0.001}    ${-296.9654}    ${976.2457}    ${466.7696}    ${981.7325}    ${269.1810}    ${-484.2785}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${defaultTol}    ${-296.9654}    ${976.2457}    ${466.7696}    ${981.7325}    ${269.1810}    ${-484.2785}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - Parked
     [Tags]    functional
     Comment    PressureSensor2 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure3LateralPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0.001}    ${855.4093}    ${309.1567}    ${994.3187}    ${460.6435}    ${-733.5420}    ${-757.4126}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${defaultTol}    ${855.4093}    ${309.1567}    ${994.3187}    ${460.6435}    ${-733.5420}    ${-757.4126}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - Parked
     [Tags]    functional
     Comment    PressureSensor3 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure4LateralPush parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${-896.4723}    ${58.3888}    ${459.2541}    ${563.6204}    ${-152.2537}    ${210.0550}
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${defaultTol}    ${-896.4723}    ${58.3888}    ${459.2541}    ${563.6204}    ${-152.2537}    ${210.0550}
 
 ############ END Verify Hardpoint Monitor Data Telemetry - PARKED ############
 
@@ -329,7 +329,7 @@ Verify Hardpoint Actuator Data Telemetry - StepsQueued - Parked
 
 Verify Hardpoint Actuator Data Telemetry - MeasuredForce - Parked
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    MeasuredForce    ${0.001}    ${350.9240}    ${559.5369}    ${-53.5340}    ${318.7000}    ${-586.7139}    ${950.8309}
+    Verify Irrational Array    ${hpadata}    MeasuredForce    ${defaultTol}    ${350.9240}    ${559.5369}    ${-53.5340}    ${318.7000}    ${-586.7139}    ${950.8309}
 
 Verify Hardpoint Actuator Data Telemetry - Encoder - Parked
     [Tags]    functional
@@ -337,59 +337,59 @@ Verify Hardpoint Actuator Data Telemetry - Encoder - Parked
 
 Verify Hardpoint Actuator Data Telemetry - Displacement - Parked
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    Displacement    ${0.001}    ${0.0216}    ${0.0011}    ${-0.0085}    ${-0.0013}    ${0.0039}    ${-0.0130}
+    Verify Irrational Array    ${hpadata}    Displacement    ${defaultTol}    ${0.0216}    ${0.0011}    ${-0.0085}    ${-0.0013}    ${0.0039}    ${-0.0130}
 
 Verify Hardpoint Actuator Data Telemetry - Fx - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fx    ${hpadata.Fx}    ${0.001}    ${-448.225}
+    Verify Irrational Value    Fx    ${hpadata.Fx}    ${defaultTol}    ${-448.225}
 
 Verify Hardpoint Actuator Data Telemetry - Fy - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fy    ${hpadata.Fy}    ${0.001}    ${-868.030}
+    Verify Irrational Value    Fy    ${hpadata.Fy}    ${defaultTol}    ${-868.030}
 
 Verify Hardpoint Actuator Data Telemetry - Fz - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fz    ${hpadata.Fz}    ${0.001}    ${-989.299}
+    Verify Irrational Value    Fz    ${hpadata.Fz}    ${defaultTol}    ${-989.299}
 
 Verify Hardpoint Actuator Data Telemetry - Mx - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mx    ${hpadata.Mx}    ${0.001}    ${-422.020}
+    Verify Irrational Value    Mx    ${hpadata.Mx}    ${momentTol}    ${-422.020}
 
 Verify Hardpoint Actuator Data Telemetry - My - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    My    ${hpadata.My}    ${0.001}    ${835.293}
+    Verify Irrational Value    My    ${hpadata.My}    ${momentTol}    ${835.293}
 
 Verify Hardpoint Actuator Data Telemetry - Mz - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mz    ${hpadata.Mz}    ${0.001}    ${4921.791}
+    Verify Irrational Value    Mz    ${hpadata.Mz}    ${momentTol}    ${4921.791}
 
 Verify Hardpoint Actuator Data Telemetry - ForceMagnitude - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${0.001}    ${1390.358}
+    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${defaultTol}    ${1390.358}
 
 Verify Hardpoint Actuator Data Telemetry - XPosition - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0165}
+    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${defaultTol}    ${0.0165}
 
 Verify Hardpoint Actuator Data Telemetry - YPosition - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${-0.0031}
+    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${defaultTol}    ${-0.0031}
 
 Verify Hardpoint Actuator Data Telemetry - ZPosition - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0010}
+    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${defaultTol}    ${0.0010}
 
 Verify Hardpoint Actuator Data Telemetry - XRotation - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0024}
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${defaultTol}    ${0.0024}
 
 Verify Hardpoint Actuator Data Telemetry - YRotation - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0001}
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${defaultTol}    ${0.0001}
 
 Verify Hardpoint Actuator Data Telemetry - ZRotation - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${-0.0021}
+    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${defaultTol}    ${-0.0021}
 
 ############ END Verify Hardpoint Actuator Data Telemetry - PARKED ############
 
@@ -452,32 +452,32 @@ Get Hardpoint Monitor Data Telemetry - Raising
 Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - Raising
     [Tags]    functional
     Comment    BreakawayLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt1 parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${6.2985}    ${-0.1147}    ${3.8486}    ${-6.173}    ${-4.6194}    ${-4.2489}
+    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${defaultTol}    ${6.2985}    ${-0.1147}    ${3.8486}    ${-6.173}    ${-4.6194}    ${-4.2489}
 
 Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - Raising
     [Tags]    functional
     Comment    BreakawayPressure is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${34.4916}    ${16.2201}    ${51.4933}    ${44.2715}    ${2.9238}    ${35.6619}
+    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${defaultTol}    ${34.4916}    ${16.2201}    ${51.4933}    ${44.2715}    ${2.9238}    ${35.6619}
 
 Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - Raising
     [Tags]    functional
     Comment    DisplacementLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt2 parameter.
-    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${3.2604}    ${-3.9019}    ${8.2823}    ${0.1635}    ${-8.9626}    ${1.8729}
+    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${defaultTol}    ${3.2604}    ${-3.9019}    ${8.2823}    ${0.1635}    ${-8.9626}    ${1.8729}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - Raising
     [Tags]    functional
     Comment    PressureSensor1 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure2AxialPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0.001}    ${91.6829}    ${32.3556}    ${35.8018}    ${16.7405}    ${97.8798}    ${53.9305}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${defaultTol}    ${91.6829}    ${32.3556}    ${35.8018}    ${16.7405}    ${97.8798}    ${53.9305}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - Raising
     [Tags]    functional
     Comment    PressureSensor2 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure3LateralPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0.001}    ${99.4094}    ${11.5845}    ${19.6609}    ${64.2425}    ${1.6894}    ${124.4494}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${defaultTol}    ${99.4094}    ${11.5845}    ${19.6609}    ${64.2425}    ${1.6894}    ${124.4494}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - Raising
     [Tags]    functional
     Comment    PressureSensor3 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure4LateralPush parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${76.0364}    ${90.2067}    ${44.3858}    ${13.983}    ${31.9756}    ${77.4635}
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${defaultTol}    ${76.0364}    ${90.2067}    ${44.3858}    ${13.983}    ${31.9756}    ${77.4635}
 
 ############ END Verify Hardpoint Monitor Data Telemetry - RAISING ############
 
@@ -500,7 +500,7 @@ Verify Hardpoint Actuator Data Telemetry - StepsQueued - Raising
 
 Verify Hardpoint Actuator Data Telemetry - MeasuredForce - Raising
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    MeasuredForce    ${0.001}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpadata}    MeasuredForce    ${defaultTol}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Actuator Data Telemetry - Encoder - Raising
     [Tags]    functional
@@ -508,59 +508,59 @@ Verify Hardpoint Actuator Data Telemetry - Encoder - Raising
 
 Verify Hardpoint Actuator Data Telemetry - Displacement - Raising
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    Displacement    ${0.001}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}
+    Verify Irrational Array    ${hpadata}    Displacement    ${defaultTol}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Fx - Raising
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fx    ${hpadata.Fx}    ${0.001}    ${0.0}
+    Verify Irrational Value    Fx    ${hpadata.Fx}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Fy - Raising
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fy    ${hpadata.Fy}    ${0.001}    ${0.0}
+    Verify Irrational Value    Fy    ${hpadata.Fy}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Fz - Raising
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fz    ${hpadata.Fz}    ${0.001}    ${0.0}
+    Verify Irrational Value    Fz    ${hpadata.Fz}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Mx - Raising
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mx    ${hpadata.Mx}    ${0.001}    ${0.0}
+    Verify Irrational Value    Mx    ${hpadata.Mx}    ${momentTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - My - Raising
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    My    ${hpadata.My}    ${0.001}    ${0.0}
+    Verify Irrational Value    My    ${hpadata.My}    ${momentTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Mz - Raising
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mz    ${hpadata.Mz}    ${0.001}    ${0.0}
+    Verify Irrational Value    Mz    ${hpadata.Mz}    ${momentTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - ForceMagnitude - Raising
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${0.001}    ${0.0}
+    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - XPosition - Raising
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0}
+    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - YPosition - Raising
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0}
+    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - ZPosition - Raising
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0}
+    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - XRotation - Raising
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0}
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - YRotation - Raising
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0}
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - ZRotation - Raising
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${0.0}
+    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${defaultTol}    ${0.0}
 
 ############ END Verify Hardpoint Actuator Data Telemetry - RAISING ############
 
@@ -625,32 +625,32 @@ Get Hardpoint Monitor Data Telemetry - Active
 Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - Active
     [Tags]    functional
     Comment    BreakawayLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt1 parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${-6.356}    ${-2.4262}    ${5.09}    ${2.9923}    ${3.7093}    ${2.6619}
+    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${defaultTol}    ${-6.356}    ${-2.4262}    ${5.09}    ${2.9923}    ${3.7093}    ${2.6619}
 
 Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - Active
     [Tags]    functional
     Comment    BreakawayPressure is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${50.831}    ${120.2331}    ${82.262}    ${111.5033}    ${91.9502}    ${48.0472}
+    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${defaultTol}    ${50.831}    ${120.2331}    ${82.262}    ${111.5033}    ${91.9502}    ${48.0472}
 
 Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - Active
     [Tags]    functional
     Comment    DisplacementLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt2 parameter.
-    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-1.7328}    ${-1.4}    ${0.0076}    ${7.498}    ${-6.7294}    ${-0.1038}
+    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${defaultTol}    ${-1.7328}    ${-1.4}    ${0.0076}    ${7.498}    ${-6.7294}    ${-0.1038}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - Active
     [Tags]    functional
     Comment    PressureSensor1 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure2AxialPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0.001}    ${31.1756}    ${41.4072}    ${5.7602}    ${113.6051}    ${44.4449}    ${107.8284}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${defaultTol}    ${31.1756}    ${41.4072}    ${5.7602}    ${113.6051}    ${44.4449}    ${107.8284}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - Active
     [Tags]    functional
     Comment    PressureSensor2 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure3LateralPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0.001}    ${114.8652}    ${87.9407}    ${25.5702}    ${93.0818}    ${10.4506}    ${45.1647}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${defaultTol}    ${114.8652}    ${87.9407}    ${25.5702}    ${93.0818}    ${10.4506}    ${45.1647}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - Active
     [Tags]    functional
     Comment    PressureSensor3 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure4LateralPush parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${101.3123}    ${95.6432}    ${87.8503}    ${60.0473}    ${119.7166}    ${71.4285}
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${defaultTol}    ${101.3123}    ${95.6432}    ${87.8503}    ${60.0473}    ${119.7166}    ${71.4285}
 
 ############ END Verify Hardpoint Monitor Data Telemetry - ACTIVE ############
 
@@ -673,7 +673,7 @@ Verify Hardpoint Actuator Data Telemetry - StepsQueued - Active
     
 Verify Hardpoint Actuator Data Telemetry - MeasuredForce - Active
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    MeasuredForce    ${0.001}    ${4812.3538}    ${-3943.7594}    ${4602.6788}    ${3539.1055}    ${-1379.5847}    ${-878.3023}
+    Verify Irrational Array    ${hpadata}    MeasuredForce    ${defaultTol}    ${4812.3538}    ${-3943.7594}    ${4602.6788}    ${3539.1055}    ${-1379.5847}    ${-878.3023}
 
 Verify Hardpoint Actuator Data Telemetry - Encoder - Active
     [Tags]    functional
@@ -681,59 +681,59 @@ Verify Hardpoint Actuator Data Telemetry - Encoder - Active
 
 Verify Hardpoint Actuator Data Telemetry - Displacement - Active
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    Displacement    ${0.001}    ${0.0229}    ${-0.0654}    ${-0.0984}    ${-0.0250}    ${-0.1107}    ${0.0367}
+    Verify Irrational Array    ${hpadata}    Displacement    ${defaultTol}    ${0.0229}    ${-0.0654}    ${-0.0984}    ${-0.0250}    ${-0.1107}    ${0.0367}
 
 Verify Hardpoint Actuator Data Telemetry - Fx - Active
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fx    ${hpadata.Fx}    ${0.001}    ${355.2094}
+    Verify Irrational Value    Fx    ${hpadata.Fx}    ${defaultTol}    ${355.2094}
 
 Verify Hardpoint Actuator Data Telemetry - Fy - Active
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fy    ${hpadata.Fy}    ${0.001}    ${402.4657}
+    Verify Irrational Value    Fy    ${hpadata.Fy}    ${defaultTol}    ${402.4657}
 
 Verify Hardpoint Actuator Data Telemetry - Fz - Active
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fz    ${hpadata.Fz}    ${0.001}    ${-4338.7871}
+    Verify Irrational Value    Fz    ${hpadata.Fz}    ${defaultTol}    ${-4338.7871}
 
 Verify Hardpoint Actuator Data Telemetry - Mx - Active
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mx    ${hpadata.Mx}    ${0.001}    ${-4790.9657}
+    Verify Irrational Value    Mx    ${hpadata.Mx}    ${momentTol}    ${-4790.9657}
 
 Verify Hardpoint Actuator Data Telemetry - My - Active
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    My    ${hpadata.My}    ${0.001}    ${24152.579}
+    Verify Irrational Value    My    ${hpadata.My}    ${momentTol}    ${24152.579}
 
 Verify Hardpoint Actuator Data Telemetry - Mz - Active
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mz    ${hpadata.Mz}    ${0.001}    ${-21653.494}
+    Verify Irrational Value    Mz    ${hpadata.Mz}    ${momentTol}    ${-21653.494}
     
 Verify Hardpoint Actuator Data Telemetry - ForceMagnitude - Active
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${0.001}    ${4371.8676}
+    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${defaultTol}    ${4371.8676}
 
 Verify Hardpoint Actuator Data Telemetry - XPosition - Active
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0230}
+    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${defaultTol}    ${0.0230}
     
 Verify Hardpoint Actuator Data Telemetry - YPosition - Active
     [Tags]    functional      TSS-2490
-    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0587}
+    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${defaultTol}    ${0.0587}
 
 Verify Hardpoint Actuator Data Telemetry - ZPosition - Active
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${-0.0615}
+    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${defaultTol}    ${-0.0615}
 
 Verify Hardpoint Actuator Data Telemetry - XRotation - Active
     [Tags]    functional     TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0322}
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${defaultTol}    ${0.0322}
     
 Verify Hardpoint Actuator Data Telemetry - YRotation - Active
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${-0.0020}
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${defaultTol}    ${-0.0020}
     
 Verify Hardpoint Actuator Data Telemetry - ZRotation - Active
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${0.0096}
+    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${defaultTol}    ${0.0096}
     
 ############ END Verify Hardpoint Actuator Data Telemetry - ACTIVE ############
 
@@ -796,32 +796,32 @@ Get Hardpoint Monitor Data Telemetry - Lowering
 Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - Lowering
     [Tags]    functional
     Comment    BreakawayLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt1 parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${-4.0986}    ${-5.6215}    ${9.1817}    ${-5.8255}    ${-5.9124}    ${6.3352}
+    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${defaultTol}    ${-4.0986}    ${-5.6215}    ${9.1817}    ${-5.8255}    ${-5.9124}    ${6.3352}
 
 Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - Lowering
     [Tags]    functional
     Comment    BreakawayPressure is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${123.4892}    ${27.0135}    ${44.2858}    ${51.5121}    ${23.4114}    ${73.439}
+    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${defaultTol}    ${123.4892}    ${27.0135}    ${44.2858}    ${51.5121}    ${23.4114}    ${73.439}
 
 Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - Lowering
     [Tags]    functional
     Comment    DisplacementLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt2 parameter.
-    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-3.8844}    ${-1.0793}    ${-3.5968}    ${-9.6489}    ${-4.1641}    ${9.444}
+    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${defaultTol}    ${-3.8844}    ${-1.0793}    ${-3.5968}    ${-9.6489}    ${-4.1641}    ${9.444}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - Lowering
     [Tags]    functional
     Comment    PressureSensor1 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure2AxialPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0.001}    ${24.4268}    ${65.2718}    ${115.3094}    ${102.85}    ${97.2484}    ${122.8257}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${defaultTol}    ${24.4268}    ${65.2718}    ${115.3094}    ${102.85}    ${97.2484}    ${122.8257}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - Lowering
     [Tags]    functional
     Comment    PressureSensor2 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure3LateralPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0.001}    ${75.2657}    ${102.1222}    ${74.7107}    ${47.3032}    ${42.6373}    ${35.761}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${defaultTol}    ${75.2657}    ${102.1222}    ${74.7107}    ${47.3032}    ${42.6373}    ${35.761}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - Lowering
     [Tags]    functional
     Comment    PressureSensor3 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure4LateralPush parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${72.6079}    ${44.6229}    ${61.5088}    ${67.547}    ${19.0961}    ${81.3655}
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${defaultTol}    ${72.6079}    ${44.6229}    ${61.5088}    ${67.547}    ${19.0961}    ${81.3655}
 
 ############ END Verify Hardpoint Monitor Data Telemetry - LOWERING ############
 
@@ -844,7 +844,7 @@ Verify Hardpoint Actuator Data Telemetry - StepsQueued - Lowering
     
 Verify Hardpoint Actuator Data Telemetry - MeasuredForce - Lowering
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    MeasuredForce    ${0.001}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpadata}    MeasuredForce    ${defaultTol}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Actuator Data Telemetry - Encoder - Lowering
     [Tags]    functional
@@ -852,59 +852,59 @@ Verify Hardpoint Actuator Data Telemetry - Encoder - Lowering
 
 Verify Hardpoint Actuator Data Telemetry - Displacement - Lowering
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    Displacement    ${0.001}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}
+    Verify Irrational Array    ${hpadata}    Displacement    ${defaultTol}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Fx - Lowering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fx    ${hpadata.Fx}    ${0.001}    ${0.0}
+    Verify Irrational Value    Fx    ${hpadata.Fx}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Fy - Lowering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fy    ${hpadata.Fy}    ${0.001}    ${0.0}
+    Verify Irrational Value    Fy    ${hpadata.Fy}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Fz - Lowering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fz    ${hpadata.Fz}    ${0.001}    ${0.0}
+    Verify Irrational Value    Fz    ${hpadata.Fz}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Mx - Lowering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mx    ${hpadata.Mx}    ${0.001}    ${0.0}
+    Verify Irrational Value    Mx    ${hpadata.Mx}    ${momentTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - My - Lowering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    My    ${hpadata.My}    ${0.001}    ${0.0}
+    Verify Irrational Value    My    ${hpadata.My}    ${momentTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Mz - Lowering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mz    ${hpadata.Mz}    ${0.001}    ${0.0}
+    Verify Irrational Value    Mz    ${hpadata.Mz}    ${momentTol}    ${0.0}
     
 Verify Hardpoint Actuator Data Telemetry - ForceMagnitude - Lowering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${0.001}    ${0.0}
+    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - XPosition - Lowering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0}
+    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${defaultTol}    ${0.0}
     
 Verify Hardpoint Actuator Data Telemetry - YPosition - Lowering
     [Tags]    functional      TSS-2490
-    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0}
+    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - ZPosition - Lowering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0}
+    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - XRotation - Lowering
     [Tags]    functional     TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0}
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${defaultTol}    ${0.0}
     
 Verify Hardpoint Actuator Data Telemetry - YRotation - Lowering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0}
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${defaultTol}    ${0.0}
     
 Verify Hardpoint Actuator Data Telemetry - ZRotation - Lowering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${0.0}
+    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${defaultTol}    ${0.0}
     
 ############ END Verify Hardpoint Actuator Data Telemetry - LOWERING ############
 
@@ -982,32 +982,32 @@ Get Hardpoint Monitor Data Telemetry - ParkedEngineering
 Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - ParkedEngineering
     [Tags]    functional
     Comment    BreakawayLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt1 parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${-5.7547}    ${7.5998}    ${-0.6323}    ${1.4139}    ${3.0318}    ${3.4932}
+    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${defaultTol}    ${-5.7547}    ${7.5998}    ${-0.6323}    ${1.4139}    ${3.0318}    ${3.4932}
 
 Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - ParkedEngineering
     [Tags]    functional
     Comment    BreakawayPressure is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${42.6241}    ${70.8409}    ${103.4864}    ${77.7477}    ${13.7352}    ${27.3488}
+    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${defaultTol}    ${42.6241}    ${70.8409}    ${103.4864}    ${77.7477}    ${13.7352}    ${27.3488}
 
 Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - ParkedEngineering
     [Tags]    functional
     Comment    DisplacementLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt2 parameter.
-    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-0.9152}    ${-5.3859}    ${-3.6556}    ${-2.7282}    ${5.6386}    ${-5.2086}
+    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${defaultTol}    ${-0.9152}    ${-5.3859}    ${-3.6556}    ${-2.7282}    ${5.6386}    ${-5.2086}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - ParkedEngineering
     [Tags]    functional
     Comment    PressureSensor1 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure2AxialPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0.001}    ${50.8365}    ${61.6645}    ${86.5637}    ${3.3414}    ${96.3002}    ${73.0917}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${defaultTol}    ${50.8365}    ${61.6645}    ${86.5637}    ${3.3414}    ${96.3002}    ${73.0917}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - ParkedEngineering
     [Tags]    functional
     Comment    PressureSensor2 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure3LateralPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0.001}    ${72.6747}    ${5.7223}    ${46.5228}    ${106.6168}    ${46.609}    ${56.3336}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${defaultTol}    ${72.6747}    ${5.7223}    ${46.5228}    ${106.6168}    ${46.609}    ${56.3336}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - ParkedEngineering
     [Tags]    functional
     Comment    PressureSensor3 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure4LateralPush parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${122.1438}    ${15.8971}    ${101.2445}    ${61.3686}    ${4.7147}    ${44.9574}
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${defaultTol}    ${122.1438}    ${15.8971}    ${101.2445}    ${61.3686}    ${4.7147}    ${44.9574}
 
 ############ END Verify Hardpoint Monitor Data Telemetry - PARKEDENGINEERING ############
 
@@ -1030,7 +1030,7 @@ Verify Hardpoint Actuator Data Telemetry - StepsQueued - ParkedEngineering
     
 Verify Hardpoint Actuator Data Telemetry - MeasuredForce - ParkedEngineering
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    MeasuredForce    ${0.001}    ${-765.5576}    ${-4408.2886}    ${2683.3783}    ${1022.9206}    ${2359.2162}    ${4170.0464}
+    Verify Irrational Array    ${hpadata}    MeasuredForce    ${defaultTol}    ${-765.5576}    ${-4408.2886}    ${2683.3783}    ${1022.9206}    ${2359.2162}    ${4170.0464}
 
 Verify Hardpoint Actuator Data Telemetry - Encoder - ParkedEngineering
     [Tags]    functional
@@ -1038,59 +1038,59 @@ Verify Hardpoint Actuator Data Telemetry - Encoder - ParkedEngineering
 
 Verify Hardpoint Actuator Data Telemetry - Displacement - ParkedEngineering
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    Displacement    ${0.001}    ${0.0469}    ${-0.0992}    ${0.0870}    ${-0.0620}    ${-0.0238}    ${0.0901}
+    Verify Irrational Array    ${hpadata}    Displacement    ${defaultTol}    ${0.0469}    ${-0.0992}    ${0.0870}    ${-0.0620}    ${-0.0238}    ${0.0901}
 
 Verify Hardpoint Actuator Data Telemetry - Fx - ParkedEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fx    ${hpadata.Fx}    ${0.001}    ${-3334.2792}
+    Verify Irrational Value    Fx    ${hpadata.Fx}    ${defaultTol}    ${-3334.2792}
 
 Verify Hardpoint Actuator Data Telemetry - Fy - ParkedEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fy    ${hpadata.Fy}    ${0.001}    ${3998.5246}
+    Verify Irrational Value    Fy    ${hpadata.Fy}    ${defaultTol}    ${3998.5246}
 
 Verify Hardpoint Actuator Data Telemetry - Fz - ParkedEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fz    ${hpadata.Fz}    ${0.001}    ${-3252.3382}
+    Verify Irrational Value    Fz    ${hpadata.Fz}    ${defaultTol}    ${-3252.3382}
 
 Verify Hardpoint Actuator Data Telemetry - Mx - ParkedEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mx    ${hpadata.Mx}    ${0.001}    ${-19000.655}
+    Verify Irrational Value    Mx    ${hpadata.Mx}    ${momentTol}    ${-19000.655}
 
 Verify Hardpoint Actuator Data Telemetry - My - ParkedEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    My    ${hpadata.My}    ${0.001}    ${1192.3331}
+    Verify Irrational Value    My    ${hpadata.My}    ${momentTol}    ${1192.3331}
 
 Verify Hardpoint Actuator Data Telemetry - Mz - ParkedEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mz    ${hpadata.Mz}    ${0.001}    ${-8111.5916}
+    Verify Irrational Value    Mz    ${hpadata.Mz}    ${momentTol}    ${-8111.5916}
     
 Verify Hardpoint Actuator Data Telemetry - ForceMagnitude - ParkedEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${0.001}    ${6138.6741}
+    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${defaultTol}    ${6138.6741}
 
 Verify Hardpoint Actuator Data Telemetry - XPosition - ParkedEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${-0.0748}
+    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${defaultTol}    ${-0.0748}
     
 Verify Hardpoint Actuator Data Telemetry - YPosition - ParkedEngineering
     [Tags]    functional      TSS-2490
-    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0874}
+    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${defaultTol}    ${0.0874}
 
 Verify Hardpoint Actuator Data Telemetry - ZPosition - ParkedEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0100}
+    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${defaultTol}    ${0.0100}
 
 Verify Hardpoint Actuator Data Telemetry - XRotation - ParkedEngineering
     [Tags]    functional     TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0248}
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${defaultTol}    ${0.0248}
     
 Verify Hardpoint Actuator Data Telemetry - YRotation - ParkedEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0036}
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${defaultTol}    ${0.0036}
     
 Verify Hardpoint Actuator Data Telemetry - ZRotation - ParkedEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${-0.0131}
+    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${defaultTol}    ${-0.0131}
     
 ############ END Verify Hardpoint Actuator Data Telemetry - PARKEDENGINEERING ############
 
@@ -1153,32 +1153,32 @@ Get Hardpoint Monitor Data Telemetry - RaisingEngineering
 Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - RaisingEngineering
     [Tags]    functional
     Comment    BreakawayLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt1 parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${6.5002}    ${4.3867}    ${-0.6658}    ${2.8957}    ${-4.0986}    ${-8.0855}
+    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${defaultTol}    ${6.5002}    ${4.3867}    ${-0.6658}    ${2.8957}    ${-4.0986}    ${-8.0855}
 
 Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - RaisingEngineering
     [Tags]    functional
     Comment    BreakawayPressure is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${38.1029}    ${96.8142}    ${78.9591}    ${29.5881}    ${101.6804}    ${115.2536}
+    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${defaultTol}    ${38.1029}    ${96.8142}    ${78.9591}    ${29.5881}    ${101.6804}    ${115.2536}
 
 Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - RaisingEngineering
     [Tags]    functional
     Comment    DisplacementLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt2 parameter.
-    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-2.2664}    ${-0.4983}    ${-4.9625}    ${6.1291}    ${0.1223}    ${-5.8437}
+    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${defaultTol}    ${-2.2664}    ${-0.4983}    ${-4.9625}    ${6.1291}    ${0.1223}    ${-5.8437}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - RaisingEngineering
     [Tags]    functional
     Comment    PressureSensor1 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure2AxialPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0.001}    ${59.0454}    ${79.8555}    ${104.2031}    ${79.1663}    ${45.8824}    ${48.1822}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${defaultTol}    ${59.0454}    ${79.8555}    ${104.2031}    ${79.1663}    ${45.8824}    ${48.1822}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - RaisingEngineering
     [Tags]    functional
     Comment    PressureSensor2 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure3LateralPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0.001}    ${69.2918}    ${108.4955}    ${27.2021}    ${65.1358}    ${97.2111}    ${22.9784}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${defaultTol}    ${69.2918}    ${108.4955}    ${27.2021}    ${65.1358}    ${97.2111}    ${22.9784}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - RaisingEngineering
     [Tags]    functional
     Comment    PressureSensor3 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure4LateralPush parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${113.1793}    ${0.4208}    ${19.5833}    ${66.3595}    ${11.4588}    ${110.1077}
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${defaultTol}    ${113.1793}    ${0.4208}    ${19.5833}    ${66.3595}    ${11.4588}    ${110.1077}
 
 ############ END Verify Hardpoint Monitor Data Telemetry - RAISINGENGINEERING ############
 
@@ -1201,7 +1201,7 @@ Verify Hardpoint Actuator Data Telemetry - StepsQueued - RaisingEngineering
     
 Verify Hardpoint Actuator Data Telemetry - MeasuredForce - RaisingEngineering
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    MeasuredForce    ${0.001}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpadata}    MeasuredForce    ${defaultTol}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Actuator Data Telemetry - Encoder - RaisingEngineering
     [Tags]    functional
@@ -1209,59 +1209,59 @@ Verify Hardpoint Actuator Data Telemetry - Encoder - RaisingEngineering
 
 Verify Hardpoint Actuator Data Telemetry - Displacement - RaisingEngineering
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    Displacement    ${0.001}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}
+    Verify Irrational Array    ${hpadata}    Displacement    ${defaultTol}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Fx - RaisingEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fx    ${hpadata.Fx}    ${0.001}    ${0.0}
+    Verify Irrational Value    Fx    ${hpadata.Fx}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Fy - RaisingEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fy    ${hpadata.Fy}    ${0.001}    ${0.0}
+    Verify Irrational Value    Fy    ${hpadata.Fy}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Fz - RaisingEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fz    ${hpadata.Fz}    ${0.001}    ${0.0}
+    Verify Irrational Value    Fz    ${hpadata.Fz}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Mx - RaisingEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mx    ${hpadata.Mx}    ${0.001}    ${0.0}
+    Verify Irrational Value    Mx    ${hpadata.Mx}    ${momentTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - My - RaisingEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    My    ${hpadata.My}    ${0.001}    ${0.0}
+    Verify Irrational Value    My    ${hpadata.My}    ${momentTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Mz - RaisingEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mz    ${hpadata.Mz}    ${0.001}    ${0.0}
+    Verify Irrational Value    Mz    ${hpadata.Mz}    ${momentTol}    ${0.0}
     
 Verify Hardpoint Actuator Data Telemetry - ForceMagnitude - RaisingEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${0.001}    ${0.0}
+    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - XPosition - RaisingEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0}
+    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${defaultTol}    ${0.0}
     
 Verify Hardpoint Actuator Data Telemetry - YPosition - RaisingEngineering
     [Tags]    functional      TSS-2490
-    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0}
+    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - ZPosition - RaisingEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0}
+    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - XRotation - RaisingEngineering
     [Tags]    functional     TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0}
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${defaultTol}    ${0.0}
     
 Verify Hardpoint Actuator Data Telemetry - YRotation - RaisingEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0}
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${defaultTol}    ${0.0}
     
 Verify Hardpoint Actuator Data Telemetry - ZRotation - RaisingEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${0.0}
+    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${defaultTol}    ${0.0}
     
 ############ END Verify Hardpoint Actuator Data Telemetry - RAISING ############
 
@@ -1327,32 +1327,32 @@ Get Hardpoint Monitor Data Telemetry - ActiveEngineering
 Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - ActiveEngineering
     [Tags]    functional
     Comment    BreakawayLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt1 parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${-7.1027}    ${4.9707}    ${-5.3761}    ${3.0922}    ${3.1161}    ${7.2899}
+    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${defaultTol}    ${-7.1027}    ${4.9707}    ${-5.3761}    ${3.0922}    ${3.1161}    ${7.2899}
 
 Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - ActiveEngineering
     [Tags]    functional
     Comment    BreakawayPressure is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${2.9479}    ${94.9948}    ${2.0569}    ${62.0459}    ${22.2302}    ${60.5436}
+    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${defaultTol}    ${2.9479}    ${94.9948}    ${2.0569}    ${62.0459}    ${22.2302}    ${60.5436}
 
 Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - ActiveEngineering
     [Tags]    functional
     Comment    DisplacementLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt2 parameter.
-    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-3.3515}    ${-4.0261}    ${2.4002}    ${4.856}    ${6.8209}    ${-2.8102}
+    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${defaultTol}    ${-3.3515}    ${-4.0261}    ${2.4002}    ${4.856}    ${6.8209}    ${-2.8102}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - ActiveEngineering
     [Tags]    functional
     Comment    PressureSensor1 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure2AxialPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0.001}    ${31.8313}    ${105.0573}    ${33.7693}    ${81.5766}    ${55.9627}    ${9.5247}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${defaultTol}    ${31.8313}    ${105.0573}    ${33.7693}    ${81.5766}    ${55.9627}    ${9.5247}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - ActiveEngineering
     [Tags]    functional
     Comment    PressureSensor2 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure3LateralPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0.001}    ${121.2799}    ${35.3427}    ${51.5575}    ${118.9956}    ${98.9298}    ${72.1312}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${defaultTol}    ${121.2799}    ${35.3427}    ${51.5575}    ${118.9956}    ${98.9298}    ${72.1312}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - ActiveEngineering
     [Tags]    functional
     Comment    PressureSensor3 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure4LateralPush parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${18.352}    ${120.0051}    ${72.4781}    ${99.2511}    ${55.4351}    ${12.7859}
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${defaultTol}    ${18.352}    ${120.0051}    ${72.4781}    ${99.2511}    ${55.4351}    ${12.7859}
 
 ############ END Verify Hardpoint Monitor Data Telemetry - ACTIVEENGINEERING ############
 
@@ -1375,7 +1375,7 @@ Verify Hardpoint Actuator Data Telemetry - StepsQueued - ActiveEngineering
     
 Verify Hardpoint Actuator Data Telemetry - MeasuredForce - ActiveEngineering
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    MeasuredForce    ${0.001}    ${1863.7192}    ${3828.2121}    ${190.6504}    ${1581.8369}    ${-264.2161}    ${1835.9168}
+    Verify Irrational Array    ${hpadata}    MeasuredForce    ${defaultTol}    ${1863.7192}    ${3828.2121}    ${190.6504}    ${1581.8369}    ${-264.2161}    ${1835.9168}
 
 Verify Hardpoint Actuator Data Telemetry - Encoder - ActiveEngineering
     [Tags]    functional
@@ -1383,59 +1383,59 @@ Verify Hardpoint Actuator Data Telemetry - Encoder - ActiveEngineering
 
 Verify Hardpoint Actuator Data Telemetry - Displacement - ActiveEngineering
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    Displacement    ${0.001}    ${-0.0092}    ${0.0398}    ${0.0064}    ${0.0794}    ${-0.0397}    ${-0.1020}
+    Verify Irrational Array    ${hpadata}    Displacement    ${defaultTol}    ${-0.0092}    ${0.0398}    ${0.0064}    ${0.0794}    ${-0.0397}    ${-0.1020}
 
 Verify Hardpoint Actuator Data Telemetry - Fx - ActiveEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fx    ${hpadata.Fx}    ${0.001}    ${212.6583}
+    Verify Irrational Value    Fx    ${hpadata.Fx}    ${defaultTol}    ${212.6583}
 
 Verify Hardpoint Actuator Data Telemetry - Fy - ActiveEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fy    ${hpadata.Fy}    ${0.001}    ${-2523.7893}
+    Verify Irrational Value    Fy    ${hpadata.Fy}    ${defaultTol}    ${-2523.7893}
 
 Verify Hardpoint Actuator Data Telemetry - Fz - ActiveEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fz    ${hpadata.Fz}    ${0.001}    ${-5805.8789}
+    Verify Irrational Value    Fz    ${hpadata.Fz}    ${defaultTol}    ${-5805.8789}
 
 Verify Hardpoint Actuator Data Telemetry - Mx - ActiveEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mx    ${hpadata.Mx}    ${0.001}    ${5122.4572}
+    Verify Irrational Value    Mx    ${hpadata.Mx}    ${momentTol}    ${5122.4572}
 
 Verify Hardpoint Actuator Data Telemetry - My - ActiveEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    My    ${hpadata.My}    ${0.001}    ${-19.3419}
+    Verify Irrational Value    My    ${hpadata.My}    ${momentTol}    ${-19.3419}
 
 Verify Hardpoint Actuator Data Telemetry - Mz - ActiveEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mz    ${hpadata.Mz}    ${0.001}    ${12676.06}
+    Verify Irrational Value    Mz    ${hpadata.Mz}    ${momentTol}    ${12676.06}
     
 Verify Hardpoint Actuator Data Telemetry - ForceMagnitude - ActiveEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${0.001}    ${6334.2691}
+    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${defaultTol}    ${6334.2691}
 
 Verify Hardpoint Actuator Data Telemetry - XPosition - ActiveEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0669}
+    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${defaultTol}    ${0.0669}
     
 Verify Hardpoint Actuator Data Telemetry - YPosition - ActiveEngineering
     [Tags]    functional      TSS-2490
-    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0002}
+    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${defaultTol}    ${0.0002}
 
 Verify Hardpoint Actuator Data Telemetry - ZPosition - ActiveEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${-0.0065}
+    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${defaultTol}    ${-0.0065}
 
 Verify Hardpoint Actuator Data Telemetry - XRotation - ActiveEngineering
     [Tags]    functional     TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${-0.0284}
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${defaultTol}    ${-0.0284}
     
 Verify Hardpoint Actuator Data Telemetry - YRotation - ActiveEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0083}
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${defaultTol}    ${0.0083}
     
 Verify Hardpoint Actuator Data Telemetry - ZRotation - ActiveEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${0.0043}
+    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${defaultTol}    ${0.0043}
     
 ############ END Verify Hardpoint Actuator Data Telemetry - ACTIVEENGINEERING ############
 
@@ -1498,32 +1498,32 @@ Get Hardpoint Monitor Data Telemetry - LoweringEngineering
 Verify Hardpoint Monitor Data Telemetry - BreakawayLVDT - LoweringEngineering
     [Tags]    functional
     Comment    BreakawayLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt1 parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${0.001}    ${-3.2376}    ${-6.7826}    ${-9.9491}    ${1.9663}    ${-7.371}    ${9.5657}
+    Verify Irrational Array    ${hpdata}    BreakawayLVDT    ${defaultTol}    ${-3.2376}    ${-6.7826}    ${-9.9491}    ${1.9663}    ${-7.371}    ${9.5657}
 
 Verify Hardpoint Monitor Data Telemetry - BreakawayPressure - LoweringEngineering
     [Tags]    functional
     Comment    BreakawayPressure is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${0.001}    ${43.7634}    ${101.6443}    ${54.1675}    ${53.2244}    ${104.1298}    ${48.1102}
+    Verify Irrational Array    ${hpdata}    BreakawayPressure    ${defaultTol}    ${43.7634}    ${101.6443}    ${54.1675}    ${53.2244}    ${104.1298}    ${48.1102}
 
 Verify Hardpoint Monitor Data Telemetry - DisplacementLVDT - LoweringEngineering
     [Tags]    functional
     Comment    DisplacementLVDT is set by the  M1M3_Simulator.setHardpointDisplacementLVDT keyword, lvdt2 parameter.
-    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${0.001}    ${-1.4411}    ${3.0871}    ${-6.4417}    ${9.0157}    ${-0.1022}    ${1.1736}
+    Verify Irrational Array    ${hpdata}    DisplacementLVDT    ${defaultTol}    ${-1.4411}    ${3.0871}    ${-6.4417}    ${9.0157}    ${-0.1022}    ${1.1736}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor1 - LoweringEngineering
     [Tags]    functional
     Comment    PressureSensor1 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure2AxialPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor1    ${0.001}    ${2.5499}    ${41.9807}    ${59.4506}    ${53.7893}    ${76.6312}    ${97.9469}
+    Verify Irrational Array    ${hpdata}    PressureSensor1    ${defaultTol}    ${2.5499}    ${41.9807}    ${59.4506}    ${53.7893}    ${76.6312}    ${97.9469}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor2 - LoweringEngineering
     [Tags]    functional
     Comment    PressureSensor2 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure3LateralPull parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor2    ${0.001}    ${4.3249}    ${12.0199}    ${10.943}    ${60.0778}    ${22.548}    ${71.447}
+    Verify Irrational Array    ${hpdata}    PressureSensor2    ${defaultTol}    ${4.3249}    ${12.0199}    ${10.943}    ${60.0778}    ${22.548}    ${71.447}
 
 Verify Hardpoint Monitor Data Telemetry - PressureSensor3 - LoweringEngineering
     [Tags]    functional
     Comment    PressureSensor3 is set by the  M1M3_Simulator.setHardpointDCAPressure keyword, pressure4LateralPush parameter.
-    Verify Irrational Array    ${hpdata}    PressureSensor3    ${0.001}    ${30.9403}    ${56.7542}    ${24.5752}    ${97.4168}    ${77.5772}    ${68.1742}
+    Verify Irrational Array    ${hpdata}    PressureSensor3    ${defaultTol}    ${30.9403}    ${56.7542}    ${24.5752}    ${97.4168}    ${77.5772}    ${68.1742}
 
 ############ END Verify Hardpoint Monitor Data Telemetry - LOWERINGENGINEERING ############
 
@@ -1546,7 +1546,7 @@ Verify Hardpoint Actuator Data Telemetry - StepsQueued - LoweringEngineering
     
 Verify Hardpoint Actuator Data Telemetry - MeasuredForce - LoweringEngineering
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    MeasuredForce    ${0.001}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
+    Verify Irrational Array    ${hpadata}    MeasuredForce    ${defaultTol}    ${0}    ${0}    ${0}    ${0}    ${0}    ${0}
 
 Verify Hardpoint Actuator Data Telemetry - Encoder - LoweringEngineering
     [Tags]    functional
@@ -1554,59 +1554,59 @@ Verify Hardpoint Actuator Data Telemetry - Encoder - LoweringEngineering
 
 Verify Hardpoint Actuator Data Telemetry - Displacement - LoweringEngineering
     [Tags]    functional
-    Verify Irrational Array    ${hpadata}    Displacement    ${0.001}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}
+    Verify Irrational Array    ${hpadata}    Displacement    ${defaultTol}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Fx - LoweringEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fx    ${hpadata.Fx}    ${0.001}    ${0.0}
+    Verify Irrational Value    Fx    ${hpadata.Fx}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Fy - LoweringEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fy    ${hpadata.Fy}    ${0.001}    ${0.0}
+    Verify Irrational Value    Fy    ${hpadata.Fy}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Fz - LoweringEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fz    ${hpadata.Fz}    ${0.001}    ${0.0}
+    Verify Irrational Value    Fz    ${hpadata.Fz}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Mx - LoweringEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mx    ${hpadata.Mx}    ${0.001}    ${0.0}
+    Verify Irrational Value    Mx    ${hpadata.Mx}    ${momentTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - My - LoweringEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    My    ${hpadata.My}    ${0.001}    ${0.0}
+    Verify Irrational Value    My    ${hpadata.My}    ${momentTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - Mz - LoweringEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mz    ${hpadata.Mz}    ${0.001}    ${0.0}
+    Verify Irrational Value    Mz    ${hpadata.Mz}    ${momentTol}    ${0.0}
     
 Verify Hardpoint Actuator Data Telemetry - ForceMagnitude - LoweringEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${0.001}    ${0.0}
+    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - XPosition - LoweringEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0}
+    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${defaultTol}    ${0.0}
     
 Verify Hardpoint Actuator Data Telemetry - YPosition - LoweringEngineering
     [Tags]    functional      TSS-2490
-    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0}
+    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - ZPosition - LoweringEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0}
+    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${defaultTol}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - XRotation - LoweringEngineering
     [Tags]    functional     TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0}
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${defaultTol}    ${0.0}
     
 Verify Hardpoint Actuator Data Telemetry - YRotation - LoweringEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0}
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${defaultTol}    ${0.0}
     
 Verify Hardpoint Actuator Data Telemetry - ZRotation - LoweringEngineering
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${0.0}
+    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${defaultTol}    ${0.0}
     
 ############ END Verify Hardpoint Actuator Data Telemetry - LOWERINGENGINEERING ############
 
