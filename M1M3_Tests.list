@@ -14,3 +14,4 @@ InvalidStateCommands.robot
 InclinometerData.robot
 IMS_Telemetry_Tests.robot
 HardpointData_Tests.robot
+ForceActuatorData_Tests.robot
