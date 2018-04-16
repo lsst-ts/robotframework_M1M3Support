@@ -54,6 +54,8 @@ class M1M3_Simulator:
 	# Inclinometer and Displacement configuration commands
 	def setInclinometer(self, value=0.0):
 		self._udpClientInclin.send(self._inclinSim.inclinometerResponse(degreesMeasured = value))
+		print('Set the Inclinometer to degreesMeasured: %s' % (value))
+		self._afterCommand()
 
 	def setDisplacement(self, dispA=1.0, dispB=2.0, dispC=3.0, dispD=4.0, dispE=5.0, dispF=6.0, dispG=7.0, dispH=8.0):
 		self._udpClientDisplace.send(self._displaceSim.displacementResponse(displace1 = dispA, 
@@ -64,6 +66,9 @@ class M1M3_Simulator:
 											displace6 = dispF, 
 											displace7 = dispG, 
 											displace8 = dispH))
+		print('Set the Displacements to displace1: %s, displace2: %s, displace3: %s, displace4: %s, displace5: %s, displace6: %s, displace7: %s, displace8: %s' 
+			% (dispA, dispB, dispC, dispD, dispE, dispF, dispG, dispH))
+		self._afterCommand()
 
 	# Hardpoint Actuator configuration commands
 	def setHardpointForceAndStatus(self, serverAddr, statusByte, ssiEncoderValue, loadCellForce):
