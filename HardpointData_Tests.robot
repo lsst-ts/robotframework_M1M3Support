@@ -170,55 +170,55 @@ Verify Hardpoint Actuator Data Telemetry - Displacement
 
 Verify Hardpoint Actuator Data Telemetry - Fx
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fx    ${hpadata.Fx}    ${0.001}    ${0.0216}
+    Verify Irrational Value    Fx    ${hpadata.Fx}    ${0.001}    ${-1.8903}
 
 Verify Hardpoint Actuator Data Telemetry - Fy
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fy    ${hpadata.Fy}    ${0.001}    ${0.0216}
+    Verify Irrational Value    Fy    ${hpadata.Fy}    ${0.001}    ${3.2739}
 
 Verify Hardpoint Actuator Data Telemetry - Fz
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fz    ${hpadata.Fz}    ${0.001}    ${0.0216}
+    Verify Irrational Value    Fz    ${hpadata.Fz}    ${0.001}    ${-15.421}
 
 Verify Hardpoint Actuator Data Telemetry - Mx
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mx    ${hpadata.Mx}    ${0.001}    ${0.0216}
+    Verify Irrational Value    Mx    ${hpadata.Mx}    ${0.001}    ${-8.8196}
 
 Verify Hardpoint Actuator Data Telemetry - My
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    My    ${hpadata.My}    ${0.001}    ${0.0216}
+    Verify Irrational Value    My    ${hpadata.My}    ${0.001}    ${-5.0765}
 
 Verify Hardpoint Actuator Data Telemetry - Mz
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mz    ${hpadata.Mz}    ${0.001}    ${0.0216}
+    Verify Irrational Value    Mz    ${hpadata.Mz}    ${0.001}    ${6.9760}
 
 Verify Hardpoint Actuator Data Telemetry - ForceMagnitude
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${0.001}    ${0.0216}
+    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${0.001}    ${15.8772}
 
 Verify Hardpoint Actuator Data Telemetry - XPosition
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0164}
-
-Verify Hardpoint Actuator Data Telemetry - XRotation
-    [Tags]    functional    TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0023}
+    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0000}
 
 Verify Hardpoint Actuator Data Telemetry - YPosition
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${-0.0031}
-
-Verify Hardpoint Actuator Data Telemetry - YRotation
-    [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0001}
+    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0003}
 
 Verify Hardpoint Actuator Data Telemetry - ZPosition
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0010}
+    Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0000}
+
+Verify Hardpoint Actuator Data Telemetry - XRotation
+    [Tags]    functional    TSS-2490
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${-0.0000}
+
+Verify Hardpoint Actuator Data Telemetry - YRotation
+    [Tags]    functional    TSS-2490
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0000}
 
 Verify Hardpoint Actuator Data Telemetry - ZRotation
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${-0.0021}
+    Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${0.0000}
 
 ############ END Verify Hardpoint Monitor Data Telemetry ############
 
@@ -341,51 +341,51 @@ Verify Hardpoint Actuator Data Telemetry - Displacement - Parked
 
 Verify Hardpoint Actuator Data Telemetry - Fx - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fx    ${hpadata.Fx}    ${0.001}    ${0.0216}
+    Verify Irrational Value    Fx    ${hpadata.Fx}    ${0.001}    ${-448.225}
 
 Verify Hardpoint Actuator Data Telemetry - Fy - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fy    ${hpadata.Fy}    ${0.001}    ${0.0216}
+    Verify Irrational Value    Fy    ${hpadata.Fy}    ${0.001}    ${-868.030}
 
 Verify Hardpoint Actuator Data Telemetry - Fz - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Fz    ${hpadata.Fz}    ${0.001}    ${0.0216}
+    Verify Irrational Value    Fz    ${hpadata.Fz}    ${0.001}    ${-989.299}
 
 Verify Hardpoint Actuator Data Telemetry - Mx - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mx    ${hpadata.Mx}    ${0.001}    ${0.0216}
+    Verify Irrational Value    Mx    ${hpadata.Mx}    ${0.001}    ${-422.020}
 
 Verify Hardpoint Actuator Data Telemetry - My - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    My    ${hpadata.My}    ${0.001}    ${0.0216}
+    Verify Irrational Value    My    ${hpadata.My}    ${0.001}    ${835.293}
 
 Verify Hardpoint Actuator Data Telemetry - Mz - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    Mz    ${hpadata.Mz}    ${0.001}    ${0.0216}
+    Verify Irrational Value    Mz    ${hpadata.Mz}    ${0.001}    ${4921.719}
 
 Verify Hardpoint Actuator Data Telemetry - ForceMagnitude - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${0.001}    ${0.0216}
+    Verify Irrational Value    ForceMagnitude    ${hpadata.ForceMagnitude}    ${0.001}    ${1390.358}
 
 Verify Hardpoint Actuator Data Telemetry - XPosition - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0164}
-
-Verify Hardpoint Actuator Data Telemetry - XRotation - Parked
-    [Tags]    functional    TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0023}
+    Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${-0.0055}
 
 Verify Hardpoint Actuator Data Telemetry - YPosition - Parked
     [Tags]    functional    TSS-2490
-    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${-0.0031}
-
-Verify Hardpoint Actuator Data Telemetry - YRotation - Parked
-    [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0001}
+    Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0158}
 
 Verify Hardpoint Actuator Data Telemetry - ZPosition - Parked
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0010}
+
+Verify Hardpoint Actuator Data Telemetry - XRotation - Parked
+    [Tags]    functional    TSS-2490
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${-0.0013}
+
+Verify Hardpoint Actuator Data Telemetry - YRotation - Parked
+    [Tags]    functional    TSS-2490
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0019}
 
 Verify Hardpoint Actuator Data Telemetry - ZRotation - Parked
     [Tags]    functional    TSS-2490
@@ -542,21 +542,21 @@ Verify Hardpoint Actuator Data Telemetry - XPosition - Raising
     [Tags]    functional    TSS-2490
     Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0}
 
-Verify Hardpoint Actuator Data Telemetry - XRotation - Raising
-    [Tags]    functional    TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0}
-
 Verify Hardpoint Actuator Data Telemetry - YPosition - Raising
     [Tags]    functional    TSS-2490
     Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0}
 
-Verify Hardpoint Actuator Data Telemetry - YRotation - Raising
-    [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0}
-
 Verify Hardpoint Actuator Data Telemetry - ZPosition - Raising
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0}
+
+Verify Hardpoint Actuator Data Telemetry - XRotation - Raising
+    [Tags]    functional    TSS-2490
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0}
+
+Verify Hardpoint Actuator Data Telemetry - YRotation - Raising
+    [Tags]    functional    TSS-2490
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0}
 
 Verify Hardpoint Actuator Data Telemetry - ZRotation - Raising
     [Tags]    functional    TSS-2490
@@ -715,22 +715,22 @@ Verify Hardpoint Actuator Data Telemetry - XPosition - Active
     [Tags]    functional    TSS-2490
     Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0164}
     
-Verify Hardpoint Actuator Data Telemetry - XRotation - Active
-    [Tags]    functional     TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0023}
-    
 Verify Hardpoint Actuator Data Telemetry - YPosition - Active
     [Tags]    functional      TSS-2490
     Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${-0.0031}
 
-Verify Hardpoint Actuator Data Telemetry - YRotation - Active
-    [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0001}
-    
 Verify Hardpoint Actuator Data Telemetry - ZPosition - Active
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0010}
 
+Verify Hardpoint Actuator Data Telemetry - XRotation - Active
+    [Tags]    functional     TSS-2490
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0023}
+    
+Verify Hardpoint Actuator Data Telemetry - YRotation - Active
+    [Tags]    functional    TSS-2490
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0001}
+    
 Verify Hardpoint Actuator Data Telemetry - ZRotation - Active
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${-0.0021}
@@ -887,22 +887,22 @@ Verify Hardpoint Actuator Data Telemetry - XPosition - Lowering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0}
     
-Verify Hardpoint Actuator Data Telemetry - XRotation - Lowering
-    [Tags]    functional     TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0}
-    
 Verify Hardpoint Actuator Data Telemetry - YPosition - Lowering
     [Tags]    functional      TSS-2490
     Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0}
 
-Verify Hardpoint Actuator Data Telemetry - YRotation - Lowering
-    [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0}
-    
 Verify Hardpoint Actuator Data Telemetry - ZPosition - Lowering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0}
 
+Verify Hardpoint Actuator Data Telemetry - XRotation - Lowering
+    [Tags]    functional     TSS-2490
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0}
+    
+Verify Hardpoint Actuator Data Telemetry - YRotation - Lowering
+    [Tags]    functional    TSS-2490
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0}
+    
 Verify Hardpoint Actuator Data Telemetry - ZRotation - Lowering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${0.0}
@@ -1073,22 +1073,22 @@ Verify Hardpoint Actuator Data Telemetry - XPosition - ParkedEngineering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0164}
     
-Verify Hardpoint Actuator Data Telemetry - XRotation - ParkedEngineering
-    [Tags]    functional     TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0023}
-    
 Verify Hardpoint Actuator Data Telemetry - YPosition - ParkedEngineering
     [Tags]    functional      TSS-2490
     Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${-0.0031}
 
-Verify Hardpoint Actuator Data Telemetry - YRotation - ParkedEngineering
-    [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0001}
-    
 Verify Hardpoint Actuator Data Telemetry - ZPosition - ParkedEngineering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0010}
 
+Verify Hardpoint Actuator Data Telemetry - XRotation - ParkedEngineering
+    [Tags]    functional     TSS-2490
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0023}
+    
+Verify Hardpoint Actuator Data Telemetry - YRotation - ParkedEngineering
+    [Tags]    functional    TSS-2490
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0001}
+    
 Verify Hardpoint Actuator Data Telemetry - ZRotation - ParkedEngineering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${-0.0021}
@@ -1245,22 +1245,22 @@ Verify Hardpoint Actuator Data Telemetry - XPosition - RaisingEngineering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0}
     
-Verify Hardpoint Actuator Data Telemetry - XRotation - RaisingEngineering
-    [Tags]    functional     TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0}
-    
 Verify Hardpoint Actuator Data Telemetry - YPosition - RaisingEngineering
     [Tags]    functional      TSS-2490
     Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0}
 
-Verify Hardpoint Actuator Data Telemetry - YRotation - RaisingEngineering
-    [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0}
-    
 Verify Hardpoint Actuator Data Telemetry - ZPosition - RaisingEngineering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0}
 
+Verify Hardpoint Actuator Data Telemetry - XRotation - RaisingEngineering
+    [Tags]    functional     TSS-2490
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0}
+    
+Verify Hardpoint Actuator Data Telemetry - YRotation - RaisingEngineering
+    [Tags]    functional    TSS-2490
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0}
+    
 Verify Hardpoint Actuator Data Telemetry - ZRotation - RaisingEngineering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${0.0}
@@ -1419,22 +1419,22 @@ Verify Hardpoint Actuator Data Telemetry - XPosition - ActiveEngineering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0164}
     
-Verify Hardpoint Actuator Data Telemetry - XRotation - ActiveEngineering
-    [Tags]    functional     TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0023}
-    
 Verify Hardpoint Actuator Data Telemetry - YPosition - ActiveEngineering
     [Tags]    functional      TSS-2490
     Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${-0.0031}
 
-Verify Hardpoint Actuator Data Telemetry - YRotation - ActiveEngineering
-    [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0001}
-    
 Verify Hardpoint Actuator Data Telemetry - ZPosition - ActiveEngineering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0010}
 
+Verify Hardpoint Actuator Data Telemetry - XRotation - ActiveEngineering
+    [Tags]    functional     TSS-2490
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0023}
+    
+Verify Hardpoint Actuator Data Telemetry - YRotation - ActiveEngineering
+    [Tags]    functional    TSS-2490
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0001}
+    
 Verify Hardpoint Actuator Data Telemetry - ZRotation - ActiveEngineering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${-0.0021}
@@ -1590,22 +1590,22 @@ Verify Hardpoint Actuator Data Telemetry - XPosition - LoweringEngineering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    XPosition    ${hpadata.XPosition}    ${0.001}    ${0.0}
     
-Verify Hardpoint Actuator Data Telemetry - XRotation - LoweringEngineering
-    [Tags]    functional     TSS-2490
-    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0}
-    
 Verify Hardpoint Actuator Data Telemetry - YPosition - LoweringEngineering
     [Tags]    functional      TSS-2490
     Verify Irrational Value    YPosition    ${hpadata.YPosition}    ${0.001}    ${0.0}
 
-Verify Hardpoint Actuator Data Telemetry - YRotation - LoweringEngineering
-    [Tags]    functional    TSS-2490
-    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0}
-    
 Verify Hardpoint Actuator Data Telemetry - ZPosition - LoweringEngineering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZPosition    ${hpadata.ZPosition}    ${0.001}    ${0.0}
 
+Verify Hardpoint Actuator Data Telemetry - XRotation - LoweringEngineering
+    [Tags]    functional     TSS-2490
+    Verify Irrational Value    XRotation    ${hpadata.XRotation}    ${0.001}    ${0.0}
+    
+Verify Hardpoint Actuator Data Telemetry - YRotation - LoweringEngineering
+    [Tags]    functional    TSS-2490
+    Verify Irrational Value    YRotation    ${hpadata.YRotation}    ${0.001}    ${0.0}
+    
 Verify Hardpoint Actuator Data Telemetry - ZRotation - LoweringEngineering
     [Tags]    functional    TSS-2490
     Verify Irrational Value    ZRotation    ${hpadata.ZRotation}    ${0.001}    ${0.0}
