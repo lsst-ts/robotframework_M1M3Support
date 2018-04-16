@@ -695,4 +695,6 @@ Verify System Standby Detailed State
 Verify No Summary State Event
     Comment    Commands are rejected silently, therefore Summary State Event is not published.
     ${valid}    ${data}=    Get Event Summary State
+    Log    ${data.Timestamp}
+    Log    ${data.SummaryState}
     Should Not Be True    ${valid}
