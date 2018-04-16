@@ -1,7 +1,7 @@
 *** Settings ***
-Documentation    M1M3 Hardpoint Actuator and Hardpoint Monitor Telemetry tests.
+Documentation    M1M3 Hardpoint Actuator and Hardpoint Monitor Telemetry and Event tests.
 Force Tags    
-Suite Setup    Run Keywords    M1M3_Simulator.Set to Defaults    AND    Log Many    Default Tolerance:${defaultTol}    Moment Tolerance:${momentTol}
+Suite Setup    Run Keywords    M1M3_Simulator.Set to Defaults    AND    M1M3_SAL.Flush Hardpoint Monitor Info    AND    Log Many    Default Tolerance:${defaultTol}    Moment Tolerance:${momentTol}
 Suite Teardown    M1M3_Simulator.Set to Defaults
 Library    String
 Library    DateTime
