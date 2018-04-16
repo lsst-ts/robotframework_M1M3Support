@@ -160,6 +160,11 @@ class M1M3_SAL:
 		retVal = self._SALM1M3.getEvent_HardpointMonitorInfo(data)
 		return retVal==0, data
 
+	def getEventHardpointActuatorInfo(self):
+		data = m1m3_logevent_HardpointActuatorInfoC()
+		retVal = self._SALM1M3.getEvent_HardpointActuatorInfo(data)
+		return retVal==0, data
+
 	def getEventForceActuatorInfo(self):
 		data = m1m3_logevent_ForceActuatorInfoC()
 		retVal = self._SALM1M3.getEvent_ForceActuatorInfo(data)
@@ -175,14 +180,21 @@ class M1M3_SAL:
 		retVal = self._SALM1M3.getEvent_CommandRejectionWarning(data)
 		return retVal==0, data
 
-	######## Flust Topics ########
+	######## Flush Topics ########
 	
 	def flushHardpointMonitorInfo(self):
-		retVal = self._SALM1M3.flushSamples_HardpointMonitorInfo()
+		data = m1m3_logevent_HardpointMonitorInfoC()
+		retVal = self._SALM1M3.flushSamples_logevent_HardpointMonitorInfo(data)
+		return retVal==0
+
+	def flushHardpointActuatorInfo(self):
+		data = m1m3_logevent_HardpointActuatorInfoC()
+		retVal = self._SALM1M3.flushSamples_logevent_HardpointActuatorInfo(data)
 		return retVal==0
 
 	def flushForceActuatorInfo(self):
-		retVal = self._SALM1M3.flushSamples_ForceActuatorInfo()
+		data = m1m3_logevent_ForceActuatorInfoC()
+		retVal = self._SALM1M3.flushSamples_logevent_ForceActuatorInfo(data)
 		return retVal==0
 
 	######## Utility Functions ########
