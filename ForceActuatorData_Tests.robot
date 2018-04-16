@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation    M1M3 Force Actuator Telemetry tests.
 Force Tags    
-Suite Setup    M1M3_Simulator.Set to Defaults
+Suite Setup    Run Keywords    M1M3_Simulator.Set to Defaults    AND    M1M3_SAL.Flush Force Actuator Info
 Suite Teardown    M1M3_Simulator.Set to Defaults
 Library		String
 Library		DateTime
@@ -10,6 +10,9 @@ Resource	common.robot
 Resource	Global_Vars.robot
 Variables	Library/M1M3_ReferenceData.py
 Library		Library/M1M3_SAL.py
+
+*** Variables ***
+${tolerance}    ${0.001}
 
 *** Test Cases ***
 Get to Disabled State
@@ -677,11 +680,11 @@ Set Force Actuator Forces And Statuses - Active
     Set Log Level    TRACE
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} * ${-1}
+    \    ${value}=    Evaluate    ${-4000} + ${index}
     \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} <= ${16}    Set Single Pneumatic Force And Status    subnet=${row[${forceActuatorTableSubnetIndex}]}
     ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    loadCellForce=${value}
     \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} > ${16}    Set Dual Pneumatic Force And Status    subnet=${row[${forceActuatorTableSubnetIndex}]}
-    ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    axialLoadCellForce=${value}    lateralLoadCellForce=${index}
+    ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    axialLoadCellForce=${value}    lateralLoadCellForce=${value}
     \    ${index}=    Evaluate    ${index} + ${1}
     Comment    Add a one second delay, to allow the simulator to finish applying the values.
     Sleep    1s
@@ -697,14 +700,25 @@ Get Force Actuator Data Telemetry - Active
     Should Be True    ${valid}
 
 Verify Force Actuator Data Telemetry - PrimaryCylinderForce - Active
-    [Tags]    functional    skipped
-    Comment    PrimaryCylinderForce is set by the M1M3_Simulator.setHardpointXForce keyword, lvdt1 parameter.
-    Verify Irrational Array    ${fadata}    PrimaryCylinderForce    ${0.001}    ${-6.356}    ${-2.4262}    ${5.09}    ${2.9923}    ${3.7093}    ${2.6619}
+    [Tags]    functional
+    Comment    PrimaryCylinderForce is set by the M1M3_Simulator.setSinglePneumaticForceAndStatus keyword, loadCellForce parameter for ILC addresses <= 16 OR
+    ...    M1M3_Simulator.setDualPneumaticForceAndStatus keyword, axialLoadCellForce parameter for ILC addresses > 16.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${-4000} + ${index}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    PrimaryCylinderForce    ${fadata.PrimaryCylinderForce[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Data Telemetry - SecondaryCylinderForce - Active
-    [Tags]    functional    skipped
-    Comment    SecondaryCylinderForce is set by the M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${fadata}    SecondaryCylinderForce    ${0.001}    ${50.831}    ${120.2331}    ${82.262}    ${111.5033}    ${91.9502}    ${48.0472}
+    [Tags]    functional
+    Comment    SecondaryCylinderForce is set by the M1M3_Simulator.setDualPneumaticForceAndStatus keyword, lateralLoadCellForce parameter, for ILC addresses > 16.
+    ...    NOTE: There are only 112 ILCs with address > 16.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    Continue For Loop If     ${row[${forceActuatorTableAddressIndex}]} <= ${16}
+    \    ${value}=    Evaluate    ${-4000}+ ${row[${forceActuatorTableIndexIndex}]}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    SecondaryCylinderForce    ${fadata.SecondaryCylinderForce[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Data Telemetry - XForce - Active
     [Tags]    functional    skipped
@@ -782,11 +796,11 @@ Set Force Actuator Forces And Statuses - Lowering
     Set Log Level    TRACE
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} * ${-1}
+    \    ${value}=    Set Variable    ${0}
     \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} <= ${16}    Set Single Pneumatic Force And Status    subnet=${row[${forceActuatorTableSubnetIndex}]}
     ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    loadCellForce=${value}
     \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} > ${16}    Set Dual Pneumatic Force And Status    subnet=${row[${forceActuatorTableSubnetIndex}]}
-    ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    axialLoadCellForce=${value}    lateralLoadCellForce=${index}
+    ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    axialLoadCellForce=${value}    lateralLoadCellForce=${value}
     \    ${index}=    Evaluate    ${index} + ${1}
     Comment    Add a one second delay, to allow the simulator to finish applying the values.
     Sleep    1s
@@ -802,14 +816,25 @@ Get Force Actuator Data Telemetry - Lowering
     Should Be True    ${valid}
 
 Verify Force Actuator Data Telemetry - PrimaryCylinderForce - Lowering
-    [Tags]    functional    skipped
-    Comment    PrimaryCylinderForce is set by the M1M3_Simulator.setHardpointXForce keyword, lvdt1 parameter.
-    Verify Irrational Array    ${fadata}    PrimaryCylinderForce    ${0.001}    ${-4.0986}    ${-5.6215}    ${9.1817}    ${-5.8255}    ${-5.9124}    ${6.3352}
+    [Tags]    functional
+    Comment    PrimaryCylinderForce is set by the M1M3_Simulator.setSinglePneumaticForceAndStatus keyword, loadCellForce parameter for ILC addresses <= 16 OR
+    ...    M1M3_Simulator.setDualPneumaticForceAndStatus keyword, axialLoadCellForce parameter for ILC addresses > 16.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Set Variable    ${0}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    PrimaryCylinderForce    ${fadata.PrimaryCylinderForce[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Data Telemetry - SecondaryCylinderForce - Lowering
-    [Tags]    functional    skipped
-    Comment    SecondaryCylinderForce is set by the M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${fadata}    SecondaryCylinderForce    ${0.001}    ${123.4892}    ${27.0135}    ${44.2858}    ${51.5121}    ${23.4114}    ${73.439}
+    [Tags]    functional
+    Comment    SecondaryCylinderForce is set by the M1M3_Simulator.setDualPneumaticForceAndStatus keyword, lateralLoadCellForce parameter, for ILC addresses > 16.
+    ...    NOTE: There are only 112 ILCs with address > 16.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    Continue For Loop If     ${row[${forceActuatorTableAddressIndex}]} <= ${16}
+    \    ${value}=    Set Variable    ${0}
+    \    Run Keyword and Continue on Failure    Verify Rational Value    SecondaryCylinderForce    ${fadata.SecondaryCylinderForce[${index}]}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Data Telemetry - XForce - Lowering
     [Tags]    functional    skipped
@@ -899,11 +924,11 @@ Set Force Actuator Forces And Statuses - ParkedEngineering
     Set Log Level    TRACE
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} * ${-1}
+    \    ${value}=    Evaluate    (${index} + ${1}) * ${3.14159}
     \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} <= ${16}    Set Single Pneumatic Force And Status    subnet=${row[${forceActuatorTableSubnetIndex}]}
     ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    loadCellForce=${value}
     \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} > ${16}    Set Dual Pneumatic Force And Status    subnet=${row[${forceActuatorTableSubnetIndex}]}
-    ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    axialLoadCellForce=${value}    lateralLoadCellForce=${index}
+    ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    axialLoadCellForce=${value}    lateralLoadCellForce=${value}
     \    ${index}=    Evaluate    ${index} + ${1}
     Comment    Add a one second delay, to allow the simulator to finish applying the values.
     Sleep    1s
@@ -919,14 +944,25 @@ Get Force Actuator Data Telemetry - ParkedEngineering
     Should Be True    ${valid}
 
 Verify Force Actuator Data Telemetry - PrimaryCylinderForce - ParkedEngineering
-    [Tags]    functional    skipped
-    Comment    PrimaryCylinderForce is set by the M1M3_Simulator.setHardpointXForce keyword, lvdt1 parameter.
-    Verify Irrational Array    ${fadata}    PrimaryCylinderForce    ${0.001}    ${-5.7547}    ${7.5998}    ${-0.6323}    ${1.4139}    ${3.0318}    ${3.4932}
+    [Tags]    functional
+    Comment    PrimaryCylinderForce is set by the M1M3_Simulator.setSinglePneumaticForceAndStatus keyword, loadCellForce parameter for ILC addresses <= 16 OR
+    ...    M1M3_Simulator.setDualPneumaticForceAndStatus keyword, axialLoadCellForce parameter for ILC addresses > 16.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    (${index} + ${1}) * ${3.14159}
+    \    Run Keyword and Continue on Failure    Verify Irrational Value    PrimaryCylinderForce    ${fadata.PrimaryCylinderForce[${index}]}    ${tolerance}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Data Telemetry - SecondaryCylinderForce - ParkedEngineering
-    [Tags]    functional    skipped
-    Comment    SecondaryCylinderForce is set by the M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${fadata}    SecondaryCylinderForce    ${0.001}    ${42.6241}    ${70.8409}    ${103.4864}    ${77.7477}    ${13.7352}    ${27.3488}
+    [Tags]    functional
+    Comment    SecondaryCylinderForce is set by the M1M3_Simulator.setDualPneumaticForceAndStatus keyword, lateralLoadCellForce parameter, for ILC addresses > 16.
+    ...    NOTE: There are only 112 ILCs with address > 16.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    Continue For Loop If     ${row[${forceActuatorTableAddressIndex}]} <= ${16}
+    \    ${value}=    Evaluate    (${row[${forceActuatorTableIndexIndex}]} + ${1}) * ${3.14159}
+    \    Run Keyword and Continue on Failure    Verify Irrational Value    SecondaryCylinderForce    ${fadata.SecondaryCylinderForce[${index}]}    ${tolerance}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Data Telemetry - XForce - ParkedEngineering
     [Tags]    functional    skipped
@@ -1004,11 +1040,11 @@ Set Force Actuator Forces And Statuses - RaisingEngineering
     Set Log Level    TRACE
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} * ${-1}
+    \    ${value}=    Evaluate    (${index} + ${1}) * ${-2.71828}
     \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} <= ${16}    Set Single Pneumatic Force And Status    subnet=${row[${forceActuatorTableSubnetIndex}]}
     ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    loadCellForce=${value}
     \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} > ${16}    Set Dual Pneumatic Force And Status    subnet=${row[${forceActuatorTableSubnetIndex}]}
-    ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    axialLoadCellForce=${value}    lateralLoadCellForce=${index}
+    ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    axialLoadCellForce=${value}    lateralLoadCellForce=${value}
     \    ${index}=    Evaluate    ${index} + ${1}
     Comment    Add a one second delay, to allow the simulator to finish applying the values.
     Sleep    1s
@@ -1016,22 +1052,33 @@ Set Force Actuator Forces And Statuses - RaisingEngineering
 
 ############ BEGIN Verify Force Actuator Data Telemetry - RAISINGENGINEERING ############
 
-Get Force Actuator Data 
-    [Tags]    functional    skipped
+Get Force Actuator Data Telemetry - RaisingEngineering
+    [Tags]    functional
     Sleep    300ms    Wait for next outer loop cycle
     ${valid}    ${fadata}=    Get Force Actuator Data Telemetry
     Set Suite Variable    ${fadata}
     Should Be True    ${valid}
 
 Verify Force Actuator Data Telemetry - PrimaryCylinderForce - RaisingEngineering
-    [Tags]    functional    skipped
-    Comment    PrimaryCylinderForce is set by the M1M3_Simulator.setHardpointXForce keyword, lvdt1 parameter.
-    Verify Irrational Array    ${fadata}    PrimaryCylinderForce    ${0.001}    ${6.5002}    ${4.3867}    ${-0.6658}    ${2.8957}    ${-4.0986}    ${-8.0855}
+    [Tags]    functional
+    Comment    PrimaryCylinderForce is set by the M1M3_Simulator.setSinglePneumaticForceAndStatus keyword, loadCellForce parameter for ILC addresses <= 16 OR
+    ...    M1M3_Simulator.setDualPneumaticForceAndStatus keyword, axialLoadCellForce parameter for ILC addresses > 16.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    (${index} + ${1}) * ${-2.71828}
+    \    Run Keyword and Continue on Failure    Verify Irrational Value    PrimaryCylinderForce    ${fadata.PrimaryCylinderForce[${index}]}    ${tolerance}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Data Telemetry - SecondaryCylinderForce - RaisingEngineering
-    [Tags]    functional    skipped
-    Comment    SecondaryCylinderForce is set by the M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${fadata}    SecondaryCylinderForce    ${0.001}    ${38.1029}    ${96.8142}    ${78.9591}    ${29.5881}    ${101.6804}    ${115.2536}
+    [Tags]    functional
+    Comment    SecondaryCylinderForce is set by the M1M3_Simulator.setDualPneumaticForceAndStatus keyword, lateralLoadCellForce parameter, for ILC addresses > 16.
+    ...    NOTE: There are only 112 ILCs with address > 16.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    Continue For Loop If     ${row[${forceActuatorTableAddressIndex}]} <= ${16}
+    \    ${value}=    Evaluate    (${row[${forceActuatorTableIndexIndex}]} + ${1}) * ${-2.71828}
+    \    Run Keyword and Continue on Failure    Verify Irrational Value    SecondaryCylinderForce    ${fadata.SecondaryCylinderForce[${index}]}    ${tolerance}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Data Telemetry - XForce - RaisingEngineering
     [Tags]    functional    skipped
@@ -1109,11 +1156,11 @@ Set Force Actuator Forces And Statuses - ActiveEngineering
     Set Log Level    TRACE
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} * ${-1}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} / ${1000}
     \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} <= ${16}    Set Single Pneumatic Force And Status    subnet=${row[${forceActuatorTableSubnetIndex}]}
     ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    loadCellForce=${value}
     \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} > ${16}    Set Dual Pneumatic Force And Status    subnet=${row[${forceActuatorTableSubnetIndex}]}
-    ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    axialLoadCellForce=${value}    lateralLoadCellForce=${index}
+    ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    axialLoadCellForce=${value}    lateralLoadCellForce=${value}
     \    ${index}=    Evaluate    ${index} + ${1}
     Comment    Add a one second delay, to allow the simulator to finish applying the values.
     Sleep    1s
@@ -1129,14 +1176,25 @@ Get Force Actuator Data Telemetry - ActiveEngineering
     Should Be True    ${valid}
 
 Verify Force Actuator Data Telemetry - PrimaryCylinderForce - ActiveEngineering
-    [Tags]    functional    skipped
-    Comment    PrimaryCylinderForce is set by the M1M3_Simulator.setHardpointXForce keyword, lvdt1 parameter.
-    Verify Irrational Array    ${fadata}    PrimaryCylinderForce    ${0.001}    ${-7.1027}    ${4.9707}    ${-5.3761}    ${3.0922}    ${3.1161}    ${7.2899}
+    [Tags]    functional
+    Comment    PrimaryCylinderForce is set by the M1M3_Simulator.setSinglePneumaticForceAndStatus keyword, loadCellForce parameter for ILC addresses <= 16 OR
+    ...    M1M3_Simulator.setDualPneumaticForceAndStatus keyword, axialLoadCellForce parameter for ILC addresses > 16.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} / ${1000}
+    \    Run Keyword and Continue on Failure    Verify Irrational Value    PrimaryCylinderForce    ${fadata.PrimaryCylinderForce[${index}]}    ${tolerance}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Data Telemetry - SecondaryCylinderForce - ActiveEngineering
-    [Tags]    functional    skipped
-    Comment    SecondaryCylinderForce is set by the M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${fadata}    SecondaryCylinderForce    ${0.001}    ${2.9479}    ${94.9948}    ${2.0569}    ${62.0459}    ${22.2302}    ${60.5436}
+    [Tags]    functional
+    Comment    SecondaryCylinderForce is set by the M1M3_Simulator.setDualPneumaticForceAndStatus keyword, lateralLoadCellForce parameter, for ILC addresses > 16.
+    ...    NOTE: There are only 112 ILCs with address > 16.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    Continue For Loop If     ${row[${forceActuatorTableAddressIndex}]} <= ${16}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} / ${1000}
+    \    Run Keyword and Continue on Failure    Verify Irrational Value    SecondaryCylinderForce    ${fadata.SecondaryCylinderForce[${index}]}    ${tolerance}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Data Telemetry - XForce - ActiveEngineering
     [Tags]    functional    skipped
@@ -1214,7 +1272,7 @@ Set Force Actuator Forces And Statuses - LoweringEngineering
     Set Log Level    TRACE
     ${index}=    Set Variable    ${0}
     :FOR    ${row}    IN    @{forceActuatorTable}
-    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} * ${-1}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} / ${1000} * ${-1}
     \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} <= ${16}    Set Single Pneumatic Force And Status    subnet=${row[${forceActuatorTableSubnetIndex}]}
     ...    serverAddr=${row[${forceActuatorTableAddressIndex}]}    statusByte=${0}    loadCellForce=${value}
     \    Run Keyword If    ${row[${forceActuatorTableAddressIndex}]} > ${16}    Set Dual Pneumatic Force And Status    subnet=${row[${forceActuatorTableSubnetIndex}]}
@@ -1234,14 +1292,24 @@ Get Force Actuator Data Telemetry - LoweringEngineering
     Should Be True    ${valid}
 
 Verify Force Actuator Data Telemetry - PrimaryCylinderForce - LoweringEngineering
-    [Tags]    functional    skipped
-    Comment    PrimaryCylinderForce is set by the M1M3_Simulator.setHardpointXForce keyword, lvdt1 parameter.
-    Verify Irrational Array    ${fadata}    PrimaryCylinderForce    ${0.001}    ${-3.2376}    ${-6.7826}    ${-9.9491}    ${1.9663}    ${-7.371}    ${9.5657}
+    [Tags]    functional
+    Comment    PrimaryCylinderForce is set by the M1M3_Simulator.setSinglePneumaticForceAndStatus keyword, loadCellForce parameter for ILC addresses <= 16 OR
+    ...    M1M3_Simulator.setDualPneumaticForceAndStatus keyword, axialLoadCellForce parameter for ILC addresses > 16.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} / ${1000} * ${-1}
+    \    Run Keyword and Continue on Failure    Verify Irrational Value    PrimaryCylinderForce    ${fadata.PrimaryCylinderForce[${index}]}    ${tolerance}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Data Telemetry - SecondaryCylinderForce - LoweringEngineering
-    [Tags]    functional    skipped
-    Comment    SecondaryCylinderForce is set by the M1M3_Simulator.setHardpointDCAPressure keyword, pressure1AxialPush parameter.
-    Verify Irrational Array    ${fadata}    SecondaryCylinderForce    ${0.001}    ${43.7634}    ${101.6443}    ${54.1675}    ${53.2244}    ${104.1298}    ${48.1102}
+    [Tags]    functional
+    Comment    PrimaryCylinderForce is set by the M1M3_Simulator.setSinglePneumaticForceAndStatus keyword, loadCellForce parameter for ILC addresses <= 16 OR
+    ...    M1M3_Simulator.setDualPneumaticForceAndStatus keyword, axialLoadCellForce parameter for ILC addresses > 16.
+    ${index}=    Set Variable    ${0}
+    :FOR    ${row}    IN    @{forceActuatorTable}
+    \    ${value}=    Evaluate    ${row[${forceActuatorTableIDIndex}]} / ${1000} * ${-1}
+    \    Run Keyword and Continue on Failure    Verify Irrational Value    PrimaryCylinderForce    ${fadata.PrimaryCylinderForce[${index}]}    ${tolerance}    ${value}
+    \    ${index}=    Evaluate    ${index} + ${1}
 
 Verify Force Actuator Data Telemetry - XForce - LoweringEngineering
     [Tags]    functional    skipped
