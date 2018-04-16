@@ -137,7 +137,7 @@ Abort Raise
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    ${DetailedLowering}
 
-Verify Summary State Event - Abort
+Verify Summary State Event - Abort - Raise
     [Tags]    functional
     Comment    Verify system enters Enabled Summary State.
     Verify Summary State Event    ${SummaryEnabled}
@@ -287,7 +287,7 @@ Abort EngineeringRaise
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    ${DetailedLoweringEngineering}
 
-Verify Summary State Event - Abort
+Verify Summary State Event - Abort - RaiseEngineering
     [Tags]    functional
     Comment    Verify system enters Enabled Summary State.
     Verify Summary State Event    ${SummaryEnabled}
@@ -301,7 +301,7 @@ Wait Until EngineeringLower Completes - Abort
     Should Be True    ${valid}
     Should Be Equal As Integers    ${data}    ${DetailedParkedEngineering}
 
-Verify Summary State Event - Abort - Lower Complete
+Verify Summary State Event - Abort - EngineeringLower Complete
     [Tags]    functional
     Comment    Verify system enters Enabled Summary State.
     Verify Summary State Event    ${SummaryEnabled}
